@@ -22,75 +22,68 @@
         <img class="profile__photo" src="./images/profile-cousto.jpg" alt="Жак-Ив Кусто">
         <div class="profile__user-wrapper">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
-          <button class="profile__edit-button" type="submit"><img class="profile__img-button"
-              src="./images/profile-edit-button.svg" alt="карандаш - символ редактирования"></button>
+          <button class="profile__edit-button" type="submit"></button>
           <p class="profile__job">Исследователь океана</p>
         </div>
-        <button class="profile__add-button"><img class="profile__plus-button"
-            src="./images/profile-add-button.svg"></button>
+        <button class="profile__add-button"></button>
       </section>
 
-
       <section class="grid-cards" aria-label="фотокарточки">
-
         <ul class="grid-cards__container">
           <li class="grid-card">
-            <img class="grid-card__img" src="https://picsum.photos/282" alt="">
+            <img class="grid-card__img" src="https://picsum.photos/282" alt="photo-gallery">
             <div class="grid-card__caption">
               <h2 class="grid-card__name">Карачаевск</h2>
-              <img src="./images/grid-card-heart.svg" alt="символ сердца" class="grid-card__heart">
+              <button class="grid-card__like"></button>
             </div>
           </li>
           <li class="grid-card">
-            <img class="grid-card__img" src="https://picsum.photos/282" alt="">
+            <img class="grid-card__img" src="https://picsum.photos/282" alt="photo-gallery">
             <div class="grid-card__caption">
               <h2 class="grid-card__name">Гора Эльбрус</h2>
-              <img src="./images/grid-card-heart.svg" alt="символ сердца" class="grid-card__heart">
+              <button class="grid-card__like"></button>
             </div>
           </li>
           <li class="grid-card">
-            <img class="grid-card__img" src="https://picsum.photos/282" alt="">
+            <img class="grid-card__img" src="https://picsum.photos/282" alt="photo-gallery">
             <div class="grid-card__caption">
               <h2 class="grid-card__name">Домбай</h2>
-              <img src="./images/grid-card-heart.svg" alt="символ сердца" class="grid-card__heart">
+              <button class="grid-card__like"></button>
             </div>
           </li>
           <li class="grid-card">
-            <img class="grid-card__img" src="https://picsum.photos/282" alt="">
+            <img class="grid-card__img" src="https://picsum.photos/282" alt="photo-gallery">
             <div class="grid-card__caption">
               <h2 class="grid-card__name">Гора Эльбрус</h2>
-              <img src="./images/grid-card-heart.svg" alt="символ сердца" class="grid-card__heart">
+              <button class="grid-card__like"></button>
             </div>
           </li>
           <li class="grid-card">
-            <img class="grid-card__img" src="https://picsum.photos/282" alt="">
+            <img class="grid-card__img" src="https://picsum.photos/282" alt="photo-gallery">
             <div class="grid-card__caption">
               <h2 class="grid-card__name">Домбай</h2>
-              <img src="./images/grid-card-heart.svg" alt="символ сердца" class="grid-card__heart">
+              <button class="grid-card__like"></button>
             </div>
           </li>
           <li class="grid-card">
-            <img class="grid-card__img" src="https://picsum.photos/282" alt="">
+            <img class="grid-card__img" src="https://picsum.photos/282" alt="photo-gallery">
             <div class="grid-card__caption">
               <h2 class="grid-card__name">Карачаевск</h2>
-              <img src="./images/grid-card-heart.svg" alt="символ сердца" class="grid-card__heart">
+              <button class="grid-card__like"></button>
             </div>
           </li>
         </ul>
-
       </section>
 
-      <section class="popup popup_opened">
+      <section class="popup">
         <div class="popup__container">
-          <button class="popup__close-btn">
-            <img class="popup__close-img" src="./images/popup-close-icon.svg"  alt="кнопка закрытия">
-          </button>
+          <button class="popup__close-btn"></button>
           <div>
             <h2 class="popup__header">Редактировать профиль</h2>
-            <form class="popup__info" action="???????">
-              <input class="popup__name" value="Жак-Ив Кусто" type="text" name="" id="" placeholder="Имя">
-              <input class="popup__job" value="Исследователь океана" type="text" name="" id="" placeholder="Работа">
-              <button class="popup__submit" type="submit">Сохранить</button>
+            <form class="popup__info" id="login" action="???????">
+              <input class="popup__name" value="Жак-Ив Кусто" type="text" placeholder="Имя">
+              <input class="popup__job" value="Исследователь океана" type="text" placeholder="Работа">
+              <button class="popup__submit" type="submit" form="login">Сохранить</button>
             </form>
           </div>
         </div>
