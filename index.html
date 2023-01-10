@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./pages/style.css">
+  <title>Mesto</title>
+</head>
+
+<body class="body">
+
+  <div class="page">
+    <header class="header">
+      <img class="header__logo" src="./images/header-logo.svg" alt="лого Mesto">
+    </header>
+
+    <main>
+
+      <section class="profile" aria-label="редактор профиля">
+        <img class="profile__photo" src="./images/profile-cousto.jpg" alt="Жак-Ив Кусто">
+        <div class="profile__user-wrapper">
+          <h1 class="profile__name">Жак-Ив Кусто</h1>
+          <button class="profile__edit-button" type="submit"><img class="profile__img-button"
+              src="./images/profile-edit-button.svg" alt="карандаш - символ редактирования"></button>
+          <p class="profile__job">Исследователь океана</p>
+        </div>
+        <button class="profile__add-button"><img class="profile__plus-button"
+            src="./images/profile-add-button.svg"></button>
+      </section>
+
+
+      <section class="grid-cards" aria-label="фотокарточки">
+
+        <ul class="grid-cards__container">
+          <li class="grid-card">
+            <img class="grid-card__img" src="https://picsum.photos/282" alt="">
+            <div class="grid-card__caption">
+              <h2 class="grid-card__name">Карачаевск</h2>
+              <img src="./images/grid-card-heart.svg" alt="символ сердца" class="grid-card__heart">
+            </div>
+          </li>
+          <li class="grid-card">
+            <img class="grid-card__img" src="https://picsum.photos/282" alt="">
+            <div class="grid-card__caption">
+              <h2 class="grid-card__name">Гора Эльбрус</h2>
+              <img src="./images/grid-card-heart.svg" alt="символ сердца" class="grid-card__heart">
+            </div>
+          </li>
+          <li class="grid-card">
+            <img class="grid-card__img" src="https://picsum.photos/282" alt="">
+            <div class="grid-card__caption">
+              <h2 class="grid-card__name">Домбай</h2>
+              <img src="./images/grid-card-heart.svg" alt="символ сердца" class="grid-card__heart">
+            </div>
+          </li>
+          <li class="grid-card">
+            <img class="grid-card__img" src="https://picsum.photos/282" alt="">
+            <div class="grid-card__caption">
+              <h2 class="grid-card__name">Гора Эльбрус</h2>
+              <img src="./images/grid-card-heart.svg" alt="символ сердца" class="grid-card__heart">
+            </div>
+          </li>
+          <li class="grid-card">
+            <img class="grid-card__img" src="https://picsum.photos/282" alt="">
+            <div class="grid-card__caption">
+              <h2 class="grid-card__name">Домбай</h2>
+              <img src="./images/grid-card-heart.svg" alt="символ сердца" class="grid-card__heart">
+            </div>
+          </li>
+          <li class="grid-card">
+            <img class="grid-card__img" src="https://picsum.photos/282" alt="">
+            <div class="grid-card__caption">
+              <h2 class="grid-card__name">Карачаевск</h2>
+              <img src="./images/grid-card-heart.svg" alt="символ сердца" class="grid-card__heart">
+            </div>
+          </li>
+        </ul>
+
+      </section>
+
+      <section class="popup popup_opened">
+        <div class="popup__container">
+          <button class="popup__close-btn">
+            <img class="popup__close-img" src="./images/popup-close-icon.svg"  alt="кнопка закрытия">
+          </button>
+          <div>
+            <h2 class="popup__header">Редактировать профиль</h2>
+            <form class="popup__info" action="???????">
+              <input class="popup__name" value="Жак-Ив Кусто" type="text" name="" id="" placeholder="Имя">
+              <input class="popup__job" value="Исследователь океана" type="text" name="" id="" placeholder="Работа">
+              <button class="popup__submit" type="submit">Сохранить</button>
+            </form>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="footer">
+      <p class="footer__copyright">© 2022 Mesto Russia</p>
+    </footer>
+  </div>
+  <script src="./script.js"></script>
+</body>
+
+</html>
