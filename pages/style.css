@@ -4,8 +4,8 @@
 
 
 .body {
-  background-color: rgba(113, 133, 112, 0.9);
-  /* background-color: rgb(0, 0, 0); */
+  /* background-color: rgba(113, 133, 112, 0.9); */
+  background-color: rgb(0, 0, 0);
   max-width: 768px;
   min-width: 320px;
   margin: auto;
@@ -80,6 +80,9 @@
   font-weight: 500;
   font-size: 27px;
   line-height: 33px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .profile__edit-button {
@@ -112,6 +115,9 @@
   font-size: 14px;
   line-height: 17px;
   padding-top: 9px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .profile__add-button {
@@ -152,7 +158,6 @@
     margin: 0;
     margin-right: auto;
     grid-template-columns: 30px 5fr 1fr;
-
   }
 
   .profile__name {
@@ -160,7 +165,7 @@
     font-size: 42px;
     line-height: 48px;
     text-align: left;
-  }
+   }
 
   .profile__edit-button {
     width: 24px;
@@ -173,7 +178,7 @@
     font-size: 18px;
     line-height: 22px;
     text-align: left;
-  }
+   }
 
   .profile__add-button {
     margin: 0;
@@ -317,7 +322,7 @@
 
   .popup__name {
     min-width: 358px;
-    }
+  }
 
   .popup__job {
     min-width: 358px;
@@ -360,6 +365,9 @@
 .grid-card__img {
   /* display: block; */
   width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  object-position: center;
 }
 
 .grid-card__caption {
