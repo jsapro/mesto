@@ -1,0 +1,20 @@
+.grid-cards__container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+@media screen and (min-width: 550px) {
+  .grid-cards__container {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+   .grid-cards__container {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}

@@ -1,0 +1,16 @@
+.popup__job {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  min-width: 238px;
+  margin: 30px auto 0;
+  padding: 0 0 13px 0;
+  border: none;
+  border-bottom: 1px solid #000000;
+}
+
+@media screen and (min-width: 1280px) {
+  .popup__job {
+    min-width: 358px;
+  }
+}
