@@ -2,11 +2,11 @@
 
 <br/>
 
-<img align="right" src="./images/grid-card-heart-active.svg" alt="иконка сердца" height="400" width="400">
+<img align="right" src="./images/grid-card-heart.svg" alt="иконка сердца" height="200" width="200">
 
 <br/>
 
-**Проект: Mesto** ([&rarr; &rarr; &rarr;](ссылка))
+**Проект: Mesto** ([&rarr; &rarr; &rarr;](https://jsapro.github.io/mesto/))
 
 **Пользователи веб-приложение Mesto смогут:**
 + :wink:Загружать фотографии с подписями.
@@ -28,6 +28,6 @@ Mesto: интерактивная страница, куда можно доба
 ## Необходимо доработать:
 
 - :star:доработать логику Javascript
-- :star:+
-- :star:+
-- :star:+
+- :star:
+- :star:
+- :star:
