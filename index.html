@@ -22,10 +22,10 @@
         <img class="profile__photo" src="./images/profile-cousto.jpg" alt="Жак-Ив Кусто">
         <div class="profile__user-wrapper">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
-          <button class="profile__edit-button" type="submit"></button>
+          <button class="profile__edit-button" type="button"></button>
           <p class="profile__job">Исследователь океана</p>
         </div>
-        <button class="profile__add-button"></button>
+        <button class="profile__add-button" type="button"></button>
       </section>
 
       <section class="grid-cards" aria-label="фотокарточки">
@@ -34,68 +34,66 @@
             <img class="grid-card__img" src="./images/running-dog-01.jpg" alt="фотогалерея">
             <div class="grid-card__caption">
               <h2 class="grid-card__name">Running Dog</h2>
-              <button class="grid-card__like"></button>
+              <button class="grid-card__like" type="button"></button>
             </div>
           </li>
           <li class="grid-card">
             <img class="grid-card__img" src="./images/running-dog-02.jpg" alt="фотогалерея">
             <div class="grid-card__caption">
               <h2 class="grid-card__name">Running Dog</h2>
-              <button class="grid-card__like"></button>
+              <button class="grid-card__like" type="button"></button>
             </div>
           </li>
           <li class="grid-card">
             <img class="grid-card__img" src="./images/running-dog-03.jpg" alt="фотогалерея">
             <div class="grid-card__caption">
               <h2 class="grid-card__name">Running Dog</h2>
-              <button class="grid-card__like"></button>
+              <button class="grid-card__like" type="button"></button>
             </div>
           </li>
           <li class="grid-card">
             <img class="grid-card__img" src="./images/running-dog-04.jpg" alt="фотогалерея">
             <div class="grid-card__caption">
               <h2 class="grid-card__name">Running Dog</h2>
-              <button class="grid-card__like"></button>
+              <button class="grid-card__like" type="button"></button>
             </div>
           </li>
           <li class="grid-card">
             <img class="grid-card__img" src="./images/running-dog-05.jpg" alt="фотогалерея">
             <div class="grid-card__caption">
               <h2 class="grid-card__name">Running Dog</h2>
-              <button class="grid-card__like"></button>
+              <button class="grid-card__like" type="button"></button>
             </div>
           </li>
           <li class="grid-card">
             <img class="grid-card__img" src="./images/running-dog-06.jpg" alt="фотогалерея">
             <div class="grid-card__caption">
               <h2 class="grid-card__name">Running Dog</h2>
-              <button class="grid-card__like"></button>
+              <button class="grid-card__like" type="button"></button>
             </div>
           </li>
         </ul>
       </section>
 
-      <section class="popup">
-        <div class="popup__container">
-          <button class="popup__close-btn"></button>
-          <div>
-            <h2 class="popup__header">Редактировать профиль</h2>
-            <form class="popup__info" id="login" action="???????">
-              <input class="popup__name" value="Жак-Ив Кусто" type="text" placeholder="Имя">
-              <input class="popup__job" value="Исследователь океана" type="text" placeholder="Работа">
-              <button class="popup__submit" type="submit" form="login">Сохранить</button>
-            </form>
-          </div>
-        </div>
-      </section>
-
     </main>
+
+    <section class="popup">
+      <div class="popup__container">
+        <button class="popup__close-btn" type="button"></button>
+          <h2 class="popup__header">Редактировать профиль</h2>
+          <form class="popup__info" id="login" name="popup__info">
+            <input class="popup__input popup__input_type_name" type="text" placeholder="Имя" name="popup__name">
+            <input class="popup__input popup__input_type_job" type="text" placeholder="Работа" name="popup__job">
+            <button class="popup__submit" type="submit" form="login">Сохранить</button>
+          </form>
+      </div>
+    </section>
 
     <footer class="footer">
       <p class="footer__copyright">© 2022 Mesto Russia</p>
     </footer>
   </div>
-  <script src="./script/script.js"></script>
+  <script src="./scripts/index.js"></script>
 </body>
 
 </html>
