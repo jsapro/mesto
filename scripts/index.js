@@ -38,7 +38,3 @@ function handleFormSubmit (e) {
 popupInfoElement.addEventListener('submit', handleFormSubmit);
 
 
-
-
-
-111
