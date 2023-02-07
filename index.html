@@ -80,41 +80,37 @@
 
     </main>
 
-    <!-- <section class="popup popup_edit-profile">
+    <section class="popup popup_edit-profile">
       <div class="popup__container">
         <button class="popup__close-btn" type="button"></button>
         <h2 class="popup__header">Редактировать профиль</h2>
-        <form class="popup__info" id="login" name="popup__info">
+        <form class="popup__info" id="login-form" name="popup__info">
           <input class="popup__input popup__input_type_name" type="text" placeholder="Имя" name="popup__name">
           <input class="popup__input popup__input_type_job" type="text" placeholder="Работа" name="popup__job">
-          <button class="popup__submit" type="submit" form="login">Сохранить</button>
+          <button class="popup__submit" type="submit" form="login-form">Сохранить</button>
         </form>
       </div>
-    </section> -->
+    </section>
 
     <section class="popup popup_add-card">
       <div class="popup__container">
         <button class="popup__close-btn" type="button"></button>
           <h2 class="popup__header">Новое место</h2>
-          <form class="popup__info" id="login2" name="popup__info">
-            <input class="popup__input popup__input_type_name" type="text" placeholder="Название" name="popup__name">
-            <input class="popup__input popup__input_type_job" type="text" placeholder="Сылка на картинку" name="popup__job">
-            <button class="popup__submit" type="submit" form="login2">Создать</button>
+          <form class="popup__info" id="add-card-form" name="popup__info">
+            <input class="popup__input popup__input_type_card-name" type="text" placeholder="Название" name="popup__card-name">
+            <input class="popup__input popup__input_type_card-url" type="url" name="card-url" placeholder="Ссылка на картинку" name="popup__card-url">
+            <button class="popup__submit" type="submit" form="add-card-form">Создать</button>
           </form>
       </div>
     </section>
 
-        <!-- <section class="popup popup_open-card">
-      <div class="popup__container">
+     <section class="popup popup_open-card popup_opened">
+      <div class="popup__container++++ popup__open-photo">
         <button class="popup__close-btn" type="button"></button>
-          <h2 class="popup__header">777777-555555</h2>
-          <form class="popup__info" id="login2" name="popup__info">
-            <input class="popup__input popup__input_type_name" type="text" placeholder="Имя" name="popup__name">
-            <input class="popup__input popup__input_type_job" type="text" placeholder="Работа" name="popup__job">
-            <button class="popup__submit" type="submit" form="login2">Сохранить</button>
-          </form>
+        <img class="popup__img" src="https://picsum.photos/900/700" alt="фото">
+        <p class="popup__caption">подпись к фото</p>
       </div>
-    </section> -->
+    </section>
 
 
     <footer class="footer">
