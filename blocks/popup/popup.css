@@ -14,5 +14,6 @@
   background-image: url();
   background-repeat: no-repeat;
   background-position: 281px 87px;
-  display: none;
+  /* display: none; */
+  display: flex;
 }

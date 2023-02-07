@@ -39,3 +39,45 @@
 @import url(../blocks/profile/__photo/profile__photo.css);
 
 
+.popup_2 {
+
+  position: fixed;
+  top: 50px;
+  left: 0;
+  /* background-color: hsla(0, 0%, 0%, 0.5); */
+  /* width: 100%; */
+  height: 100%;
+  font-family: 'Inter', 'Arial', sans-serif;
+  text-align: center;
+  /* width: clamp(282px, 300px, 430px); */
+  margin: auto;
+  justify-content: center;
+  align-items: center;
+  background-image: url();
+  background-repeat: no-repeat;
+  background-position: 281px 87px;
+  /* display: none; */
+  background-color: rgba(0, 255, 255, 0.568);
+}
+
+.grid-card {
+  position: relative;
+}
+
+.grid-card__delete {
+  background-image: url(../images/grid-card-thrash.svg);
+  position: absolute;
+  width: 18px;
+  height: 19px;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  border: none;
+  background-color: transparent;
+  right: 20px;
+  top: 20px;
+}
+
+
+
+/* -- */

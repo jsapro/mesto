@@ -31,7 +31,10 @@
       <section class="grid-cards" aria-label="фотокарточки">
         <ul class="grid-cards__container">
           <li class="grid-card">
-            <img class="grid-card__img" src="./images/running-dog-01.jpg" alt="фотогалерея">
+            <div>
+              <button class="grid-card__delete" type="button"></button>
+              <img class="grid-card__img" src="./images/running-dog-01.jpg" alt="фотогалерея">
+            </div>
             <div class="grid-card__caption">
               <h2 class="grid-card__name">Running Dog</h2>
               <button class="grid-card__like" type="button"></button>
@@ -77,17 +80,42 @@
 
     </main>
 
-    <section class="popup">
+    <!-- <section class="popup popup_edit-profile">
       <div class="popup__container">
         <button class="popup__close-btn" type="button"></button>
-          <h2 class="popup__header">Редактировать профиль</h2>
-          <form class="popup__info" id="login" name="popup__info">
-            <input class="popup__input popup__input_type_name" type="text" placeholder="Имя" name="popup__name">
-            <input class="popup__input popup__input_type_job" type="text" placeholder="Работа" name="popup__job">
-            <button class="popup__submit" type="submit" form="login">Сохранить</button>
+        <h2 class="popup__header">Редактировать профиль</h2>
+        <form class="popup__info" id="login" name="popup__info">
+          <input class="popup__input popup__input_type_name" type="text" placeholder="Имя" name="popup__name">
+          <input class="popup__input popup__input_type_job" type="text" placeholder="Работа" name="popup__job">
+          <button class="popup__submit" type="submit" form="login">Сохранить</button>
+        </form>
+      </div>
+    </section> -->
+
+    <section class="popup popup_add-card">
+      <div class="popup__container">
+        <button class="popup__close-btn" type="button"></button>
+          <h2 class="popup__header">Новое место</h2>
+          <form class="popup__info" id="login2" name="popup__info">
+            <input class="popup__input popup__input_type_name" type="text" placeholder="Название" name="popup__name">
+            <input class="popup__input popup__input_type_job" type="text" placeholder="Сылка на картинку" name="popup__job">
+            <button class="popup__submit" type="submit" form="login2">Создать</button>
           </form>
       </div>
     </section>
+
+        <!-- <section class="popup popup_open-card">
+      <div class="popup__container">
+        <button class="popup__close-btn" type="button"></button>
+          <h2 class="popup__header">777777-555555</h2>
+          <form class="popup__info" id="login2" name="popup__info">
+            <input class="popup__input popup__input_type_name" type="text" placeholder="Имя" name="popup__name">
+            <input class="popup__input popup__input_type_job" type="text" placeholder="Работа" name="popup__job">
+            <button class="popup__submit" type="submit" form="login2">Сохранить</button>
+          </form>
+      </div>
+    </section> -->
+
 
     <footer class="footer">
       <p class="footer__copyright">© 2022 Mesto Russia</p>

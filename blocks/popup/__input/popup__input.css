@@ -8,7 +8,7 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 
-@media screen and (min-width: 1280px) {
+@media screen and (min-width: 700px) {
   .popup__input {
     min-width: 358px;
   }
