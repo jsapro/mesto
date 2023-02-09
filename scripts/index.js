@@ -113,6 +113,7 @@ const createCard = function () {
   // console.log(newCard);
   return newCard;
 }
+const deleteButton = popupImg.querySelector('.popup__close-btn');
 
 const renderCard = function (name, link) {
   // console.log("name, link-- " + name + link);
@@ -131,7 +132,6 @@ const renderCard = function (name, link) {
   likeButton.addEventListener('click', () => likeButton.classList.toggle('grid-card__like_active'));
   gridCardsContainer.append(renderedCard);
 
-  const deleteButton = popupImg.querySelector('.popup__close-btn');
 
   imgPreview.addEventListener('click', () => handleCardPreview(name, link));
 }
@@ -147,6 +147,9 @@ function handleCardPreview (name, link) {
 initialCards.forEach((item) => {
   renderCard(item.name, item.link);
 });
+
+
+deleteButton.addEventListener('click', () => closePopup(popupImg));
 
 
 
