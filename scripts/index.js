@@ -25,28 +25,27 @@ const initialCards = [
   }
 ];
 
+const gridCardsContainer = document.querySelector('.grid-cards__container');
 
-const profileEditBtnElement = document.querySelector('.profile__edit-button');
-const profileAddBtnElement = document.querySelector('.profile__add-button');
+const profileEditButton = document.querySelector('.profile__edit-button');
+const profileAddButton = document.querySelector('.profile__add-button');
 const profileNameElement = document.querySelector('.profile__name');
 const profileJobElement = document.querySelector('.profile__job');
 
-// const popupOpenedElement = document.querySelector('.popup_opened');
-const popupUserCloseBtnElement = document.querySelector('.popup__close-btn');
-// const popupSubmitElement = document.querySelector('.popup__submit');
-const popupElement = document.querySelector('.popup_edit-profile');
-const popupInfoElement = popupElement.querySelector('.popup__info');
-const popupNameElement = popupElement.querySelector('.popup__input_type_name');
-const popupJobElement = popupElement.querySelector('.popup__input_type_job');
+const popupUser = document.querySelector('.popup_edit-profile');
+const popupUserFormElement = popupUser.querySelector('.popup__info');
+const popupUserCloseButton = popupUser.querySelector('.popup__close-btn');
+const popupUserNameInput = popupUser.querySelector('.popup__input_type_name');
+const popupUserJobInput = popupUser.querySelector('.popup__input_type_job');
 
-// const gridCardLikeElement = document.querySelector('.grid-card__like');
+const popupCard = document.querySelector('.popup_add-card');
+const popupCardFormElement = popupCard.querySelector('.popup__info');
+const popupCardSubmit = popupCard.querySelector('.popup__submit')
+const popupCardCloseButton = popupCard.querySelector('.popup__close-btn')
 
-const popupAddCardElement = document.querySelector('.popup_add-card');
-// const popupCardNameElement = popupAddCardElement.querySelector('.popup__input_type_card-name');
-// const popupCardUrlElement = popupAddCardElement.querySelector('.popup__input_type_card-url');
-const popupSubmitCardElement = popupAddCardElement.querySelector('.popup__submit')
-const popupCardCloseBtnElement = popupAddCardElement.querySelector('.popup__close-btn')
-
+const templateCard = document.querySelector('.template-card').content;
+const templateCardImg = templateCard.querySelector('.grid-card__img');
+const templateCardName = templateCard.querySelector('.grid-card__name');
 
 //! открытие-закрытие попапов
 function openPopup (elem) {
@@ -60,60 +59,93 @@ function closePopup (elem) {
 
 //! открыть попап и заполнить
 function handlePopupProfile () {
-  openPopup(popupElement);
+  openPopup(popupUser);
   // popupElement.classList.add('popup_opened');
-  popupNameElement.value = profileNameElement.textContent;
-  popupJobElement.value = profileJobElement.textContent;
+  popupUserNameInput.value = profileNameElement.textContent;
+  popupUserJobInput.value = profileJobElement.textContent;
 }
 
 
 //! открытие попапа-профайла по клику
-profileEditBtnElement.addEventListener('click', handlePopupProfile);
+profileEditButton.addEventListener('click', handlePopupProfile);
 
 
 //! закрытие попапа-профайла по клику
-popupUserCloseBtnElement.addEventListener('click', () => closePopup(popupElement));
+popupUserCloseButton.addEventListener('click', () => closePopup(popupUser));
 
 
 //! submit попапа-профайла
 function handleUserFormSubmit (e) {
   e.preventDefault();
-  profileNameElement.textContent = popupNameElement.value;
-  profileJobElement.textContent = popupJobElement.value;
-  closePopup(popupElement);
+  profileNameElement.textContent = popupUserNameInput.value;
+  profileJobElement.textContent = popupUserJobInput.value;
+  closePopup(popupUser);
 }
-popupInfoElement.addEventListener('submit', handleUserFormSubmit);
+popupUserFormElement.addEventListener('submit', handleUserFormSubmit);
 
 
 //! открытие попапа-карточек по клику
-profileAddBtnElement.addEventListener('click', () => openPopup(popupAddCardElement));
+profileAddButton.addEventListener('click', () => openPopup(popupCard));
 
-// function openPopupCard () {
-//   // popupAddCardElement.classList.add('popup_opened');
-//   openPopup(popupAddCardElement);
-// }
 
-//! закрытие попапа-карточек по клику
-const popupAddCardFormElement = popupAddCardElement.querySelector('.popup__info');
-
-// function closePopup_2 () {
-//   popupAddCardElement.classList.remove('popup_opened');
-// }
-
+//! submit попапа-карточек по клику
 function handleCardFormSubmit (e) {
   console.log(e);
-  console.log(popupSubmitCardElement);
+  console.log(popupCardSubmit);
   e.preventDefault();
-  closePopup(popupAddCardElement);
+  closePopup(popupCard);
+}
+popupCardFormElement.addEventListener('submit', handleCardFormSubmit);
+
+
+//! закрытие попапа-карточек по клику
+popupCardCloseButton.addEventListener('click', () => closePopup(popupCard));
+
+
+//! создание карточек из массива --- создание карточек из массива --- создание карточек из массива
+
+//! создание элемента из шаблона
+
+// templateCardName
+// templateCardImg
+
+const createCard = function () {
+  const newCard = templateCard
+  .querySelector('.grid-card')
+  .cloneNode(true);
+  // console.log(newCard);
+  return newCard;
 }
 
-popupAddCardFormElement.addEventListener('submit', handleCardFormSubmit);
+createCard();
 
-popupCardCloseBtnElement.addEventListener('click', () => closePopup(popupAddCardElement));
+// const templateCard = document.querySelector('.template-card');
+// console.log(templateCard.content);
+// templateCard.content.document.querySelector('.grid-card')
 
 
-// initialCards.forEach(console.log(value));
+const renderCard = function (name, link) {
+  templateCardName.textContent = name;
+  templateCardImg.src = link;
+  let d = createCard();
+  console.log('555--  ' + name, templateCardName.textContent)
+  // templateCardImg.src = link;
+    // d.textContent = item;
+    // d.style.color = 'red';
 
+    gridCardsContainer.append(d);
+
+  // gridCardsContainer.prepend(createCard(item, link));
+  // let d = document.createElement('img');
+  // return d
+}
+
+initialCards.forEach((item) => {
+  renderCard(item.name, item.link);
+  // add renderCard
+
+  // console.log(item.name)
+});
 
 
 
