@@ -104,49 +104,31 @@ popupCardCloseButton.addEventListener('click', () => closePopup(popupCard));
 
 //! создание карточек из массива --- создание карточек из массива --- создание карточек из массива
 
-//! создание элемента из шаблона
-
-// templateCardName
-// templateCardImg
-
 const createCard = function () {
   const newCard = templateCard
   .querySelector('.grid-card')
   .cloneNode(true);
-  // console.log(newCard);
+  console.log(newCard);
+  // newCard.addEventListener('click', () => )
   return newCard;
 }
-
-createCard();
-
-// const templateCard = document.querySelector('.template-card');
-// console.log(templateCard.content);
-// templateCard.content.document.querySelector('.grid-card')
-
 
 const renderCard = function (name, link) {
   templateCardName.textContent = name;
   templateCardImg.src = link;
-  let d = createCard();
-  console.log('555--  ' + name, templateCardName.textContent)
-  // templateCardImg.src = link;
-    // d.textContent = item;
-    // d.style.color = 'red';
+  const renderedCard = createCard();
+  const CardDeleteBtn = renderedCard.querySelector('.grid-card__delete')
+  // console.log('555--  ' + name, templateCardName.textContent)
+  CardDeleteBtn.addEventListener('click', () => renderedCard.remove())
 
-    gridCardsContainer.append(d);
-
-  // gridCardsContainer.prepend(createCard(item, link));
-  // let d = document.createElement('img');
-  // return d
+  gridCardsContainer.append(renderedCard);
 }
 
 initialCards.forEach((item) => {
-  renderCard(item.name, item.link);
-  // add renderCard
 
+  renderCard(item.name, item.link);
   // console.log(item.name)
 });
 
 
-// git test pull request
 /////////////
