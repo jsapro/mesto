@@ -30,8 +30,11 @@
 
       <section class="grid-cards" aria-label="фотокарточки">
         <ul class="grid-cards__container">
-          <li class="grid-card">
-            <img class="grid-card__img" src="./images/running-dog-01.jpg" alt="фотогалерея">
+          <!-- <li class="grid-card">
+            <div>
+              <button class="grid-card__delete" type="button"></button>
+              <img class="grid-card__img" src="./images/running-dog-01.jpg" alt="фотогалерея">
+            </div>
             <div class="grid-card__caption">
               <h2 class="grid-card__name">Running Dog</h2>
               <button class="grid-card__like" type="button"></button>
@@ -71,23 +74,63 @@
               <h2 class="grid-card__name">Running Dog</h2>
               <button class="grid-card__like" type="button"></button>
             </div>
-          </li>
+          </li> -->
         </ul>
       </section>
 
     </main>
 
-    <section class="popup">
+    <!-- Попап редактирования профиля -->
+    <section class="popup popup_edit-profile">
       <div class="popup__container">
         <button class="popup__close-btn" type="button"></button>
-          <h2 class="popup__header">Редактировать профиль</h2>
-          <form class="popup__info" id="login" name="popup__info">
-            <input class="popup__input popup__input_type_name" type="text" placeholder="Имя" name="popup__name">
-            <input class="popup__input popup__input_type_job" type="text" placeholder="Работа" name="popup__job">
-            <button class="popup__submit" type="submit" form="login">Сохранить</button>
-          </form>
+        <h2 class="popup__header">Редактировать профиль</h2>
+        <form class="popup__info" id="login-form" name="popup__info">
+          <input class="popup__input popup__input_type_name" type="text" placeholder="Имя" name="popup__name">
+          <input class="popup__input popup__input_type_job" type="text" placeholder="Работа" name="popup__job">
+          <button class="popup__submit" type="submit" form="login-form">Сохранить</button>
+        </form>
       </div>
     </section>
+
+    <!-- Попап добавления карточки -->
+    <section class="popup popup_add-card">
+      <div class="popup__container">
+        <button class="popup__close-btn" type="button"></button>
+        <h2 class="popup__header">Новое место</h2>
+        <form class="popup__info" id="add-card-form" name="popup__info">
+          <input class="popup__input popup__input_type_card-name" type="text" placeholder="Название"
+            name="popup__card-name">
+          <input class="popup__input popup__input_type_card-url" type="url" name="card-url"
+            placeholder="Ссылка на картинку" name="popup__card-url">
+          <button class="popup__submit" type="submit" form="add-card-form">Создать</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Попап открытия карточки -->
+    <section class="popup popup_open-card">
+      <div class="popup__open-photo">
+        <button class="popup__close-btn" type="button"></button>
+        <img class="popup__img" src="https://picsum.photos/900/700" alt="фото">
+        <p class="popup__caption">подпись к фото</p>
+      </div>
+    </section>
+
+    <!-- Шаблон карточки -->
+    <template class="template-card">
+      <li class="grid-card">
+        <div>
+          <button class="grid-card__delete" type="button"></button>
+          <img class="grid-card__img" src="" alt="фотогалерея">
+        </div>
+        <div class="grid-card__caption">
+          <h2 class="grid-card__name"></h2>
+          <button class="grid-card__like" type="button"></button>
+        </div>
+      </li>
+    </template>
+
 
     <footer class="footer">
       <p class="footer__copyright">© 2022 Mesto Russia</p>
