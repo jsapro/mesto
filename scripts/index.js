@@ -109,7 +109,6 @@ const createCard = function () {
   .querySelector('.grid-card')
   .cloneNode(true);
   console.log(newCard);
-  // newCard.addEventListener('click', () => )
   return newCard;
 }
 
@@ -117,10 +116,10 @@ const renderCard = function (name, link) {
   templateCardName.textContent = name;
   templateCardImg.src = link;
   const renderedCard = createCard();
-  const CardDeleteBtn = renderedCard.querySelector('.grid-card__delete')
-  // console.log('555--  ' + name, templateCardName.textContent)
-  CardDeleteBtn.addEventListener('click', () => renderedCard.remove())
-
+  const cardDeleteBtn = renderedCard.querySelector('.grid-card__delete')
+  const likeButton = renderedCard.querySelector('.grid-card__like');
+  cardDeleteBtn.addEventListener('click', () => renderedCard.remove());
+  likeButton.addEventListener('click', () => likeButton.classList.toggle('grid-card__like_active'));
   gridCardsContainer.append(renderedCard);
 }
 
