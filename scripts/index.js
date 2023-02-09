@@ -110,40 +110,45 @@ const createCard = function () {
   const newCard = templateCard
   .querySelector('.grid-card')
   .cloneNode(true);
-  console.log(newCard);
+  // console.log(newCard);
   return newCard;
 }
 
 const renderCard = function (name, link) {
+  // console.log("name, link-- " + name + link);
   templateCardName.textContent = name;
   templateCardImg.src = link;
   const renderedCard = createCard();
   const cardDeleteBtn = renderedCard.querySelector('.grid-card__delete')
   const likeButton = renderedCard.querySelector('.grid-card__like');
-  // const closeImg
+  const imgPreview = renderedCard.querySelector('.grid-card__img');
+
+  // const closePreview = renderedCard.querySelector('.popup__close-btn');
+  // closePreview.addEventListener('click', () => closePopup(popupImg));
+  // console.log('closePreview--- ' + closePreview)
+
   cardDeleteBtn.addEventListener('click', () => renderedCard.remove());
   likeButton.addEventListener('click', () => likeButton.classList.toggle('grid-card__like_active'));
   gridCardsContainer.append(renderedCard);
 
   const deleteButton = popupImg.querySelector('.popup__close-btn');
-  deleteButton.addEventListener('click', () => closePopup(popupImg));
 
-  // document.addEventListener('click', openCard);
-  renderedCard.addEventListener('click', () => openPopup(popupImg));
-  // renderedCard.addEventListener('click', () => closePopup(popupImg));
+  imgPreview.addEventListener('click', () => handleCardPreview(name, link));
+}
+
+function handleCardPreview (name, link) {
+  popupImg.querySelector('.popup__img').src = link;
+  popupImg.querySelector('.popup__caption').textContent = name;
+
+  openPopup(popupImg);
 }
 
 
-
-// function openCard () {
-//   openPopup(popupImg)
-// }
-
 initialCards.forEach((item) => {
-
   renderCard(item.name, item.link);
-  // console.log(item.name)
 });
+
+
 
 
 /////////////
