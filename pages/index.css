@@ -11,6 +11,10 @@
 @import url(../blocks/grid-card/__caption/grid-card__caption.css);
 @import url(../blocks/grid-card/__img/grid-card__img.css);
 @import url(../blocks/grid-card/__like/grid-card__like.css);
+@import url(../blocks/grid-card/__delete/grid-card__delete.css);
+
+@import url(../blocks/grid-card/__like/_active/grid-card__like_active.css);
+
 @import url(../blocks/grid-card/__name/grid-card__name.css);
 
 @import url(../blocks/grid-cards/grid-cards.css);
@@ -20,6 +24,8 @@
 @import url(../blocks/header/__logo/header__logo.css);
 
 @import url(../blocks/popup/popup.css);
+@import url(../blocks/popup/_opened/popup_opened.css);
+@import url(../blocks/popup/_open-card/popup_open-card.css);
 @import url(../blocks/popup/__container/popup__container.css);
 @import url(../blocks/popup/__close-btn/popup__close-btn.css);
 @import url(../blocks/popup/__header/popup__header.css);
@@ -28,7 +34,11 @@
 @import url(../blocks/popup/__input/_type/popup__input_type_job.css);
 @import url(../blocks/popup/__input/_type/popup__input_type_name.css);
 @import url(../blocks/popup/__submit/popup__submit.css);
-@import url(../blocks/popup/_opened/popup_opened.css);
+@import url(../blocks/popup/__input/_type/popup__input_type_card-url.css);
+@import Url(../blocks/popup/__input/_type/popup__input_type_card-name.css);
+@import url(../blocks/popup/__open-photo/popup__open-photo.css);
+@import url(../blocks/popup/__img/popup__img.css);
+@import url(../blocks/popup/__caption/popup__caption.css);
 
 @import url(../blocks/profile/profile.css);
 @import url(../blocks/profile/__add-button/profile__add-button.css);
@@ -38,75 +48,3 @@
 @import url(../blocks/profile/__name/profile__name.css);
 @import url(../blocks/profile/__photo/profile__photo.css);
 
-
-
-.popup__input_type_card-url {
-  margin: 30px auto 0;
-}
-
-.popup__input_type_card-name {
-  margin: auto;
-}
-
-
-
-/* ////////////////////////////////// */
-
-.popup_open-card {
-  background-color: hsla(0, 0%, 0%, 0.9);
-}
-
-.popup__open-photo {
-  background-color: transparent;
-  position: relative;
-}
-
-@media screen and (min-width: 700px) {
-  .popup__open-photo {
-    min-width: 430px;
-  }
-}
-
-.popup__img {
-  display: block;
-  box-sizing: border-box;
-  max-width: 75vw;
-  max-height: 75vh;
-  /* aspect-ratio: initial; */
-}
-
-.popup__caption {
-  font-family: 'Inter', 'Arial', sans-serif;
-  color: white;
-  text-align: left;
-  margin: 10px 0 0;
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 15px;
-}
-
-/* ///////////////////////////////////// */
-
-
-.grid-card {
-  position: relative;
-}
-
-.grid-card__delete {
-  background-image: url(../images/grid-card-thrash.svg);
-  position: absolute;
-  width: 18px;
-  height: 19px;
-  background-size: 100%;
-  background-repeat: no-repeat;
-  background-position: center;
-  border: none;
-  background-color: transparent;
-  right: 20px;
-  top: 20px;
-}
-
-
-
-
-/* -- */
