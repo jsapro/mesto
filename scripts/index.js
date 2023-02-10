@@ -29,6 +29,7 @@ const initialCards = [
   }
 ];
 
+
 const gridCardsContainer = document.querySelector('.grid-cards__container');
 
 const profileEditButton = document.querySelector('.profile__edit-button');
@@ -101,6 +102,9 @@ function handleCardFormSubmit (e) {
   const inputCardUrlValue = popupCard.querySelector('.popup__input_type_card-url').value;
 
   renderCard(inputCardNameValue, inputCardUrlValue);
+  popupCard.querySelector('.popup__input_type_card-name').value = '';
+  popupCard.querySelector('.popup__input_type_card-url').value = '';
+
   console.log('inputCardNameValue-  ' + inputCardNameValue);
   // console.log(popupCardSubmit);
   e.preventDefault();
@@ -126,6 +130,7 @@ const createCard = function () {
 const deleteButton = popupImg.querySelector('.popup__close-btn');
 
 const renderCard = function (name, link) {
+
   // console.log("name, link-- " + name + link);
   templateCardName.textContent = name;
   templateCardImg.src = link;
@@ -133,6 +138,8 @@ const renderCard = function (name, link) {
   const cardDeleteBtn = renderedCard.querySelector('.grid-card__delete')
   const likeButton = renderedCard.querySelector('.grid-card__like');
   const imgPreview = renderedCard.querySelector('.grid-card__img');
+
+  imgPreview.alt = name;
 
   // const closePreview = renderedCard.querySelector('.popup__close-btn');
   // closePreview.addEventListener('click', () => closePopup(popupImg));
