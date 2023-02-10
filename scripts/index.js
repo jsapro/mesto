@@ -1,5 +1,9 @@
 const initialCards = [
   {
+    name: 'random',
+    link: 'https://picsum.photos/500/700'
+  },
+  {
     name: 'Архыз',
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
   },
@@ -92,12 +96,18 @@ profileAddButton.addEventListener('click', () => openPopup(popupCard));
 
 //! submit попапа-карточек по клику
 function handleCardFormSubmit (e) {
-  console.log(e);
-  console.log(popupCardSubmit);
+
+  const inputCardNameValue = popupCard.querySelector('.popup__input_type_card-name').value;
+  const inputCardUrlValue = popupCard.querySelector('.popup__input_type_card-url').value;
+
+  renderCard(inputCardNameValue, inputCardUrlValue);
+  console.log('inputCardNameValue-  ' + inputCardNameValue);
+  // console.log(popupCardSubmit);
   e.preventDefault();
   closePopup(popupCard);
 }
 popupCardFormElement.addEventListener('submit', handleCardFormSubmit);
+
 
 
 //! закрытие попапа-карточек по клику
@@ -130,7 +140,7 @@ const renderCard = function (name, link) {
 
   cardDeleteBtn.addEventListener('click', () => renderedCard.remove());
   likeButton.addEventListener('click', () => likeButton.classList.toggle('grid-card__like_active'));
-  gridCardsContainer.append(renderedCard);
+  gridCardsContainer.prepend(renderedCard);
 
 
   imgPreview.addEventListener('click', () => handleCardPreview(name, link));
@@ -145,11 +155,36 @@ function handleCardPreview (name, link) {
 
 
 initialCards.forEach((item) => {
+
   renderCard(item.name, item.link);
 });
 
 
 deleteButton.addEventListener('click', () => closePopup(popupImg));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
