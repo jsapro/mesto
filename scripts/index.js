@@ -1,5 +1,5 @@
 const initialCards = [
-  {
+   {
     name: 'Архыз',
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
   },
@@ -25,6 +25,7 @@ const initialCards = [
   }
 ];
 
+
 const gridCardsContainer = document.querySelector('.grid-cards__container');
 
 const profileEditButton = document.querySelector('.profile__edit-button');
@@ -33,44 +34,41 @@ const profileNameElement = document.querySelector('.profile__name');
 const profileJobElement = document.querySelector('.profile__job');
 
 const popupUser = document.querySelector('.popup_edit-profile');
-const popupUserFormElement = popupUser.querySelector('.popup__info');
+const popupUserForm = popupUser.querySelector('.popup__info');
 const popupUserCloseButton = popupUser.querySelector('.popup__close-btn');
 const popupUserNameInput = popupUser.querySelector('.popup__input_type_name');
 const popupUserJobInput = popupUser.querySelector('.popup__input_type_job');
 
 const popupCard = document.querySelector('.popup_add-card');
-const popupCardFormElement = popupCard.querySelector('.popup__info');
-const popupCardSubmit = popupCard.querySelector('.popup__submit')
+const popupCardForm = popupCard.querySelector('.popup__info');
 const popupCardCloseButton = popupCard.querySelector('.popup__close-btn')
+const popupCardSubmit = popupCard.querySelector('.popup__submit')
+
+const popupPreview = document.querySelector('.popup_open-card');
+const PopupPreviewСloseButton = popupPreview.querySelector('.popup__close-btn');
 
 const templateCard = document.querySelector('.template-card').content;
 const templateCardImg = templateCard.querySelector('.grid-card__img');
 const templateCardName = templateCard.querySelector('.grid-card__name');
 
 //! открытие-закрытие попапов
-function openPopup (elem) {
-  elem.classList.add('popup_opened')
+function openPopup (e) {
+  e.classList.add('popup_opened')
 }
 
-function closePopup (elem) {
-  elem.classList.remove('popup_opened');
+function closePopup (e) {
+  e.classList.remove('popup_opened');
 }
 
 
-//! открыть попап и заполнить
+//! обработка попапа-профайла по клику
 function handlePopupProfile () {
   openPopup(popupUser);
-  // popupElement.classList.add('popup_opened');
   popupUserNameInput.value = profileNameElement.textContent;
   popupUserJobInput.value = profileJobElement.textContent;
 }
 
-
-//! открытие попапа-профайла по клику
 profileEditButton.addEventListener('click', handlePopupProfile);
-
-
-//! закрытие попапа-профайла по клику
 popupUserCloseButton.addEventListener('click', () => closePopup(popupUser));
 
 
@@ -81,72 +79,74 @@ function handleUserFormSubmit (e) {
   profileJobElement.textContent = popupUserJobInput.value;
   closePopup(popupUser);
 }
-popupUserFormElement.addEventListener('submit', handleUserFormSubmit);
+
+popupUserForm.addEventListener('submit', handleUserFormSubmit);
 
 
-//! открытие попапа-карточек по клику
+//! обработка открытия попапа-карточек по клику
 profileAddButton.addEventListener('click', () => openPopup(popupCard));
 
 
-//! submit попапа-карточек по клику
+//! обработка submit и закрытие попапа-карточек
 function handleCardFormSubmit (e) {
-  console.log(e);
-  console.log(popupCardSubmit);
   e.preventDefault();
+
+  const inputCardNameValue = popupCard.querySelector('.popup__input_type_card-name').value;
+  const inputCardUrlValue = popupCard.querySelector('.popup__input_type_card-url').value;
+
+  renderCard(inputCardNameValue, inputCardUrlValue);
+  popupCard.querySelector('.popup__input_type_card-name').value = '';
+  popupCard.querySelector('.popup__input_type_card-url').value = '';
+
   closePopup(popupCard);
 }
-popupCardFormElement.addEventListener('submit', handleCardFormSubmit);
 
-
-//! закрытие попапа-карточек по клику
+popupCardForm.addEventListener('submit', handleCardFormSubmit);
 popupCardCloseButton.addEventListener('click', () => closePopup(popupCard));
 
 
-//! создание карточек из массива --- создание карточек из массива --- создание карточек из массива
-
-//! создание элемента из шаблона
-
-// templateCardName
-// templateCardImg
-
+//! создание карточки
 const createCard = function () {
   const newCard = templateCard
   .querySelector('.grid-card')
   .cloneNode(true);
-  // console.log(newCard);
   return newCard;
 }
 
-createCard();
-
-// const templateCard = document.querySelector('.template-card');
-// console.log(templateCard.content);
-// templateCard.content.document.querySelector('.grid-card')
-
-
+//! рендер карточки на странице
 const renderCard = function (name, link) {
   templateCardName.textContent = name;
   templateCardImg.src = link;
-  let d = createCard();
-  console.log('555--  ' + name, templateCardName.textContent)
-  // templateCardImg.src = link;
-    // d.textContent = item;
-    // d.style.color = 'red';
 
-    gridCardsContainer.append(d);
+  const createdCard = createCard();
+  const cardDeleteButton = createdCard.querySelector('.grid-card__delete')
+  const cardLikeButton = createdCard.querySelector('.grid-card__like');
+  const cardImage = createdCard.querySelector('.grid-card__img');
 
-  // gridCardsContainer.prepend(createCard(item, link));
-  // let d = document.createElement('img');
-  // return d
+  cardImage.alt = name;
+
+  cardDeleteButton.addEventListener('click', () => createdCard.remove());
+  cardLikeButton.addEventListener('click', () => cardLikeButton.classList.toggle('grid-card__like_active'));
+  cardImage.addEventListener('click', () => handleCardPreview(name, link));
+
+  gridCardsContainer.prepend(createdCard);
 }
 
+//! превью фото и закрытие превью
+function handleCardPreview (name, link) {
+  popupPreview.querySelector('.popup__img').src = link;
+  popupPreview.querySelector('.popup__img').alt = name;
+  popupPreview.querySelector('.popup__caption').textContent = name;
+
+  openPopup(popupPreview);
+}
+
+PopupPreviewСloseButton.addEventListener('click', () => closePopup(popupPreview));
+
+//! создание карточек из массива
 initialCards.forEach((item) => {
   renderCard(item.name, item.link);
-  // add renderCard
-
-  // console.log(item.name)
 });
 
 
-// git test pull request
 /////////////

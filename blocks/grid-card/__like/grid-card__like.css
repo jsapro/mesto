@@ -15,6 +15,8 @@
 }
 
 .grid-card__like:active {
-  background-image: url(../../../images/grid-card-heart-active.svg);
+  /* background-image: url(../../../images/grid-card-heart-active.svg); */
   opacity: 1;
 }
+
+
