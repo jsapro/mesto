@@ -27,7 +27,6 @@ const templateCard = document.querySelector('.template-card').content;
 const templateCardImg = templateCard.querySelector('.grid-card__img');
 const templateCardName = templateCard.querySelector('.grid-card__name');
 
-//! открытие-закрытие попапов
 function openPopup (popup) {
   popup.classList.add('popup_opened')
 }
@@ -43,9 +42,6 @@ function handlePopupProfile () {
   popupUserJobInput.value = profileJobElement.textContent;
 }
 
-profileEditButton.addEventListener('click', handlePopupProfile);
-popupUserCloseButton.addEventListener('click', () => closePopup(popupUser));
-
 //! submit попапа-профайла
 function handleUserFormSubmit (e) {
   e.preventDefault();
@@ -54,79 +50,80 @@ function handleUserFormSubmit (e) {
   closePopup(popupUser);
 }
 
-popupUserForm.addEventListener('submit', handleUserFormSubmit);
-
-//! обработка открытия попапа-карточек по клику
-profileAddButton.addEventListener('click', () => openPopup(popupCard));
-
 //! обработка submit и закрытие попапа-карточек
 function handleCardFormSubmit (e) {
   e.preventDefault();
-
   const inputCardNameValue = popupCardNameInput.value;
   const inputCardUrlValue = popupCardUrlInput.value;
-
   renderCard(inputCardNameValue, inputCardUrlValue);
   popupCardNameInput.value = '';
   popupCardUrlInput.value = '';
-
   closePopup(popupCard);
 }
 
-popupCardForm.addEventListener('submit', handleCardFormSubmit);
-popupCardCloseButton.addEventListener('click', () => closePopup(popupCard));
-
-//! создание карточки
-const cloneCardTemplate = function () {
+//! клонирование карточки
+function cloneCardTemplate () {
   const newCard = templateCard
   .querySelector('.grid-card')
   .cloneNode(true);
   return newCard;
 }
 
-//! рендер карточки на странице
-const createCard = function (name, link) {
+//! создание нужной карточки с данными
+function createCard (name, link) {
   const createdCard = cloneCardTemplate();
   const cardDeleteButton = createdCard.querySelector('.grid-card__delete')
   const cardLikeButton = createdCard.querySelector('.grid-card__like');
   const cardImage = createdCard.querySelector('.grid-card__img');
-
   createdCard.querySelector('.grid-card__name').textContent = name;
   createdCard.querySelector('.grid-card__img').src = link;
-
   cardImage.alt = name;
-
   cardDeleteButton.addEventListener('click', () => createdCard.remove());
-  cardLikeButton.addEventListener('click', (e) => {toggleLikeButton(e)});
-  cardImage.addEventListener('click', () => handleCardPreview(name, link));
 
+  // если передать с параметром, то надо использовать стрелочную функцию, но тогда слушатель нельзя будет удалить
+  // если передать без параметра, то надо как-то найти кнопку like на которой произошло событие
+  // cardLikeButton.addEventListener('click', (e) => {toggleLikeButton(e)});
+
+  cardImage.addEventListener('click', () => handleCardPreview(name, link));
   return createdCard;
 }
 
 function toggleLikeButton (e) {
   e.target.classList.toggle('grid-card__like_active');
-  console.log(e.currentTarget);
 }
 
+//! рендер карточки на странице
 function renderCard (name, link) {
   newCard = createCard(name, link);
   gridCardsContainer.prepend(newCard);
 }
 
-//! превью фото и закрытие превью
+//! превью фото
 function handleCardPreview (name, link) {
   popupPreviewImg.src = link;
   popupPreviewImg.alt = name;
   popupPreviewCaption.textContent = name;
-
   openPopup(popupPreview);
 }
-
-popupPreviewСloseButton.addEventListener('click', () => closePopup(popupPreview));
 
 //! создание карточек из массива
 initialCards.forEach((item) => {
   renderCard(item.name, item.link);
 });
+
+//! второй вариант активизации кнопки лайк
+document.addEventListener('click', (e) => {
+  if (e.target.classList.contains('grid-card__like')) {
+    e.target.classList.toggle('grid-card__like_active')
+  }
+} )
+
+profileEditButton.addEventListener('click', handlePopupProfile);
+popupUserCloseButton.addEventListener('click', () => closePopup(popupUser));
+popupUserForm.addEventListener('submit', handleUserFormSubmit);
+profileAddButton.addEventListener('click', () => openPopup(popupCard));
+popupCardForm.addEventListener('submit', handleCardFormSubmit);
+popupCardCloseButton.addEventListener('click', () => closePopup(popupCard));
+popupPreviewСloseButton.addEventListener('click', () => closePopup(popupPreview));
 
 /////////////
