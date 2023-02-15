@@ -56,8 +56,7 @@ function handleCardFormSubmit (e) {
   const inputCardNameValue = popupCardNameInput.value;
   const inputCardUrlValue = popupCardUrlInput.value;
   renderCard(inputCardNameValue, inputCardUrlValue);
-  popupCardNameInput.value = '';
-  popupCardUrlInput.value = '';
+  popupCardForm.reset();
   closePopup(popupCard);
 }
 
@@ -76,14 +75,10 @@ function createCard (name, link) {
   const cardLikeButton = createdCard.querySelector('.grid-card__like');
   const cardImage = createdCard.querySelector('.grid-card__img');
   createdCard.querySelector('.grid-card__name').textContent = name;
-  createdCard.querySelector('.grid-card__img').src = link;
+  cardImage.src = link;
   cardImage.alt = name;
   cardDeleteButton.addEventListener('click', () => createdCard.remove());
-
-  // если передать с параметром, то надо использовать стрелочную функцию, но тогда слушатель нельзя будет удалить
-  // если передать без параметра, то надо как-то найти кнопку like на которой произошло событие
-  // cardLikeButton.addEventListener('click', (e) => {toggleLikeButton(e)});
-
+  cardLikeButton.addEventListener('click', toggleLikeButton);
   cardImage.addEventListener('click', () => handleCardPreview(name, link));
   return createdCard;
 }
@@ -110,13 +105,6 @@ function handleCardPreview (name, link) {
 initialCards.forEach((item) => {
   renderCard(item.name, item.link);
 });
-
-//! второй вариант активизации кнопки лайк
-document.addEventListener('click', (e) => {
-  if (e.target.classList.contains('grid-card__like')) {
-    e.target.classList.toggle('grid-card__like_active')
-  }
-} )
 
 profileEditButton.addEventListener('click', handlePopupProfile);
 popupUserCloseButton.addEventListener('click', () => closePopup(popupUser));
