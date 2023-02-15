@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="ru">
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./pages/index.css">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./pages/index.css">
+    <script src="./scripts/cards.js" defer></script>
+    <script src="./scripts/index.js" defer></script>
   <title>Mesto</title>
 </head>
 
@@ -41,8 +43,8 @@
         <button class="popup__close-btn" type="button"></button>
         <h2 class="popup__header">Редактировать профиль</h2>
         <form class="popup__info" id="login-form" name="popup__info">
-          <input class="popup__input popup__input_type_name" type="text" placeholder="Имя" name="popup__name">
-          <input class="popup__input popup__input_type_job" type="text" placeholder="Работа" name="popup__job">
+          <input class="popup__input popup__input_type_name" type="text" placeholder="Имя" name="popup__name" required>
+          <input class="popup__input popup__input_type_job" type="text" placeholder="Работа" name="popup__job" required>
           <button class="popup__submit" type="submit" form="login-form">Сохранить</button>
         </form>
       </div>
@@ -55,22 +57,22 @@
         <h2 class="popup__header">Новое место</h2>
         <form class="popup__info" id="add-card-form" name="popup__info">
           <input class="popup__input popup__input_type_card-name" type="text" placeholder="Название"
-            name="popup__card-name">
+            name="popup__card-name" required>
           <input class="popup__input popup__input_type_card-url" type="url" placeholder="Ссылка на картинку"
-            name="popup__card-url">
+            name="popup__card-url" required>
           <button class="popup__submit" type="submit" form="add-card-form">Создать</button>
         </form>
       </div>
     </section>
 
     <!-- Попап открытия карточки -->
-    <section class="popup popup_open-card">
+    <figure class="popup popup_open-card">
       <div class="popup__open-photo">
         <button class="popup__close-btn" type="button"></button>
         <img class="popup__img" src="https://picsum.photos/seed/picsum/700/900" alt="фото">
-        <p class="popup__caption"></p>
+        <figcaption class="popup__caption"></figcaption>
       </div>
-    </section>
+    </figure>
 
     <!-- Шаблон карточки -->
     <template class="template-card">
@@ -91,7 +93,6 @@
       <p class="footer__copyright">© 2022 Mesto Russia</p>
     </footer>
   </div>
-  <script src="./scripts/index.js"></script>
 </body>
 
 </html>
