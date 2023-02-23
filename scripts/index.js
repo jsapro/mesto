@@ -44,20 +44,49 @@ function handlePopupProfile () {
 
 //! submit попапа-профайла
 function handleUserFormSubmit (e) {
+  // слишком громоздко - поискать другой способ
+  const hasDisabledClassOnUserBtn = popupUser.querySelector('.popup__submit').classList.contains('popup__submit_disabled');
   e.preventDefault();
-  profileNameElement.textContent = popupUserNameInput.value;
-  profileJobElement.textContent = popupUserJobInput.value;
-  closePopup(popupUser);
+  if (!hasDisabledClassOnUserBtn) {
+    profileNameElement.textContent = popupUserNameInput.value;
+    profileJobElement.textContent = popupUserJobInput.value;
+    closePopup(popupUser);
+  } else {
+    console.log('User form is not valid ❌⛔');
+
+    !popupUserNameInput.validity.valid
+    ? console.log('name > ' + popupUserNameInput.validationMessage)
+    : console.log('name > ✅');
+
+   !popupUserJobInput.validity.valid
+    ? console.log('job > ' + popupUserJobInput.validationMessage)
+    : console.log('job > ✅');
+  }
 }
 
 //! обработка submit и закрытие попапа-карточек
 function handleCardFormSubmit (e) {
+  // слишком громоздко - поискать другой способ
+  const hasDisabledClassOnCardBtn = popupCard.querySelector('.popup__submit').classList.contains('popup__submit_disabled');
   e.preventDefault();
-  const inputCardNameValue = popupCardNameInput.value;
-  const inputCardUrlValue = popupCardUrlInput.value;
-  renderCard(inputCardNameValue, inputCardUrlValue);
-  popupCardForm.reset();
-  closePopup(popupCard);
+  if (!hasDisabledClassOnCardBtn) {
+    const inputCardNameValue = popupCardNameInput.value;
+    const inputCardUrlValue = popupCardUrlInput.value;
+    renderCard(inputCardNameValue, inputCardUrlValue);
+    popupCardForm.reset();
+    closePopup(popupCard);
+  } else {
+    console.log('Card form is not valid ❌⛔')
+
+    !popupCardNameInput.validity.valid
+    ? console.log('place > ' + popupCardNameInput.validationMessage)
+    : console.log('place > ✅');
+
+    !popupCardUrlInput.validity.valid
+    ? console.log('url > ' + popupCardUrlInput.validationMessage)
+    : console.log('url > ✅');
+
+  }
 }
 
 //! клонирование карточки
@@ -106,11 +135,14 @@ initialCards.forEach((item) => {
   renderCard(item.name, item.link);
 });
 
+
 profileEditButton.addEventListener('click', handlePopupProfile);
 popupUserCloseButton.addEventListener('click', () => closePopup(popupUser));
 popupUserForm.addEventListener('submit', handleUserFormSubmit);
+
 profileAddButton.addEventListener('click', () => openPopup(popupCard));
 popupCardForm.addEventListener('submit', handleCardFormSubmit);
+
 popupCardCloseButton.addEventListener('click', () => closePopup(popupCard));
 popupPreviewСloseButton.addEventListener('click', () => closePopup(popupPreview));
 
@@ -127,7 +159,7 @@ enableValidation({
   errorClass: 'popup__error_visible'
 });
 
-function enableValidation (setup) {
+function enableValidation (setup) {   //? на каждую форму preventDefault по submit + вызывает setEventListeners
   // найти массив форм
   const formList = Array.from(document.querySelectorAll(setup.formSelector));
   // через forEach каждой форме повесить слушатель submit
@@ -136,13 +168,15 @@ function enableValidation (setup) {
     formElement.addEventListener('submit', function (e) {
        // в слушателе поставить preventDefault
       e.preventDefault();
-      // в слушателе коллбэк это функция setEventListeners(аргумент - форма)
-      setEventListeners(formElement);
-     });
+
+    });
+
+    // функция setEventListeners(аргумент - форма)
+    setEventListeners(formElement);
   })
 }
 
-function setEventListeners (formElement) {
+function setEventListeners (formElement) {  //? toggleButton вначале + на каждый инпут вешает слушатель который toggleButton и проверяет поля на валидность
   //найти массив инпутов
   const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
   //найти кнопку
@@ -153,7 +187,6 @@ function setEventListeners (formElement) {
   //запустить forEach для массива и повесить слушатель input
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', function () {
-      console.log(inputElement.validity.valid)
       //в слушателе коллбэк это функции toggleButtonState(аргументы - массив и кнопка) и checkInputValidity (аргументы - 1>>форма, принятая в setEventListeners, 2>>элемент из forEach)
       toggleButtonState(inputList, buttonElement);
       checkInputValidity(formElement, inputElement);
@@ -161,7 +194,7 @@ function setEventListeners (formElement) {
   });
 }
 
-function checkInputValidity (formElement, inputElement) {
+function checkInputValidity (formElement, inputElement) {  //? либо показать ошибки либо скрыть
   //если не валидная !validity.valid - запустить showInputError
   if (!inputElement.validity.valid) {
     //showInputError(аргументы - 1>>форма, 2>>input, 3>>validationMessage из input)
@@ -169,12 +202,12 @@ function checkInputValidity (formElement, inputElement) {
   } else {
     //иначе (если валидная) запустить hideInputError
     //hideInputError(аргументы - 1>>форма, 2>>input)
-    hideInputError(formElement, inputElement)
+    hideInputError(formElement, inputElement);
   }
 
 }
 
-function toggleButtonState(inputList, buttonElement) {
+function toggleButtonState(inputList, buttonElement) {  //? выключает кнопку если поля невалидны
   //если инпуты не валидные то кнопке добавить класс inactive
   //внутри if запустить проверку массива инпутов на валидность - функция hasInvalidInput (аргумент - 1>>массив инпутов)
   if (hasInvalidInput(inputList)) {
@@ -185,25 +218,29 @@ function toggleButtonState(inputList, buttonElement) {
   }
 }
 
-function hasInvalidInput(inputList) {
+function hasInvalidInput(inputList) {  //? проверка полей на валидность (итог true или false)
   //через some и validity.valid проверить массив на валидность - итог true или false
   return inputList.some((inputElement) => {
     return !inputElement.validity.valid;
   })
 }
 
-function showInputError (formElement, inputElement, errorMessage) {
+function showInputError (formElement, inputElement, errorMessage) {  //? добавить класс для span и вставить текст ошибки
   //найти errorElement через `.${inputElement.id}-error`
- const errorElement = formElement.querySelector(`.${inputElement.id}-error`)
-  //errorElement'у добавить textContent
-  errorElement.textContent = errorMessage;
+  const errorElement = formElement.querySelector(`.${inputElement.id}-error`)
   //errorElement'у добавить  класс ...error_active
   errorElement.classList.add('popup__input-error_active');
+  //errorElement'у добавить textContent
+  errorElement.textContent = errorMessage;
   //инпуту добавить класс ...type_error
   inputElement.classList.add('popup__input_type_error');
+    //удалить submit  если форма невалидна
+    // popupUserForm.removeEventListener('submit', handleUserFormSubmit);
+    // popupCardForm.removeEventListener('submit', handleCardFormSubmit);
+
 }
 
-function hideInputError(formElement, inputElement) {
+function hideInputError(formElement, inputElement) {//? убрать класс для span и убрать текст ошибки
   //найти errorElement также как в showInputError
  const errorElement = formElement.querySelector(`.${inputElement.id}-error`)
   //errorElement'у убрать textContent
@@ -212,9 +249,8 @@ function hideInputError(formElement, inputElement) {
   errorElement.classList.remove('popup__input-error_active');
   //инпуту удалить класс ...type_error
   inputElement.classList.remove('popup__input_type_error');
+   //submit только если форма валидна
 }
-
-
 
 
 
