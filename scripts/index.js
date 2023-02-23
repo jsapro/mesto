@@ -252,6 +252,41 @@ function hideInputError(formElement, inputElement) {//? убрать класс 
    //submit только если форма валидна
 }
 
+// popupUser.addEventListener('click', (e) => {
+//   e.stopPropagation;
+//   const overlay = popupUserForm.closest('.popup');
+//   if (overlay.classList.contains('.popup_opened')) {
+
+//     closePopup(overlay)
+//   } else {
+//     console.log(6354687464);
+//   }
+// })
 
 
-/////////////////////
+// document.addEventListener('click', (e) => {
+//   if (e.target.classList.contains('popup_opened')) {
+//   e.stopImmediatePropagation;
+//   const currentPopup = e.target.classList.contains('popup_opened');
+//   closePopup(currentPopup);
+//   console.log(e.target.classList.contains('popup_opened'));
+//   } else {
+//     console.log(e.target)
+
+//   }
+// })
+
+document.addEventListener('click', (e) => {
+  if (e.target.classList.contains('popup_edit-profile')) {
+  closePopup(popupUser);
+  }
+  else if (e.target.classList.contains('popup_add-card')) {
+  closePopup(popupCard);
+  }
+  else if (e.target.classList.contains('popup_open-card')) {
+    closePopup(popupPreview);
+  }
+})
+
+
+///////////////
