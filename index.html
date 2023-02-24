@@ -43,12 +43,30 @@
         <button class="popup__close-btn" type="button"></button>
         <h2 class="popup__header">Редактировать профиль</h2>
         <form class="popup__form" id="login-form" name="popup__form" novalidate>
-          <input id="name-input" class="popup__input popup__input_type_name" type="text" placeholder="Имя"
-            name="popup__name" minlength="2" maxlength="40" required>
+
+          <input
+          id="name-input"
+          class="popup__input popup__input_type_name"
+          type="text"
+          placeholder="Имя"
+          name="popup__name"
+          minlength="2"
+          maxlength="40"
+          required>
+
           <span class="popup__input-error name-input-error"></span>
-          <input id="job-input" class="popup__input popup__input_type_job" type="text" placeholder="Работа"
-            name="popup__job" minlength="2" maxlength="200" required>
-          <span class="popup__input-err job-input-error"></span>
+
+          <input
+          id="job-input"
+          class="popup__input popup__input_type_job"
+          type="text"
+          placeholder="Работа"
+          name="popup__job"
+          minlength="2"
+          maxlength="200"
+          required>
+
+          <span class="popup__input-error job-input-error"></span>
           <button class="popup__submit" type="submit" form="login-form">Сохранить</button>
         </form>
       </div>
@@ -60,11 +78,27 @@
         <button class="popup__close-btn" type="button"></button>
         <h2 class="popup__header">Новое место</h2>
         <form class="popup__form" id="add-card-form" name="popup__form" novalidate>
-          <input id="place-input" class="popup__input popup__input_type_card-name" type="text" placeholder="Название"
-            name="popup__card-name" minlength="2" maxlength="30" required>
+
+          <input
+          id="place-input"
+          class="popup__input popup__input_type_card-name"
+          type="text"
+          placeholder="Название"
+          name="popup__card-name"
+          minlength="2"
+          maxlength="30"
+          required>
+
           <span class="popup__input-error place-input-error"></span>
-          <input id="url-input" class="popup__input popup__input_type_card-url" type="url"
-            placeholder="Ссылка на картинку" name="popup__card-url" required>
+
+          <input
+          id="url-input"
+          class="popup__input popup__input_type_card-url"
+          type="url"
+          placeholder="Ссылка на картинку"
+          name="popup__card-url"
+          required>
+
           <span class="popup__input-error url-input-error"></span>
           <button class="popup__submit" type="submit" form="add-card-form">Создать</button>
         </form>

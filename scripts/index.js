@@ -27,12 +27,21 @@ const templateCard = document.querySelector('.template-card').content;
 const templateCardImg = templateCard.querySelector('.grid-card__img');
 const templateCardName = templateCard.querySelector('.grid-card__name');
 
+function closeOnEscape(e) {
+  const popup = document.querySelector('.popup_opened');
+  if (e.key === 'Escape') {
+    closePopup(popup);
+  }
+};
+
 function openPopup (popup) {
   popup.classList.add('popup_opened')
+  document.addEventListener('keydown', closeOnEscape);
 }
 
 function closePopup (popup) {
   popup.classList.remove('popup_opened');
+  // document.removeEventListener('keydown', closeOnEscape);
 }
 
 //! обработка попапа-профайла по клику
@@ -70,12 +79,15 @@ function handleCardFormSubmit (e) {
   const hasDisabledClassOnCardBtn = popupCard.querySelector('.popup__submit').classList.contains('popup__submit_disabled');
   e.preventDefault();
   if (!hasDisabledClassOnCardBtn) {
+    // console.log(popupCardForm.checkValidity());
     const inputCardNameValue = popupCardNameInput.value;
     const inputCardUrlValue = popupCardUrlInput.value;
     renderCard(inputCardNameValue, inputCardUrlValue);
     popupCardForm.reset();
     closePopup(popupCard);
+
   } else {
+    // console.log(popupCardForm.checkValidity());
     console.log('Card form is not valid ❌⛔')
 
     !popupCardNameInput.validity.valid
@@ -85,7 +97,6 @@ function handleCardFormSubmit (e) {
     !popupCardUrlInput.validity.valid
     ? console.log('url > ' + popupCardUrlInput.validationMessage)
     : console.log('url > ✅');
-
   }
 }
 
@@ -109,6 +120,7 @@ function createCard (name, link) {
   cardDeleteButton.addEventListener('click', () => createdCard.remove());
   cardLikeButton.addEventListener('click', toggleLikeButton);
   cardImage.addEventListener('click', () => handleCardPreview(name, link));
+
   return createdCard;
 }
 
@@ -150,18 +162,21 @@ popupPreviewСloseButton.addEventListener('click', () => closePopup(popupPreview
 
 //! ВАЛИДАЦИЯ ФОРМ---ВАЛИДАЦИЯ ФОРМ---ВАЛИДАЦИЯ ФОРМ
 
-enableValidation({
+const formValidationConfig = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
   submitButtonSelector: '.popup__submit',
   inactiveButtonClass: 'popup__submit_disabled',
   inputErrorClass: 'popup__input_type_error',
   errorClass: 'popup__error_visible'
-});
+};
 
-function enableValidation (setup) {   //? на каждую форму preventDefault по submit + вызывает setEventListeners
+enableValidation(formValidationConfig);
+
+
+function enableValidation (config) {   //? на каждую форму preventDefault по submit + вызывает setEventListeners
   // найти массив форм
-  const formList = Array.from(document.querySelectorAll(setup.formSelector));
+  const formList = Array.from(document.querySelectorAll(config.formSelector));
   // через forEach каждой форме повесить слушатель submit
   // console.log(formList);
   formList.forEach((formElement) => {
@@ -176,7 +191,11 @@ function enableValidation (setup) {   //? на каждую форму preventDe
   })
 }
 
+
 function setEventListeners (formElement) {  //? toggleButton вначале + на каждый инпут вешает слушатель который toggleButton и проверяет поля на валидность
+
+
+
   //найти массив инпутов
   const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
   //найти кнопку
@@ -194,6 +213,13 @@ function setEventListeners (formElement) {  //? toggleButton вначале + н
   });
 }
 
+
+
+/**
+ * описание
+ * @param {*} formElement параметр-1
+ * @param {*} inputElement параметр-2
+ */
 function checkInputValidity (formElement, inputElement) {  //? либо показать ошибки либо скрыть
   //если не валидная !validity.valid - запустить showInputError
   if (!inputElement.validity.valid) {
@@ -287,6 +313,29 @@ document.addEventListener('click', (e) => {
     closePopup(popupPreview);
   }
 })
+
+
+
+
+// Проверить:
+// поставить form.checkValidity вместо input.validity.valid
+// popupCardSubmit.disabled = hasInvalidInput  - выключить кнопку сабмита
+// у element.classList.toggle вторй параметр true или false
+// form.addEventListener('input', function () {**toggleButtonState**})
+// document.forms.popup__form
+
+// document.addEventListener('click', (e) => {
+//   console.log(321);
+//  }, { once: true });
+
+// const onClick = () => {
+//   console.log('onClick')
+//   document.removeEventListener('click', onClick);
+// }
+// document.addEventListener('click', onClick);
+
+
+
 
 
 ///////////////

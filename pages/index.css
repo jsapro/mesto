@@ -52,6 +52,7 @@
 
 .popup__input-error {
   visibility: hidden;
+  min-height: 35px;
 }
 
 .popup__input-error_active {
