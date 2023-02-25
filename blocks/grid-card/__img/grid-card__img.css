@@ -4,3 +4,7 @@
   object-fit: cover;
   object-position: center;
 }
+
+.grid-card__img:hover {
+  cursor: pointer;
+}

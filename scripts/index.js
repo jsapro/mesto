@@ -6,13 +6,13 @@ const profileNameElement = document.querySelector('.profile__name');
 const profileJobElement = document.querySelector('.profile__job');
 
 const popupUser = document.querySelector('.popup_edit-profile');
-const popupUserForm = popupUser.querySelector('.popup__info');
+const popupUserForm = popupUser.querySelector('.popup__form');
 const popupUserCloseButton = popupUser.querySelector('.popup__close-btn');
 const popupUserNameInput = popupUser.querySelector('.popup__input_type_name');
 const popupUserJobInput = popupUser.querySelector('.popup__input_type_job');
 
 const popupCard = document.querySelector('.popup_add-card');
-const popupCardForm = popupCard.querySelector('.popup__info');
+const popupCardForm = popupCard.querySelector('.popup__form');
 const popupCardCloseButton = popupCard.querySelector('.popup__close-btn')
 const popupCardSubmit = popupCard.querySelector('.popup__submit')
 const popupCardNameInput = popupCard.querySelector('.popup__input_type_card-name');
@@ -27,12 +27,26 @@ const templateCard = document.querySelector('.template-card').content;
 const templateCardImg = templateCard.querySelector('.grid-card__img');
 const templateCardName = templateCard.querySelector('.grid-card__name');
 
+function closeOnEscape(e) {
+  const popup = document.querySelector('.popup_opened');
+  if (e.key === 'Escape') {
+    closePopup(popup);
+  }
+};
+
 function openPopup (popup) {
   popup.classList.add('popup_opened')
+  document.addEventListener('keydown', closeOnEscape);
 }
 
 function closePopup (popup) {
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closeOnEscape);
+  if (popup.closest('.popup_edit-profile')) {
+    popupUserForm.reset();
+  } else if (popup.closest('.popup_add-card')) {
+    popupCardForm.reset();
+  }
 }
 
 //! обработка попапа-профайла по клику
@@ -44,20 +58,51 @@ function handlePopupProfile () {
 
 //! submit попапа-профайла
 function handleUserFormSubmit (e) {
+  // слишком громоздко - поискать другой способ
+  const hasDisabledClassOnUserBtn = popupUser.querySelector('.popup__submit').classList.contains('popup__submit_disabled');
   e.preventDefault();
-  profileNameElement.textContent = popupUserNameInput.value;
-  profileJobElement.textContent = popupUserJobInput.value;
-  closePopup(popupUser);
+  if (!hasDisabledClassOnUserBtn) {
+    profileNameElement.textContent = popupUserNameInput.value;
+    profileJobElement.textContent = popupUserJobInput.value;
+    closePopup(popupUser);
+  } else {
+    console.log('User form is not valid ❌⛔');
+
+    !popupUserNameInput.validity.valid
+    ? console.log('name > ' + popupUserNameInput.validationMessage)
+    : console.log('name > ✅');
+
+   !popupUserJobInput.validity.valid
+    ? console.log('job > ' + popupUserJobInput.validationMessage)
+    : console.log('job > ✅');
+  }
 }
 
 //! обработка submit и закрытие попапа-карточек
 function handleCardFormSubmit (e) {
+  // слишком громоздко - поискать другой способ
+  const hasDisabledClassOnCardBtn = popupCard.querySelector('.popup__submit').classList.contains('popup__submit_disabled');
   e.preventDefault();
-  const inputCardNameValue = popupCardNameInput.value;
-  const inputCardUrlValue = popupCardUrlInput.value;
-  renderCard(inputCardNameValue, inputCardUrlValue);
-  popupCardForm.reset();
-  closePopup(popupCard);
+  if (!hasDisabledClassOnCardBtn) {
+    // console.log(popupCardForm.checkValidity());
+    const inputCardNameValue = popupCardNameInput.value;
+    const inputCardUrlValue = popupCardUrlInput.value;
+    renderCard(inputCardNameValue, inputCardUrlValue);
+    popupCardForm.reset();
+    closePopup(popupCard);
+
+  } else {
+    // console.log(popupCardForm.checkValidity());
+    console.log('Card form is not valid ❌⛔')
+
+    !popupCardNameInput.validity.valid
+    ? console.log('place > ' + popupCardNameInput.validationMessage)
+    : console.log('place > ✅');
+
+    !popupCardUrlInput.validity.valid
+    ? console.log('url > ' + popupCardUrlInput.validationMessage)
+    : console.log('url > ✅');
+  }
 }
 
 //! клонирование карточки
@@ -80,6 +125,7 @@ function createCard (name, link) {
   cardDeleteButton.addEventListener('click', () => createdCard.remove());
   cardLikeButton.addEventListener('click', toggleLikeButton);
   cardImage.addEventListener('click', () => handleCardPreview(name, link));
+
   return createdCard;
 }
 
@@ -109,9 +155,11 @@ initialCards.forEach((item) => {
 profileEditButton.addEventListener('click', handlePopupProfile);
 popupUserCloseButton.addEventListener('click', () => closePopup(popupUser));
 popupUserForm.addEventListener('submit', handleUserFormSubmit);
+
 profileAddButton.addEventListener('click', () => openPopup(popupCard));
 popupCardForm.addEventListener('submit', handleCardFormSubmit);
+
 popupCardCloseButton.addEventListener('click', () => closePopup(popupCard));
 popupPreviewСloseButton.addEventListener('click', () => closePopup(popupPreview));
 
-/////////////
+//////////
