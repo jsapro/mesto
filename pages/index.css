@@ -33,7 +33,11 @@
 @import url(../blocks/popup/__input/popup__input.css);
 @import url(../blocks/popup/__input/_type/popup__input_type_job.css);
 @import url(../blocks/popup/__input/_type/popup__input_type_name.css);
+@import url(../blocks/popup/__input/_type/popup__input_type_error.css);
+@import url(../blocks/popup/__input-error/popup__input-error.css);
+@import url(../blocks/popup/__input-error/_active/popup__input-error_active.css);
 @import url(../blocks/popup/__submit/popup__submit.css);
+@import url(../blocks/popup/__submit/_disabled/popup__submit_disabled.css);
 @import url(../blocks/popup/__input/_type/popup__input_type_card-url.css);
 @import Url(../blocks/popup/__input/_type/popup__input_type_card-name.css);
 @import url(../blocks/popup/__open-photo/popup__open-photo.css);
@@ -48,42 +52,3 @@
 @import url(../blocks/profile/__name/profile__name.css);
 @import url(../blocks/profile/__photo/profile__photo.css);
 
-/* /////////////////////////////// */
-
-.popup__input-error {
-  visibility: hidden;
-  min-height: 35px;
-}
-
-.popup__input-error_active {
-  visibility: visible;
-  color: #FF0000;
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 15px;
-  margin: 0 36px;
-  text-align: left;
-}
-
-.popup__input_type_error {
-  border-bottom: 1px solid #FF0000;
-}
-
-
-/* .name-input-error {}
-
-
-.job-input-error {}
-
-
-.place-input-error {}
-
-
-.url-input-error {} */
-
-
-.popup__submit_disabled {
-  border: 1px solid #C4C4C4;
-  background-color: white;
-  color: #C4C4C4;
-}

@@ -41,7 +41,12 @@ function openPopup (popup) {
 
 function closePopup (popup) {
   popup.classList.remove('popup_opened');
-  // document.removeEventListener('keydown', closeOnEscape);
+  document.removeEventListener('keydown', closeOnEscape);
+  if (popup.closest('.popup_edit-profile')) {
+    popupUserForm.reset();
+  } else if (popup.closest('.popup_add-card')) {
+    popupCardForm.reset();
+  }
 }
 
 //! обработка попапа-профайла по клику
@@ -147,7 +152,6 @@ initialCards.forEach((item) => {
   renderCard(item.name, item.link);
 });
 
-
 profileEditButton.addEventListener('click', handlePopupProfile);
 popupUserCloseButton.addEventListener('click', () => closePopup(popupUser));
 popupUserForm.addEventListener('submit', handleUserFormSubmit);
@@ -158,184 +162,4 @@ popupCardForm.addEventListener('submit', handleCardFormSubmit);
 popupCardCloseButton.addEventListener('click', () => closePopup(popupCard));
 popupPreviewСloseButton.addEventListener('click', () => closePopup(popupPreview));
 
-/////////////////////////////////
-
-//! ВАЛИДАЦИЯ ФОРМ---ВАЛИДАЦИЯ ФОРМ---ВАЛИДАЦИЯ ФОРМ
-
-const formValidationConfig = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__submit',
-  inactiveButtonClass: 'popup__submit_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible'
-};
-
-enableValidation(formValidationConfig);
-
-
-function enableValidation (config) {   //? на каждую форму preventDefault по submit + вызывает setEventListeners
-  // найти массив форм
-  const formList = Array.from(document.querySelectorAll(config.formSelector));
-  // через forEach каждой форме повесить слушатель submit
-  // console.log(formList);
-  formList.forEach((formElement) => {
-    formElement.addEventListener('submit', function (e) {
-       // в слушателе поставить preventDefault
-      e.preventDefault();
-
-    });
-
-    // функция setEventListeners(аргумент - форма)
-    setEventListeners(formElement);
-  })
-}
-
-
-function setEventListeners (formElement) {  //? toggleButton вначале + на каждый инпут вешает слушатель который toggleButton и проверяет поля на валидность
-
-
-
-  //найти массив инпутов
-  const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
-  //найти кнопку
-  const buttonElement = formElement.querySelector('.popup__submit');
-
-  //запустить toggleButtonState(аргументы - 1>>массив, 2>>кнопка). Это провалидирует форму до начала ввода туда значений
-  toggleButtonState(inputList, buttonElement);
-  //запустить forEach для массива и повесить слушатель input
-  inputList.forEach((inputElement) => {
-    inputElement.addEventListener('input', function () {
-      //в слушателе коллбэк это функции toggleButtonState(аргументы - массив и кнопка) и checkInputValidity (аргументы - 1>>форма, принятая в setEventListeners, 2>>элемент из forEach)
-      toggleButtonState(inputList, buttonElement);
-      checkInputValidity(formElement, inputElement);
-    });
-  });
-}
-
-
-
-/**
- * описание
- * @param {*} formElement параметр-1
- * @param {*} inputElement параметр-2
- */
-function checkInputValidity (formElement, inputElement) {  //? либо показать ошибки либо скрыть
-  //если не валидная !validity.valid - запустить showInputError
-  if (!inputElement.validity.valid) {
-    //showInputError(аргументы - 1>>форма, 2>>input, 3>>validationMessage из input)
-    showInputError(formElement, inputElement, inputElement.validationMessage)
-  } else {
-    //иначе (если валидная) запустить hideInputError
-    //hideInputError(аргументы - 1>>форма, 2>>input)
-    hideInputError(formElement, inputElement);
-  }
-
-}
-
-function toggleButtonState(inputList, buttonElement) {  //? выключает кнопку если поля невалидны
-  //если инпуты не валидные то кнопке добавить класс inactive
-  //внутри if запустить проверку массива инпутов на валидность - функция hasInvalidInput (аргумент - 1>>массив инпутов)
-  if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add('popup__submit_disabled');
-  } else {
-    //если валидные, то класс убрать
-    buttonElement.classList.remove('popup__submit_disabled');
-  }
-}
-
-function hasInvalidInput(inputList) {  //? проверка полей на валидность (итог true или false)
-  //через some и validity.valid проверить массив на валидность - итог true или false
-  return inputList.some((inputElement) => {
-    return !inputElement.validity.valid;
-  })
-}
-
-function showInputError (formElement, inputElement, errorMessage) {  //? добавить класс для span и вставить текст ошибки
-  //найти errorElement через `.${inputElement.id}-error`
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`)
-  //errorElement'у добавить  класс ...error_active
-  errorElement.classList.add('popup__input-error_active');
-  //errorElement'у добавить textContent
-  errorElement.textContent = errorMessage;
-  //инпуту добавить класс ...type_error
-  inputElement.classList.add('popup__input_type_error');
-    //удалить submit  если форма невалидна
-    // popupUserForm.removeEventListener('submit', handleUserFormSubmit);
-    // popupCardForm.removeEventListener('submit', handleCardFormSubmit);
-
-}
-
-function hideInputError(formElement, inputElement) {//? убрать класс для span и убрать текст ошибки
-  //найти errorElement также как в showInputError
- const errorElement = formElement.querySelector(`.${inputElement.id}-error`)
-  //errorElement'у убрать textContent
-  errorElement.textContent = '';
-  //errorElement'у удалить класс ...error_active
-  errorElement.classList.remove('popup__input-error_active');
-  //инпуту удалить класс ...type_error
-  inputElement.classList.remove('popup__input_type_error');
-   //submit только если форма валидна
-}
-
-// popupUser.addEventListener('click', (e) => {
-//   e.stopPropagation;
-//   const overlay = popupUserForm.closest('.popup');
-//   if (overlay.classList.contains('.popup_opened')) {
-
-//     closePopup(overlay)
-//   } else {
-//     console.log(6354687464);
-//   }
-// })
-
-
-// document.addEventListener('click', (e) => {
-//   if (e.target.classList.contains('popup_opened')) {
-//   e.stopImmediatePropagation;
-//   const currentPopup = e.target.classList.contains('popup_opened');
-//   closePopup(currentPopup);
-//   console.log(e.target.classList.contains('popup_opened'));
-//   } else {
-//     console.log(e.target)
-
-//   }
-// })
-
-document.addEventListener('click', (e) => {
-  if (e.target.classList.contains('popup_edit-profile')) {
-  closePopup(popupUser);
-  }
-  else if (e.target.classList.contains('popup_add-card')) {
-  closePopup(popupCard);
-  }
-  else if (e.target.classList.contains('popup_open-card')) {
-    closePopup(popupPreview);
-  }
-})
-
-
-
-
-// Проверить:
-// поставить form.checkValidity вместо input.validity.valid
-// popupCardSubmit.disabled = hasInvalidInput  - выключить кнопку сабмита
-// у element.classList.toggle вторй параметр true или false
-// form.addEventListener('input', function () {**toggleButtonState**})
-// document.forms.popup__form
-
-// document.addEventListener('click', (e) => {
-//   console.log(321);
-//  }, { once: true });
-
-// const onClick = () => {
-//   console.log('onClick')
-//   document.removeEventListener('click', onClick);
-// }
-// document.addEventListener('click', onClick);
-
-
-
-
-
-///////////////
+//////////
