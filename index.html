@@ -43,7 +43,7 @@
       <div class="popup__container">
         <button class="popup__close-btn" type="button"></button>
         <h2 class="popup__header">Редактировать профиль</h2>
-        <form class="popup__form" id="login-form" name="popup__form" novalidate>
+        <form class="popup__form" id="login-form" name="profile-form" novalidate>
 
           <input
           id="name-input"
@@ -68,7 +68,7 @@
           required>
 
           <span class="popup__input-error job-input-error"></span>
-          <button class="popup__submit" type="submit" form="login-form">Сохранить</button>
+          <button class="popup__submit" type="submit" form="login-form" disabled>Сохранить</button>
         </form>
       </div>
     </section>
@@ -78,7 +78,7 @@
       <div class="popup__container">
         <button class="popup__close-btn" type="button"></button>
         <h2 class="popup__header">Новое место</h2>
-        <form class="popup__form" id="add-card-form" name="popup__form" novalidate>
+        <form class="popup__form" id="add-card-form" name="card-form" novalidate>
 
           <input
           id="place-input"
@@ -101,7 +101,7 @@
           required>
 
           <span class="popup__input-error url-input-error"></span>
-          <button class="popup__submit" type="submit" form="add-card-form">Создать</button>
+          <button class="popup__submit" type="submit" form="add-card-form" disabled>Создать</button>
         </form>
       </div>
     </section>

@@ -15,7 +15,6 @@ function enableValidation (config) {
   formList.forEach((formElement) => {
     formElement.addEventListener('submit', function (e) {
       e.preventDefault();
-
     });
     setEventListeners(formElement, config);
   })
@@ -25,6 +24,11 @@ function setEventListeners (formElement, config) {
   const inputList = Array.from(formElement.querySelectorAll(config.inputSelector));
   const buttonElement = formElement.querySelector(config.submitButtonSelector);
   toggleButtonState(inputList, buttonElement, config);
+  formElement.addEventListener('reset', () => {
+    setTimeout(() => {
+      toggleButtonState(inputList, buttonElement, config);
+    }, 0);
+  })
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', function () {
       toggleButtonState(inputList, buttonElement, config);
@@ -42,18 +46,29 @@ function checkInputValidity (formElement, inputElement, config) {
 }
 
 function toggleButtonState(inputList, buttonElement, config) {
-  if (hasInvalidInput(inputList, config)) {
+  const form = buttonElement.closest('.popup__form');
+  console.log('form', form)
+  if (!form.checkValidity()) {
     buttonElement.classList.add(config.inactiveButtonClass);
+    buttonElement.setAttribute('disabled', true);
   } else {
     buttonElement.classList.remove(config.inactiveButtonClass);
+    buttonElement.removeAttribute('disabled');
   }
+  // if (hasInvalidInput(inputList, config)) {
+  //   buttonElement.classList.add(config.inactiveButtonClass);
+  //   buttonElement.setAttribute('disabled', true);
+  // } else {
+  //   buttonElement.classList.remove(config.inactiveButtonClass);
+  //   buttonElement.removeAttribute('disabled');
+  // }
 }
 
-function hasInvalidInput(inputList) {
-  return inputList.some((inputElement) => {
-    return !inputElement.validity.valid;
-  })
-}
+// function hasInvalidInput(inputList) {
+//   return inputList.some((inputElement) => {
+//     return !inputElement.validity.valid;
+//   })
+// }
 
 function showInputError (formElement, inputElement, errorMessage, config) {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`)
@@ -69,23 +84,9 @@ function hideInputError(formElement, inputElement, config) {
   inputElement.classList.remove(config.inputErrorClass);
 }
 
-document.addEventListener('click', (e) => {
-  if (e.target.classList.contains('popup_edit-profile')) {
-  closePopup(popupUser);
-  }
-  else if (e.target.classList.contains('popup_add-card')) {
-  closePopup(popupCard);
-  }
-  else if (e.target.classList.contains('popup_open-card')) {
-    closePopup(popupPreview);
-  }
-})
-
-
-
 /////////////////////////////////////
 // Проверить:
-// поставить form.checkValidity вместо input.validity.valid
+// поставить form.checkValidity() вместо input.validity.valid
 // popupCardSubmit.disabled = hasInvalidInput  - выключить кнопку сабмита
 // у element.classList.toggle вторй параметр true или false
 // form.addEventListener('input', function () {**toggleButtonState**})
@@ -100,6 +101,5 @@ document.addEventListener('click', (e) => {
 //   document.removeEventListener('click', onClick);
 // }
 // document.addEventListener('click', onClick);
-
 
 
