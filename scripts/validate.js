@@ -47,7 +47,7 @@ function checkInputValidity (formElement, inputElement, config) {
 
 function toggleButtonState(inputList, buttonElement, config) {
   const form = buttonElement.closest('.popup__form');
-  console.log('form', form)
+  // console.log('form', form)
   if (!form.checkValidity()) {
     buttonElement.classList.add(config.inactiveButtonClass);
     buttonElement.setAttribute('disabled', true);
