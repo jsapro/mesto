@@ -8,9 +8,9 @@ export const formValidationConfig = {
   errorClass: 'popup__error_visible'
 };
 export default class FormValidator {
-  constructor (formElement, formValidationConfig) {
+  constructor (formElement, config) {
     this._formElement = formElement;
-    this._formValidationConfig = formValidationConfig;
+    this._config = config;
   }
 
   _setEventListeners (formElement, config) {
@@ -34,7 +34,7 @@ export default class FormValidator {
     this._formElement.addEventListener('submit', function (e) {
       e.preventDefault();
     });
-    this._setEventListeners (this._formElement, this._formValidationConfig);
+    this._setEventListeners (this._formElement, this._config);
   }
 
   _checkInputValidity (formElement, inputElement, config) {
