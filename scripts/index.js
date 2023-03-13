@@ -105,6 +105,13 @@ function closePopup (popup) {
   document.removeEventListener('keydown', closeOnEscape);
 }
 
+function hideInputError (formElement, inputElement, config) {
+  const errorElement = formElement.querySelector(`.${inputElement.id}-error`)
+   errorElement.textContent = '';
+   errorElement.classList.remove(config.inputErrorActiveClass);
+   inputElement.classList.remove(config.inputErrorClass);
+ }
+
 //! открытие попапа-профайла по клику
 function openProfilePopup () {
   openPopup(popupUser);
