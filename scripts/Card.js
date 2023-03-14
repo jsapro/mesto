@@ -2,9 +2,9 @@ import {
   popupPreviewImg,
   popupPreviewCaption,
   popupPreview,
-  openPopup
-} from './index.js'
+} from './utils/constants.js';
 
+import {openPopup} from './utils/utils.js';
 export default class Card {
   constructor (name, link, template) {
     this._name = name;
@@ -20,19 +20,22 @@ export default class Card {
     return newCard;
   }
 
+  _setEventListeners (createdCard, cardImage) {
+    const cardDeleteButton = createdCard.querySelector('.grid-card__delete')
+    const cardLikeButton = createdCard.querySelector('.grid-card__like');
+    cardDeleteButton.addEventListener('click', () => createdCard.remove());
+    cardLikeButton.addEventListener('click', this._toggleLikeButton);
+    cardImage.addEventListener('click', () => this._handleCardPreview(this._name, this._link));
+  }
+
   //! создание нужной карточки с данными
  createCard (name, link) {
     const createdCard = this._cloneCardTemplate();
-    const cardDeleteButton = createdCard.querySelector('.grid-card__delete')
-    const cardLikeButton = createdCard.querySelector('.grid-card__like');
     const cardImage = createdCard.querySelector('.grid-card__img');
     createdCard.querySelector('.grid-card__name').textContent = this._name;
     cardImage.src = this._link;
     cardImage.alt = this._name;
-    cardDeleteButton.addEventListener('click', () => createdCard.remove());
-    cardLikeButton.addEventListener('click', this._toggleLikeButton);
-    cardImage.addEventListener('click', () => this._handleCardPreview(this._name, this._link));
-
+    this._setEventListeners(createdCard, cardImage);
     return createdCard;
  }
 
