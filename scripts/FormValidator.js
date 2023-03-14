@@ -1,30 +1,22 @@
-export const formValidationConfig = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__submit',
-  inactiveButtonClass: 'popup__submit_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  inputErrorActiveClass: 'popup__input-error_active',
-  errorClass: 'popup__error_visible'
-};
+import {formValidationConfig} from './utils/constants.js';
 export default class FormValidator {
   constructor (formElement, config) {
     this._formElement = formElement;
     this._config = config;
+    this._inputList = Array.from(formElement.querySelectorAll(config.inputSelector));
+    this._buttonElement = formElement.querySelector(config.submitButtonSelector);
   }
 
   _setEventListeners (formElement, config) {
-    const inputList = Array.from(formElement.querySelectorAll(config.inputSelector));
-    const buttonElement = formElement.querySelector(config.submitButtonSelector);
-    this._toggleButtonState(inputList, buttonElement, config);
+    this._toggleButtonState(config);
     formElement.addEventListener('reset', () => {
       setTimeout(() => {
-        this._toggleButtonState(inputList, buttonElement, config);
+        this._toggleButtonState(config);
       }, 0);
     })
-    inputList.forEach((inputElement) => {
+    this._inputList.forEach((inputElement) => {
       inputElement.addEventListener('input',() => {
-        this._toggleButtonState(inputList, buttonElement, config);
+        this._toggleButtonState(config);
         this._checkInputValidity(formElement, inputElement, config);
       });
     });
@@ -45,15 +37,14 @@ export default class FormValidator {
     }
   }
 
-  _toggleButtonState (inputList, buttonElement, config) {
-    const form = buttonElement.closest('.popup__form');
-    // console.log('form', form)
+  _toggleButtonState (config) {
+    const form = this._buttonElement.closest('.popup__form');
     if (!form.checkValidity()) {
-      buttonElement.classList.add(config.inactiveButtonClass);
-      buttonElement.setAttribute('disabled', true);
+      this._buttonElement.classList.add(config.inactiveButtonClass);
+      this._buttonElement.setAttribute('disabled', true);
     } else {
-      buttonElement.classList.remove(config.inactiveButtonClass);
-      buttonElement.removeAttribute('disabled');
+      this._buttonElement.classList.remove(config.inactiveButtonClass);
+      this._buttonElement.removeAttribute('disabled');
     }
   }
 
@@ -72,6 +63,16 @@ export default class FormValidator {
   }
 }
 
+export function removeValidationErrors (formElement) {
+  const imputList = formElement.querySelectorAll('.popup__input');
+  imputList.forEach(imput => {
+    const errorElement = formElement.querySelector(`.${imput.id}-error`)
+    errorElement.textContent = '';
+    errorElement.classList.remove(formValidationConfig.inputErrorActiveClass);
+    imput.classList.remove(formValidationConfig.inputErrorClass);
+  });
+  formElement.reset();
+}
 
 
 
