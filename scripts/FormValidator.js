@@ -30,10 +30,10 @@ export default class FormValidator {
   }
 
   _checkInputValidity (formElement, inputElement, config) {
-    if (!inputElement.validity.valid) {
-      this._showInputError(formElement, inputElement, inputElement.validationMessage, config)
-    } else {
+    if (inputElement.validity.valid) {
       this._hideInputError(formElement, inputElement, config);
+    } else {
+      this._showInputError(formElement, inputElement, inputElement.validationMessage, config)
     }
   }
 

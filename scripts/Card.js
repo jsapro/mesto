@@ -6,9 +6,9 @@ import {
 
 import {openPopup} from './utils/utils.js';
 export default class Card {
-  constructor (name, link, template) {
-    this._name = name;
-    this._link = link;
+  constructor (data, template) {
+    this._name = data.name;
+    this._link = data.link;
     this._template = template;
   }
 
@@ -29,7 +29,7 @@ export default class Card {
   }
 
   //! создание нужной карточки с данными
- createCard (name, link) {
+ createCard () {
     const createdCard = this._cloneCardTemplate();
     const cardImage = createdCard.querySelector('.grid-card__img');
     createdCard.querySelector('.grid-card__name').textContent = this._name;

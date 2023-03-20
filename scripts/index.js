@@ -54,7 +54,7 @@ function handleCardFormSubmit (e) {
   e.preventDefault();
   const inputCardNameValue = popupCardNameInput.value;
   const inputCardUrlValue = popupCardUrlInput.value;
-  renderCard(inputCardNameValue, inputCardUrlValue);
+  renderCard({name: inputCardNameValue, link: inputCardUrlValue});
   popupCardForm.reset();
   closePopup(popupCard);
 }
@@ -86,15 +86,15 @@ profileAddCardButton.addEventListener('click', () => {
 popupCardForm.addEventListener('submit', handleCardFormSubmit);
 
 //! рендер карточки на странице
-function renderCard (name, link) {
-  const card = new Card(name, link, templateCard);
+function renderCard (data) {
+  const card = new Card(data, templateCard);
   const cardElement = card.createCard();
   gridCardsContainer.prepend(cardElement);
 }
 
 //! создание карточек из массива
 initialCards.forEach((item) => {
-  renderCard(item.name, item.link);
+  renderCard(item);
 });
 
 const formList = Array.from(document.querySelectorAll(formValidationConfig.formSelector));
@@ -104,4 +104,24 @@ formList.forEach((formElement) => {
   formValidator.enableValidation();
 })
 
-//////////
+
+// ////////////////////////
+//   // const formValidators = {};
+//   // formValidators.edit = new FormValidator('form[name="edit"]');
+
+//   // // а потом можно использовать вот так:
+//   // formValidators[form.name].disableButton();
+
+//   //////////
+//   const formList = Array.from(document.querySelectorAll(formValidationConfig.formSelector));
+//   const formValidators = {};
+
+//   formList.forEach((formElement) => {
+//       const formValidator = new FormValidator;(formElement, formValidationConfig);
+//       const formName = formElement.getAttribute("name");
+//       formValidators[formName] = formValidator;
+//       formValidators.enableValidation();
+//     })
+
+//   console.dir(formValidators);
+
