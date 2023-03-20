@@ -1,4 +1,4 @@
-export function closeOnEscape(e) {
+function closeOnEscape(e) {
   if (e.key === 'Escape') {
     const popup = document.querySelector('.popup_opened');
     closePopup(popup);

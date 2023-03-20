@@ -25,18 +25,27 @@ import Card from './Card.js';
 
 import FormValidator from './FormValidator.js';
 
-import { removeValidationErrors } from './FormValidator.js';
-
 import {
-  closeOnEscape,
   openPopup,
   closePopup,
 } from './utils/utils.js';
 
+const formList = Array.from(document.querySelectorAll(formValidationConfig.formSelector));
+const formValidators = {};
+
+formList.forEach((formElement) => {
+    const formValidator = new FormValidator(formElement, formValidationConfig);
+    formValidators[formElement.name] = formValidator;
+    formValidator.enableValidation();
+  })
+
+// console.dir(formValidators['card-form']);
+// console.dir(formValidators['profile-form']);
+
 //! открытие попапа-профайла по клику
 function handleProfilePopup () {
   openPopup(popupUser);
-  removeValidationErrors(popupUserForm);
+  formValidators['profile-form'].removeValidationErrors(popupUserForm);
   popupUserNameInput.value = profileNameElement.textContent;
   popupUserJobInput.value = profileJobElement.textContent;
 }
@@ -76,7 +85,7 @@ popupUserForm.addEventListener('submit', handleUserFormSubmit);
 
 function handleAddCardPopup (popupCard) {
   openPopup(popupCard);
-  removeValidationErrors(popupCardForm);
+  formValidators['card-form'].removeValidationErrors(popupCardForm);
 }
 
 profileAddCardButton.addEventListener('click', () => {
@@ -97,31 +106,22 @@ initialCards.forEach((item) => {
   renderCard(item);
 });
 
-const formList = Array.from(document.querySelectorAll(formValidationConfig.formSelector));
+// const formList = Array.from(document.querySelectorAll(formValidationConfig.formSelector));
 
-formList.forEach((formElement) => {
-  const formValidator = new FormValidator(formElement, formValidationConfig);
-  formValidator.enableValidation();
-})
+// formList.forEach((formElement) => {
+//   const formValidator = new FormValidator(formElement, formValidationConfig);
+//   formValidator.enableValidation();
+// })
 
 
-// ////////////////////////
-//   // const formValidators = {};
-//   // formValidators.edit = new FormValidator('form[name="edit"]');
+////////////////////////
+  // const formValidators = {};
+  // formValidators.edit = new FormValidator('form[name="edit"]');
 
-//   // // а потом можно использовать вот так:
-//   // formValidators[form.name].disableButton();
+  // // а потом можно использовать вот так:
+  // formValidators[form.name].disableButton();
 
-//   //////////
-//   const formList = Array.from(document.querySelectorAll(formValidationConfig.formSelector));
-//   const formValidators = {};
+  //////////
 
-//   formList.forEach((formElement) => {
-//       const formValidator = new FormValidator;(formElement, formValidationConfig);
-//       const formName = formElement.getAttribute("name");
-//       formValidators[formName] = formValidator;
-//       formValidators.enableValidation();
-//     })
 
-//   console.dir(formValidators);
 
