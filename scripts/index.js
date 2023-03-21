@@ -21,10 +21,10 @@ import {
   formValidationConfig,
 } from './utils/constants.js';
 
-import {
-  openPopup,
-  closePopup,
-} from './utils/utils.js';
+// import {
+//   openPopup,
+//   closePopup,
+// } from './utils/utils.js';
 
 import Card from './Card.js';
 import FormValidator from './FormValidator.js';
@@ -43,10 +43,13 @@ import UserInfo from './UserInfo.js';
 
 //! превью фото
 const handleCardPreview = (data) => {
- popupPreviewImg.src = data.link;
- popupPreviewImg.alt = data.name;
- popupPreviewCaption.textContent = data.name;
- openPopup(popupPreview);
+//  popupPreviewImg.src = data.link;
+//  popupPreviewImg.alt = data.name;
+//  popupPreviewCaption.textContent = data.name;
+ const popup = new PopupWithImage(popupPreview, popupPreviewImg, popupPreviewCaption, data);
+ popup.setEventListeners();
+ popup.openPopup();
+//  setTimeout(popup._closePopup, 3000)
 }
 
 //! рендер карточки на странице
@@ -79,7 +82,9 @@ formList.forEach((formElement) => {
 
 //! открытие попапа-профайла по клику
 function handleProfilePopup () {
-  openPopup(popupUser);
+  // const popup = new Popup;
+  popup.setEventListeners();
+  popup.openPopup(popupUser);
   formValidators['profile-form'].removeValidationErrors(popupUserForm);
   popupUserNameInput.value = profileNameElement.textContent;
   popupUserJobInput.value = profileJobElement.textContent;
@@ -90,6 +95,7 @@ function handleUserFormSubmit (e) {
   e.preventDefault();
   profileNameElement.textContent = popupUserNameInput.value;
   profileJobElement.textContent = popupUserJobInput.value;
+
   closePopup(popupUser);
 }
 
@@ -105,21 +111,23 @@ function handleCardFormSubmit (e) {
 
 profileEditButton.addEventListener('click', handleProfilePopup);
 
-popups.forEach(popup => {
+// popups.forEach(popup => {
 
-  popup.addEventListener('mousedown', (e) => {
+//   popup.addEventListener('mousedown', (e) => {
 
-    if (e.target.classList.contains('popup_opened') || e.target.classList.contains('popup__close-btn')) {
-      closePopup(popup);
-    }
+//     if (e.target.classList.contains('popup_opened') || e.target.classList.contains('popup__close-btn')) {
+//       closePopup(popup);
+//     }
 
-  })
-})
+//   })
+// })
 
 popupUserForm.addEventListener('submit', handleUserFormSubmit);
 
 function handleAddCardPopup (popupCard) {
-  openPopup(popupCard);
+  const popup = new Popup;
+  // popup.setEventListeners();
+  popup.openPopup(popupCard);
   formValidators['card-form'].removeValidationErrors(popupCardForm);
 }
 
