@@ -1,15 +1,10 @@
-import {
-  popupPreviewImg,
-  popupPreviewCaption,
-  popupPreview,
-} from './utils/constants.js';
-
-import {openPopup} from './utils/utils.js';
 export default class Card {
-  constructor (data, template) {
+  constructor (data, template, handleCardPreview) {
+    this._data = data;
     this._name = data.name;
     this._link = data.link;
     this._template = template;
+    this._handleCardPreview = handleCardPreview;
   }
 
   //! клонирование карточки
@@ -25,7 +20,7 @@ export default class Card {
     const cardLikeButton = createdCard.querySelector('.grid-card__like');
     cardDeleteButton.addEventListener('click', () => createdCard.remove());
     cardLikeButton.addEventListener('click', this._toggleLikeButton);
-    cardImage.addEventListener('click', () => this._handleCardPreview(this._name, this._link));
+    cardImage.addEventListener('click', () => this._handleCardPreview(this._data));
   }
 
   //! создание нужной карточки с данными
@@ -43,11 +38,4 @@ export default class Card {
    e.target.classList.toggle('grid-card__like_active');
  }
 
- //! превью фото
- _handleCardPreview (name, link) {
-   popupPreviewImg.src = link;
-   popupPreviewImg.alt = name;
-   popupPreviewCaption.textContent = name;
-   openPopup(popupPreview);
- }
 }

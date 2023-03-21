@@ -13,9 +13,6 @@ class Section {
   addItem (itemHtml) {
     this._container.prepend(itemHtml)
   }
-
-
-
 }
 
 export default Section;

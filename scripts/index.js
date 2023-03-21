@@ -21,15 +21,13 @@ import {
   formValidationConfig,
 } from './utils/constants.js';
 
-import Card from './Card.js';
-
-import FormValidator from './FormValidator.js';
-
 import {
   openPopup,
   closePopup,
 } from './utils/utils.js';
 
+import Card from './Card.js';
+import FormValidator from './FormValidator.js';
 import Section from './Section.js';
 import Popup from './Popup.js';
 import PopupWithForm from './PopupWithForm.js';
@@ -43,14 +41,22 @@ import UserInfo from './UserInfo.js';
 //   gridCardsContainer.prepend(element);
 // }
 
+//! превью фото
+const handleCardPreview = (data) => {
+ popupPreviewImg.src = data.link;
+ popupPreviewImg.alt = data.name;
+ popupPreviewCaption.textContent = data.name;
+ openPopup(popupPreview);
+}
+
 //! рендер карточки на странице
 function renderCard (data) {
-  const card = new Card(data, templateCard);
+  const card = new Card(data, templateCard, handleCardPreview);
   const cardElement = card.createCard();
   const section = new Section({items: initialCards, renderer: renderCard}, 'grid-cards__container');
   section.addItem(cardElement);
-  // gridCardsContainer.prepend(cardElement);
 }
+
 
 const section = new Section({items: initialCards, renderer: renderCard}, 'grid-cards__container');
 section.renderItems();
