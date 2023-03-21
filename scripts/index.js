@@ -30,6 +30,35 @@ import {
   closePopup,
 } from './utils/utils.js';
 
+import Section from './Section.js';
+import Popup from './Popup.js';
+import PopupWithForm from './PopupWithForm.js';
+import PopupWithImage from './PopupWithImage.js';
+import UserInfo from './UserInfo.js';
+
+
+// function renderCard (cardData) {
+//   const card = new Card;
+//   const cardElement = card.createCard(cardData);
+//   gridCardsContainer.prepend(element);
+// }
+
+//! рендер карточки на странице
+function renderCard (data) {
+  const card = new Card(data, templateCard);
+  const cardElement = card.createCard();
+  const section = new Section({items: initialCards, renderer: renderCard}, 'grid-cards__container');
+  section.addItem(cardElement);
+  // gridCardsContainer.prepend(cardElement);
+}
+
+const section = new Section({items: initialCards, renderer: renderCard}, 'grid-cards__container');
+section.renderItems();
+
+
+
+
+
 const formList = Array.from(document.querySelectorAll(formValidationConfig.formSelector));
 const formValidators = {};
 
@@ -94,17 +123,17 @@ profileAddCardButton.addEventListener('click', () => {
 
 popupCardForm.addEventListener('submit', handleCardFormSubmit);
 
-//! рендер карточки на странице
-function renderCard (data) {
-  const card = new Card(data, templateCard);
-  const cardElement = card.createCard();
-  gridCardsContainer.prepend(cardElement);
-}
+// //! рендер карточки на странице
+// function renderCard (data) {
+//   const card = new Card(data, templateCard);
+//   const cardElement = card.createCard();
+//   gridCardsContainer.prepend(cardElement);
+// }
 
-//! создание карточек из массива
-initialCards.forEach((item) => {
-  renderCard(item);
-});
+// //! создание карточек из массива
+// initialCards.forEach((item) => {
+//   renderCard(item);
+// });
 
 
 // const formList = Array.from(document.querySelectorAll(formValidationConfig.formSelector));
