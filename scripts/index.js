@@ -37,7 +37,7 @@ formList.forEach((formElement) => {
     const formValidator = new FormValidator(formElement, formValidationConfig);
     formValidators[formElement.name] = formValidator;
     formValidator.enableValidation();
-  })
+})
 
 // console.dir(formValidators['card-form']);
 // console.dir(formValidators['profile-form']);
@@ -106,15 +106,16 @@ initialCards.forEach((item) => {
   renderCard(item);
 });
 
+
 // const formList = Array.from(document.querySelectorAll(formValidationConfig.formSelector));
 
 // formList.forEach((formElement) => {
-//   const formValidator = new FormValidator(formElement, formValidationConfig);
-//   formValidator.enableValidation();
-// })
+  //   const formValidator = new FormValidator(formElement, formValidationConfig);
+  //   formValidator.enableValidation();
+  // })
 
 
-////////////////////////
+  ////////////////////////
   // const formValidators = {};
   // formValidators.edit = new FormValidator('form[name="edit"]');
 
