@@ -2,6 +2,7 @@ class Popup {
     constructor (popupSelector) {
       this._popupSelector = popupSelector;
       this._handleEscClose = this._handleEscClose.bind(this);
+      this.closePopup = this.closePopup.bind(this);
     }
 
     _handleEscClose(e) {

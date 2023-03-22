@@ -12,12 +12,9 @@ class PopupWithImage extends Popup {
     this._popupPreviewImg.src = this._data.link;
     this._popupPreviewImg.alt = this._data.name;
     this._popupPreviewCaption.textContent = this._data.name;
-
-
     super.openPopup();
   }
-
 }
 
 export default PopupWithImage;
-//
+
