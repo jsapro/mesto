@@ -83,7 +83,14 @@ formList.forEach((formElement) => {
 
 //! открытие попапа-профайла по клику
 function handleProfilePopup () {
-  const popupWithForm = new PopupWithForm(popupUser, handleUserFormSubmit);
+  const popupWithForm = new PopupWithForm(popupUser, (e) => {
+    e.preventDefault();
+    profileNameElement.textContent = popupUserNameInput.value;
+    profileJobElement.textContent = popupUserJobInput.value;
+
+    popupWithForm.closePopup();
+  });
+
   popupWithForm.setEventListeners();
   popupWithForm.openPopup();
   formValidators['profile-form'].removeValidationErrors(popupUserForm);
@@ -91,15 +98,15 @@ function handleProfilePopup () {
   popupUserJobInput.value = profileJobElement.textContent;
 }
 
-        //! submit попапа-профайла
-        function handleUserFormSubmit (e) {
-          e.preventDefault();
-          profileNameElement.textContent = popupUserNameInput.value;
-          profileJobElement.textContent = popupUserJobInput.value;
+        // //! submit попапа-профайла
+        // function handleUserFormSubmit (e) { // перенёс в аргумент handleProfilePopup
+        //   e.preventDefault();
+        //   profileNameElement.textContent = popupUserNameInput.value;
+        //   profileJobElement.textContent = popupUserJobInput.value;
 
-          closePopup(popupUser);
-          // popup.closePopup();
-        }
+        //   closePopup(popupUser);
+        //   // popup.closePopup();
+        // }
 
         //! обработка submit и закрытие попапа-карточек
         // function handleCardFormSubmit (e) {  // перенёс в аргумент handleAddCardPopup
