@@ -18,12 +18,9 @@ class UserInfo {
     this._name.textContent = userInputData.name;
     this._profession.textContent = userInputData.profession;
   }
-
 }
 
 export default UserInfo;
-//
-
 
 // Класс `UserInfo` отвечает за управление отображением информации о пользователе на странице. Этот класс:
 

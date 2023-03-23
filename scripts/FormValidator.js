@@ -21,7 +21,6 @@ export default class FormValidator {
     });
   }
 
-
   _checkInputValidity (formElement, inputElement, config) {
     if (inputElement.validity.valid) {
       this._hideInputError(formElement, inputElement, config);
