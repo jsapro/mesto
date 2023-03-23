@@ -35,6 +35,18 @@ import PopupWithImage from './PopupWithImage.js';
 import UserInfo from './UserInfo.js';
 
 
+const userInfo = new UserInfo(
+  {
+    nameInputSelector: '.profile__name',
+    professionInputSelector: '.profile__job'
+  }
+);
+
+const userInputData = {name: null, profession: null}
+// userInfo.setUserInfo (userInputData);
+console.log(userInfo.getUserInfo())
+
+
 // function renderCard (cardData) {
 //   const card = new Card;
 //   const cardElement = card.createCard(cardData);
@@ -85,18 +97,26 @@ formList.forEach((formElement) => {
 function handleProfilePopup () {
   const popupWithForm = new PopupWithForm(popupUser, (e) => {
     e.preventDefault();
-    profileNameElement.textContent = popupUserNameInput.value;
-    profileJobElement.textContent = popupUserJobInput.value;
-
+    // profileNameElement.textContent = popupUserNameInput.value;
+    // profileJobElement.textContent = popupUserJobInput.value;
+    userInputData = {
+      name: popupUserNameInput.value,
+      profession: popupUserJobInput.value,
+    }
+    userInfo.setUserInfo (userInputData);
     popupWithForm.closePopup();
   });
 
   popupWithForm.setEventListeners();
   popupWithForm.openPopup();
   formValidators['profile-form'].removeValidationErrors(popupUserForm);
-  popupUserNameInput.value = profileNameElement.textContent;
-  popupUserJobInput.value = profileJobElement.textContent;
+  // popupUserNameInput.value = profileNameElement.textContent;
+  // popupUserJobInput.value = profileJobElement.textContent;
+  popupUserNameInput.value = userInfo.getUserInfo().name;
+  popupUserJobInput.value = userInfo.getUserInfo().profession;
+
 }
+
 
         // //! submit попапа-профайла
         // function handleUserFormSubmit (e) { // перенёс в аргумент handleProfilePopup
@@ -129,6 +149,7 @@ function handleAddCardPopup (popupCard) {
     e.preventDefault();
     const inputCardNameValue = popupCardNameInput.value;
     const inputCardUrlValue = popupCardUrlInput.value;
+
     renderCard({name: inputCardNameValue, link: inputCardUrlValue});
     // popupCardForm.reset();
     popupWithForm.closePopup();

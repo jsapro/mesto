@@ -1,15 +1,22 @@
 class UserInfo {
-  constructor ({data}) {
-    this._nameSelector = data.nameSelector;
-    this._jobSelector = data.jobSelector;
+  constructor ({nameInputSelector, professionInputSelector}) {
+    this._name = document.querySelector(nameInputSelector);
+    this._profession = document.querySelector(professionInputSelector);
   }
 
   getUserInfo () {
     //возвращает объект с данными пользователя. Этот метод пригодится когда данные пользователя нужно будет подставить в форму при открытии.
+    const userInputData = {
+      name: this._name.textContent,
+      profession: this._profession.textContent
+    }
+    return userInputData;
   }
 
-  setUserInfo () {
+  setUserInfo (userInputData) {
     //принимает новые данные пользователя и добавляет их на страницу
+    this._name.textContent = userInputData.name;
+    this._profession.textContent = userInputData.profession;
   }
 
 }
