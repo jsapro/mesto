@@ -46,7 +46,7 @@ const handleCardPreview = (data) => {
  setTimeout(popup.closePopup, 7000); // bind(this) in Popup
 }
 
-const section = new Section({items: initialCards, renderer:  renderCard}, 'grid-cards__container');
+const section = new Section({data: initialCards, renderer:  renderCard}, 'grid-cards__container');
 section.renderInitialItems();
 
 //! рендер карточки на странице

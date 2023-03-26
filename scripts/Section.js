@@ -1,17 +1,17 @@
 class Section {
-  constructor ({items, renderer}, selector) {
-    this._items = items;
+  constructor ({data, renderer}, selector) {
+    this._initialArray = data;
     this._renderer = renderer;
     this._selector = selector;
     this._container = document.querySelector('.'+selector);
   }
 
   renderInitialItems () {
-    this._items.forEach(item => this._renderer(item))
+    this._initialArray.forEach(item => this._renderer(item))
   }
 
-  addItem (itemHtml) {
-    this._container.prepend(itemHtml)
+  addItem (element) {
+    this._container.prepend(element)
   }
 }
 
