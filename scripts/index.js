@@ -43,7 +43,7 @@ const handleCardPreview = (data) => {
  const popup = new PopupWithImage(popupPreview, popupPreviewImg, popupPreviewCaption, data);
  popup.setEventListeners();
  popup.openPopup();
- setTimeout(popup.closePopup, 7000); // bind(this) in Popup
+//  setTimeout(popup.closePopup, 7000); // bind(this) in Popup
 }
 
 const section = new Section({data: initialCards, renderer:  renderCard}, 'grid-cards__container');
@@ -67,34 +67,31 @@ formList.forEach((formElement) => {
 
 //! открытие попапа-профайла по клику
 function handleProfilePopup () {
-  const popupWithForm = new PopupWithForm(popupUser, (e) => {
-    e.preventDefault();
+  const userPopup = new PopupWithForm(popupUser, ({nickname, job}) => {
     userInputData.name = popupUserNameInput.value;
     userInputData.profession = popupUserJobInput.value;
 
-    userInfo.setUserInfo (userInputData);
-    popupWithForm.closePopup();
+    userInfo.setUserInfo ({name: nickname, profession:job});
+    userPopup.closePopup();
   });
 
-  popupWithForm.setEventListeners();
-  popupWithForm.openPopup();
+  userPopup.setEventListeners();
+  userPopup.openPopup();
   formValidators['profile-form'].removeValidationErrors(popupUserForm);
   popupUserNameInput.value = userInfo.getUserInfo().name;
   popupUserJobInput.value = userInfo.getUserInfo().profession;
 }
 
 function handleAddCardPopup (popupCard) {
-  const popupWithForm = new PopupWithForm(popupCard, (e) => {
-    e.preventDefault();
-    const inputCardNameValue = popupCardNameInput.value;
-    const inputCardUrlValue = popupCardUrlInput.value;
-
-    renderCard({name: inputCardNameValue, link: inputCardUrlValue});
-    popupWithForm.closePopup();
+  const cardPopup = new PopupWithForm(popupCard, ({description, url}) => {
+    // const inputCardNameValue = popupCardNameInput.value;
+    // const inputCardUrlValue = popupCardUrlInput.value;
+    renderCard({ name: description, link:url });
+    cardPopup.closePopup();
   });
 
-  popupWithForm.setEventListeners();
-  popupWithForm.openPopup(popupCard);
+  cardPopup.setEventListeners();
+  cardPopup.openPopup(popupCard);
   formValidators['card-form'].removeValidationErrors(popupCardForm);
 }
 

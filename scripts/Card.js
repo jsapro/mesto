@@ -2,7 +2,9 @@ export default class Card {
     constructor (data, template, handleCardPreview) {
       this._data = data;
       this._name = data.name;
+      // this._name = inputValues.description;
       this._link = data.link;
+      // this._link = inputValues.url;
       this._template = template;
       this._handleCardPreview = handleCardPreview;
     }
@@ -39,4 +41,3 @@ export default class Card {
     }
 
 }
- 

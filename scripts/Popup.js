@@ -7,7 +7,6 @@ class Popup {
 
     _handleEscClose(e) {
       if (e.key === 'Escape') {
-        console.log(this);
         // const popup = document.querySelector('.popup_opened');
         this.closePopup();
       }

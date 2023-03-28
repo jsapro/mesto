@@ -13,10 +13,10 @@ class UserInfo {
     return userInputData;
   }
 
-  setUserInfo (userInputData) {
+  setUserInfo ({name, profession}) {
     //принимает новые данные пользователя и добавляет их на страницу
-    this._name.textContent = userInputData.name;
-    this._profession.textContent = userInputData.profession;
+    this._name.textContent = name;
+    this._profession.textContent = profession;
   }
 }
 
