@@ -1,4 +1,3 @@
-import {formValidationConfig} from './utils/constants.js';
 export default class FormValidator {
   constructor (formElement, config) {
     this._formElement = formElement;
@@ -22,18 +21,11 @@ export default class FormValidator {
     });
   }
 
-  enableValidation () {
-    this._formElement.addEventListener('submit', function (e) {
-      e.preventDefault();
-    });
-    this._setEventListeners (this._formElement, this._config);
-  }
-
   _checkInputValidity (formElement, inputElement, config) {
-    if (!inputElement.validity.valid) {
-      this._showInputError(formElement, inputElement, inputElement.validationMessage, config)
-    } else {
+    if (inputElement.validity.valid) {
       this._hideInputError(formElement, inputElement, config);
+    } else {
+      this._showInputError(formElement, inputElement, inputElement.validationMessage, config)
     }
   }
 
@@ -56,26 +48,27 @@ export default class FormValidator {
   }
 
   _hideInputError (formElement, inputElement, config) {
-   const errorElement = formElement.querySelector(`.${inputElement.id}-error`)
+    const errorElement = formElement.querySelector(`.${inputElement.id}-error`)
     errorElement.textContent = '';
     errorElement.classList.remove(config.inputErrorActiveClass);
     inputElement.classList.remove(config.inputErrorClass);
   }
+
+  enableValidation () {
+    this._formElement.addEventListener('submit', function (e) {
+      e.preventDefault();
+    });
+    this._setEventListeners (this._formElement, this._config);
+  }
+
+  removeValidationErrors (formElement) {
+    const imputList = formElement.querySelectorAll('.popup__input');
+    imputList.forEach(imput => {
+      const errorElement = formElement.querySelector(`.${imput.id}-error`)
+      errorElement.textContent = '';
+      errorElement.classList.remove(this._config.inputErrorActiveClass);
+      imput.classList.remove(this._config.inputErrorClass);
+    });
+    formElement.reset();
+  }
 }
-
-export function removeValidationErrors (formElement) {
-  const imputList = formElement.querySelectorAll('.popup__input');
-  imputList.forEach(imput => {
-    const errorElement = formElement.querySelector(`.${imput.id}-error`)
-    errorElement.textContent = '';
-    errorElement.classList.remove(formValidationConfig.inputErrorActiveClass);
-    imput.classList.remove(formValidationConfig.inputErrorClass);
-  });
-  formElement.reset();
-}
-
-
-
-
-
-

@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./pages/index.css">
+  <!-- <link rel="stylesheet" href="./pages/index.css"> -->
   <title>Mesto</title>
 </head>
 
@@ -13,13 +13,13 @@
 
   <div class="page">
     <header class="header">
-      <img class="header__logo" src="./images/header-logo.svg" alt="лого Mesto">
+      <img class="header__logo" src="<%=require('./images/header-logo.svg')%>" alt="лого Mesto">
     </header>
 
     <main>
 
       <section class="profile" aria-label="редактор профиля">
-        <img class="profile__photo" src="./images/profile-cousto.jpg" alt="Жак-Ив Кусто">
+        <img class="profile__photo" src="<%=require('./images/profile-cousto.jpg')%>" alt="Жак-Ив Кусто">
         <div class="profile__user-wrapper">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
           <button class="profile__edit-button" type="button"></button>
@@ -47,10 +47,11 @@
           class="popup__input popup__input_type_name"
           type="text"
           placeholder="Имя"
-          name="popup__name"
+          name="nickname"
           minlength="2"
           maxlength="40"
           required>
+          <!-- Если написать name="name", то вылетает ошибка -->
 
           <span class="popup__input-error name-input-error"></span>
 
@@ -59,7 +60,7 @@
           class="popup__input popup__input_type_job"
           type="text"
           placeholder="Работа"
-          name="popup__job"
+          name="job"
           minlength="2"
           maxlength="200"
           required>
@@ -82,7 +83,7 @@
           class="popup__input popup__input_type_card-name"
           type="text"
           placeholder="Название"
-          name="popup__card-name"
+          name="description"
           minlength="2"
           maxlength="30"
           required>
@@ -94,7 +95,7 @@
           class="popup__input popup__input_type_card-url"
           type="url"
           placeholder="Ссылка на картинку"
-          name="popup__card-url"
+          name="url"
           required>
 
           <span class="popup__input-error url-input-error"></span>
@@ -107,7 +108,7 @@
     <figure class="popup popup_open-card">
       <div class="popup__open-photo">
         <button class="popup__close-btn" type="button"></button>
-        <img class="popup__img" src="https://picsum.photos/seed/picsum/700/900" alt="фото">
+        <img class="popup__img" src="#" alt="фото">
         <figcaption class="popup__caption"></figcaption>
       </div>
     </figure>
@@ -131,11 +132,11 @@
       <p class="footer__copyright">© 2023 Mesto Russia</p>
     </footer>
   </div>
-  <script type="module" src="./scripts/index.js"></script>
-  <script type="module" src="./scripts/FormValidator.js"></script>
+  <!-- <script type="module" src="./scripts/index.js"></script> -->
+  <!-- <script type="module" src="./scripts/FormValidator.js"></script>
   <script type="module" src="./scripts/Card.js"></script>
   <script type="module" src="./scripts/utils/constants.js"></script>
-  <script type="module" src="./scripts/utils/utils.js"></script>
+  <script type="module" src="./scripts/utils/utils.js"></script> -->
 </body>
 
 </html>
