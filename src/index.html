@@ -51,7 +51,8 @@
           minlength="2"
           maxlength="40"
           required>
-
+          <!-- Если написать name="name", то вылетает ошибка -->
+          
           <span class="popup__input-error name-input-error"></span>
 
           <input
@@ -107,7 +108,7 @@
     <figure class="popup popup_open-card">
       <div class="popup__open-photo">
         <button class="popup__close-btn" type="button"></button>
-        <img class="popup__img" src="https://picsum.photos/seed/picsum/700/900" alt="фото">
+        <img class="popup__img" src="#" alt="фото">
         <figcaption class="popup__caption"></figcaption>
       </div>
     </figure>
