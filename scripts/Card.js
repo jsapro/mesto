@@ -9,12 +9,11 @@ export default class Card {
       this._handleCardPreview = handleCardPreview;
     }
 
-    //! клонирование карточки
     _cloneCardTemplate () {
       const newCard = this._template
       .querySelector('.grid-card')
       .cloneNode(true);
-      return newCard;
+      return newCard; 
     }
 
     _setEventListeners (createdCard, cardImage) {
@@ -25,7 +24,6 @@ export default class Card {
       cardImage.addEventListener('click', () => this._handleCardPreview(this._data));
     }
 
-    //! создание нужной карточки с данными
     createCard () {
         const createdCard = this._cloneCardTemplate();
         const cardImage = createdCard.querySelector('.grid-card__img');

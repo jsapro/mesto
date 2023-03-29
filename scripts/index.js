@@ -36,10 +36,8 @@ const userInfo = new UserInfo(
   }
 );
 
-const userInputData = {name: null, profession: null}
-
 //! превью фото
-const handleCardPreview = (data) => {
+const handleCardPreview = (data) => { // метод в Card
  const popup = new PopupWithImage(popupPreview, popupPreviewImg, popupPreviewCaption, data);
  popup.setEventListeners();
  popup.openPopup();
@@ -66,12 +64,9 @@ formList.forEach((formElement) => {
 })
 
 //! открытие попапа-профайла по клику
-function handleProfilePopup () {
-  const userPopup = new PopupWithForm(popupUser, ({nickname, job}) => {
-    userInputData.name = popupUserNameInput.value;
-    userInputData.profession = popupUserJobInput.value;
-
-    userInfo.setUserInfo ({name: nickname, profession:job});
+function handleProfilePopup () {   //submitCallback в PopupWithForm
+  const userPopup = new PopupWithForm(popupUser, ({ nickname, job }) => {
+    userInfo.setUserInfo ({name: nickname, profession: job});
     userPopup.closePopup();
   });
 
@@ -82,11 +77,9 @@ function handleProfilePopup () {
   popupUserJobInput.value = userInfo.getUserInfo().profession;
 }
 
-function handleAddCardPopup (popupCard) {
-  const cardPopup = new PopupWithForm(popupCard, ({description, url}) => {
-    // const inputCardNameValue = popupCardNameInput.value;
-    // const inputCardUrlValue = popupCardUrlInput.value;
-    renderCard({ name: description, link:url });
+function handleAddCardPopup (popupCard) {  //submitCallback в PopupWithForm
+  const cardPopup = new PopupWithForm(popupCard, ({ description, url }) => {
+    renderCard({ name: description, link: url });
     cardPopup.closePopup();
   });
 

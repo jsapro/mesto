@@ -14,6 +14,11 @@ class PopupWithImage extends Popup {
     this._popupPreviewCaption.textContent = this._data.name;
     super.openPopup();
   }
+
+  closePopup () {
+    super.closePopup();
+    this._popupPreviewImg.src = '#'; // убирает мелькание предыдущей картинки перед загрузкой новой
+  }
 }
 
 export default PopupWithImage;
