@@ -13,7 +13,7 @@ export default class Card {
       const newCard = this._template
       .querySelector('.grid-card')
       .cloneNode(true);
-      return newCard; 
+      return newCard;
     }
 
     _setEventListeners (createdCard, cardImage) {
