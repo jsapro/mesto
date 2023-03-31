@@ -15,7 +15,6 @@ class PopupWithForm extends Popup {
     this._inputList.forEach(input => {
       this._dataFromInput[input.name] = input.value;
     })
-    console.log(this._dataFromInput);
     return this._dataFromInput;
   }
 
@@ -28,23 +27,16 @@ class PopupWithForm extends Popup {
     });
   }
 
-
-
-  // setInputValues(data) {
-  //   this._inputList.forEach((input) => {
-  //     // тут вставляем в `value` инпута данные из объекта по атрибуту `name` этого инпута
-  //     input.value = data[input.name];
-  //     console.log(data);
-  //   });
-  // }
-
-
+  setInputValues(data) {
+    this._inputList.forEach((input) => {
+      input.value = data[input.name];
+    });
+  }
 
   closePopup () {
     // Перезаписывает родительский метод
     // при закрытии попапа форма должна ещё и сбрасываться.
     this._submitForm.reset();
-    // this._submitForm.removeEventListener('submit', this._submitCallback);
     super.closePopup();
   }
 }

@@ -30,7 +30,7 @@ const imagePopup = new PopupWithImage('.popup_open-card');
 imagePopup.setEventListeners();
 
 const userPopup = new PopupWithForm('.popup_edit-profile', ({ nickname, job }) => {
-  userInfo.setUserInfo ({name: nickname, profession: job});
+  userInfo.setUserInfo (nickname, job);
   userPopup.closePopup();
 });
 userPopup.setEventListeners();
@@ -56,7 +56,7 @@ const handleCardPreview = (data) => { // метод в Card
   //  setTimeout(popup.closePopup, 7000); // bind(this) in Popup
 }
 
-const section = new Section({data: initialCards, renderer:  renderCard}, 'grid-cards__container');
+const section = new Section({data: initialCards, renderer:  renderCard}, '.grid-cards__container');
 section.renderInitialItems();
 
 function createCard(item) {
@@ -75,9 +75,8 @@ function renderCard (item) { //метод renderer в Section
 function handleProfilePopup () {   //submitCallback в PopupWithForm
   userPopup.openPopup();
   formValidators['profile-form'].removeValidationErrors();
-  const {name, profession} = userInfo.getUserInfo();
-  popupUserNameInput.value = name;
-  popupUserJobInput.value = profession;
+  const userData = userInfo.getUserInfo();
+  userPopup.setInputValues(userData);
 }
 
 function handleAddCardPopup (popupCard) {  //submitCallback в PopupWithForm
