@@ -2,36 +2,34 @@ export default class Card {
     constructor (data, template, handleCardPreview) {
       this._data = data;
       this._name = data.name;
-      // this._name = inputValues.description;
       this._link = data.link;
-      // this._link = inputValues.url;
       this._template = template;
       this._handleCardPreview = handleCardPreview;
+      this._cardElement = this._cloneCardTemplate();
+      this._cardImage = this._cardElement.querySelector('.grid-card__img');
+      this._cardDeleteButton = this._cardElement.querySelector('.grid-card__delete');
+      this._cardLikeButton = this._cardElement.querySelector('.grid-card__like');
     }
 
     _cloneCardTemplate () {
-      const newCard = this._template
+      const cardElement = this._template
       .querySelector('.grid-card')
       .cloneNode(true);
-      return newCard;
+      return cardElement;
     }
 
-    _setEventListeners (createdCard, cardImage) {
-      const cardDeleteButton = createdCard.querySelector('.grid-card__delete')
-      const cardLikeButton = createdCard.querySelector('.grid-card__like');
-      cardDeleteButton.addEventListener('click', () => createdCard.remove());
-      cardLikeButton.addEventListener('click', this._toggleLikeButton);
-      cardImage.addEventListener('click', () => this._handleCardPreview(this._data));
+    _setEventListeners () {
+      this._cardDeleteButton.addEventListener('click', () => this._cardElement.remove());
+      this._cardLikeButton.addEventListener('click', this._toggleLikeButton);
+      this._cardImage.addEventListener('click', () => this._handleCardPreview(this._data));
     }
 
     createCard () {
-        const createdCard = this._cloneCardTemplate();
-        const cardImage = createdCard.querySelector('.grid-card__img');
-        createdCard.querySelector('.grid-card__name').textContent = this._name;
-        cardImage.src = this._link;
-        cardImage.alt = this._name;
-        this._setEventListeners(createdCard, cardImage);
-        return createdCard;
+        this._cardElement.querySelector('.grid-card__name').textContent = this._name;
+        this._cardImage.src = this._link;
+        this._cardImage.alt = this._name;
+        this._setEventListeners();
+        return this._cardElement;
     }
 
     _toggleLikeButton (e) {
