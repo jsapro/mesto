@@ -19,6 +19,9 @@ import UserInfo from '../scripts/components/UserInfo.js';
 
 import './index.css';
 
+// Большое спасибо за обратную связь по работе! Очень помогло лучше понять внутренние взаимосвязи.
+// Буду благодарен, если будут ещё подобные советы/комментарии/замечания!
+
 const userInfo = new UserInfo(
   {
     nameInputSelector: '.profile__name',
