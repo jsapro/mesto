@@ -1,22 +1,10 @@
 import {
-  gridCardsContainer,
   profileEditButton,
   profileAddCardButton,
-  profileNameElement,
-  profileJobElement,
-  popupUser,
-  popupUserForm,
   popupUserNameInput,
   popupUserJobInput,
   popupCard,
-  popupCardForm,
-  popupCardNameInput,
-  popupCardUrlInput,
-  popupPreview,
-  popupPreviewImg,
-  popupPreviewCaption,
   templateCard,
-  popups,
   initialCards,
   formValidationConfig,
 } from './utils/constants.js';
@@ -38,16 +26,16 @@ const userInfo = new UserInfo(
   }
 );
 
-const imagePopup = new PopupWithImage(popupPreview, popupPreviewImg, popupPreviewCaption);
+const imagePopup = new PopupWithImage('.popup_open-card');
 imagePopup.setEventListeners();
 
-const userPopup = new PopupWithForm(popupUser, ({ nickname, job }) => {
+const userPopup = new PopupWithForm('.popup_edit-profile', ({ nickname, job }) => {
   userInfo.setUserInfo ({name: nickname, profession: job});
   userPopup.closePopup();
 });
 userPopup.setEventListeners();
 
-const cardPopup = new PopupWithForm(popupCard, ({ description, url }) => {
+const cardPopup = new PopupWithForm('.popup_add-card', ({ description, url }) => {
   renderCard({ name: description, link: url });
   cardPopup.closePopup();
 });
