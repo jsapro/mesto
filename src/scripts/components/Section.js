@@ -3,7 +3,7 @@ class Section {
     this._initialArray = data;
     this._renderer = renderer;
     this._selector = selector;
-    this._container = document.querySelector('.'+selector);
+    this._container = document.querySelector(selector);
   }
 
   renderInitialItems () {

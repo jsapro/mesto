@@ -7,16 +7,16 @@ class UserInfo {
   getUserInfo () {
     //возвращает объект с данными пользователя. Этот метод пригодится когда данные пользователя нужно будет подставить в форму при открытии.
     const userInputData = {
-      name: this._name.textContent,
-      profession: this._profession.textContent
+      nickname: this._name.textContent,
+      job: this._profession.textContent
     }
     return userInputData;
   }
 
-  setUserInfo ({name, profession}) {
+  setUserInfo (nickname, job) {
     //принимает новые данные пользователя и добавляет их на страницу
-    this._name.textContent = name;
-    this._profession.textContent = profession;
+    this._name.textContent = nickname;
+    this._profession.textContent = job;
   }
 }
 
