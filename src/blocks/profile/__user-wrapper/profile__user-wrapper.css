@@ -5,7 +5,7 @@
   grid-template-areas:
     ". profile__name profile__edit-button"
     ". profile__job .";
-  margin: auto;
+  margin: 24px auto 0;
 }
 
 @media screen and (min-width: 1280px) {

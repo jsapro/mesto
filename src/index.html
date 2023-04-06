@@ -19,7 +19,9 @@
     <main>
 
       <section class="profile" aria-label="редактор профиля">
-        <img class="profile__photo" src="<%=require('./images/profile-cousto.jpg')%>" alt="Жак-Ив Кусто">
+        <button type="button" class="profile__avatar-button">
+          <img class="profile__photo" src="<%=require('./images/profile-cousto.jpg')%>" alt="Аватар проофиля">
+        </button>
         <div class="profile__user-wrapper">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
           <button class="profile__edit-button" type="button"></button>
@@ -123,7 +125,7 @@
     </figure>
 
         <!-- Попап изменения аватара -->
-        <section class="popup popup_avatar-update popup_opened">
+        <section class="popup popup_avatar-update">
           <div class="popup__container">
             <button class="popup__close-btn" type="button"></button>
             <h2 class="popup__header">Обновить аватар</h2>
