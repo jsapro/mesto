@@ -105,11 +105,11 @@
     </section>
 
         <!-- Попап удаления карточки -->
-        <section class="popup popup_delete-card popup_opened">
+        <section class="popup popup_delete-card">
           <div class="popup__container">
             <button class="popup__close-btn" type="button"></button>
             <h2 class="popup__header popup__header_confirm">Вы уверены?</h2>
-            <button type="button" class="popup__submit" form="add-card-form">Да</button>
+            <button type="button" class="popup__submit" form="delete-form">Да</button>
           </div>
         </section>
 
@@ -121,6 +121,27 @@
         <figcaption class="popup__caption"></figcaption>
       </div>
     </figure>
+
+        <!-- Попап изменения аватара -->
+        <section class="popup popup_avatar-update popup_opened">
+          <div class="popup__container">
+            <button class="popup__close-btn" type="button"></button>
+            <h2 class="popup__header">Обновить аватар</h2>
+            <form class="popup__form" id="avatar-form" name="avatar-update-form" novalidate>
+
+              <input
+              id="avatar-url-input"
+              class="popup__input popup__input_type_card-url"
+              type="url"
+              placeholder="Ссылка на аватар"
+              name="url"
+              required>
+
+              <span class="popup__input-error url-input-error"></span>
+              <button class="popup__submit" type="submit" form="avatar-update-form" disabled>Сохранить</button>
+            </form>
+          </div>
+        </section>
 
     <!-- Шаблон карточки -->
     <template class="template-card">
