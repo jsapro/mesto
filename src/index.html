@@ -104,6 +104,15 @@
       </div>
     </section>
 
+        <!-- Попап удаления карточки -->
+        <section class="popup popup_delete-card popup_opened">
+          <div class="popup__container">
+            <button class="popup__close-btn" type="button"></button>
+            <h2 class="popup__header popup__header_confirm">Вы уверены?</h2>
+            <button type="button" class="popup__submit" form="add-card-form">Да</button>
+          </div>
+        </section>
+
     <!-- Попап открытия карточки -->
     <figure class="popup popup_open-card">
       <div class="popup__open-photo">
@@ -122,21 +131,19 @@
         </div>
         <div class="grid-card__caption">
           <h2 class="grid-card__name"></h2>
-          <button class="grid-card__like" type="button"></button>
+          <div class="grid-card__like-wrapper">
+            <button class="grid-card__like" type="button"></button>
+            <span class="grid-card__like-counter">6</span>
+          </div>
         </div>
       </li>
     </template>
-
 
     <footer class="footer">
       <p class="footer__copyright">© 2023 Mesto Russia</p>
     </footer>
   </div>
-  <!-- <script type="module" src="./scripts/index.js"></script> -->
-  <!-- <script type="module" src="./scripts/FormValidator.js"></script>
-  <script type="module" src="./scripts/Card.js"></script>
-  <script type="module" src="./scripts/utils/constants.js"></script>
-  <script type="module" src="./scripts/utils/utils.js"></script> -->
+
 </body>
 
 </html>

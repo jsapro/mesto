@@ -13,9 +13,9 @@
 @import url(../blocks/grid-card/__img/grid-card__img.css);
 @import url(../blocks/grid-card/__like/grid-card__like.css);
 @import url(../blocks/grid-card/__delete/grid-card__delete.css);
-
+@import url(../blocks/grid-card/__like-wrapper/grid-card__like-wrapper.css);
+@import url(../blocks/grid-card/__like-counter/grid-card__like-counter.css);
 @import url(../blocks/grid-card/__like/_active/grid-card__like_active.css);
-
 @import url(../blocks/grid-card/__name/grid-card__name.css);
 
 @import url(../blocks/grid-cards/grid-cards.css);
@@ -30,6 +30,7 @@
 @import url(../blocks/popup/__container/popup__container.css);
 @import url(../blocks/popup/__close-btn/popup__close-btn.css);
 @import url(../blocks/popup/__header/popup__header.css);
+@import url(../blocks/popup/__header/_confirm/popup__header_confirm.css);
 @import url(../blocks/popup/__form/popup__form.css);
 @import url(../blocks/popup/__input/popup__input.css);
 @import url(../blocks/popup/__input/_type/popup__input_type_job.css);

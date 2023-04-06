@@ -5,7 +5,7 @@
   background-position: center;
   border: none;
   background-color: transparent;
-  padding: 15px;
+  padding: 15px 15px 12px 15px;
 }
 
 .grid-card__like:hover {
