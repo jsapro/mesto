@@ -84,4 +84,8 @@
   transition: opacity 0.5s ease-in-out;
 }
 
+.popup__input_type_avatar-url {
+  margin: 0 auto 0;
+}
+
 
