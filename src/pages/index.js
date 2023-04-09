@@ -19,9 +19,6 @@ import UserInfo from '../scripts/components/UserInfo.js';
 
 import './index.css';
 
-// Большое спасибо за обратную связь по работе! Очень помогло лучше понять внутренние взаимосвязи.
-// Буду благодарен, если будут ещё подобные советы/комментарии/замечания!
-
 const userInfo = new UserInfo(
   {
     nameInputSelector: '.profile__name',
@@ -44,19 +41,25 @@ const cardPopup = new PopupWithForm('.popup_add-card', ({ description, url }) =>
 });
 cardPopup.setEventListeners();
 
+const avatarPopup = new PopupWithForm('.popup_avatar-update', ({avatarUrl}) => {
+  document.querySelector('.profile__photo').src = avatarUrl;
+  avatarPopup.closePopup();
+});
+
+avatarPopup.setEventListeners();
+
 const formList = Array.from(document.querySelectorAll(formValidationConfig.formSelector));
 const formValidators = {};
 
 formList.forEach((formElement) => {
-    const formValidator = new FormValidator(formElement, formValidationConfig);
-    formValidators[formElement.name] = formValidator;
-    formValidator.enableValidation();
+  const formValidator = new FormValidator(formElement, formValidationConfig);
+  formValidators[formElement.name] = formValidator;
+  formValidator.enableValidation();
 })
 
 //! превью фото
 const handleCardPreview = (data) => { // метод в Card
   imagePopup.openPopup(data);
-  //  setTimeout(popup.closePopup, 7000); // bind(this) in Popup
 }
 
 const section = new Section({data: initialCards, renderer:  renderCard}, '.grid-cards__container');
@@ -92,3 +95,11 @@ profileEditButton.addEventListener('click', handleProfilePopup);
 profileAddCardButton.addEventListener('click', () => {
   handleAddCardPopup (popupCard)
 })
+
+function handleAvatarPopup () {
+  avatarPopup.openPopup();
+  formValidators['avatar-update-form'].removeValidationErrors();
+}
+
+const profileAvatarButton = document.querySelector('.profile__avatar-button');
+profileAvatarButton.addEventListener('click', handleAvatarPopup);

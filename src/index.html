@@ -19,7 +19,9 @@
     <main>
 
       <section class="profile" aria-label="редактор профиля">
-        <img class="profile__photo" src="<%=require('./images/profile-cousto.jpg')%>" alt="Жак-Ив Кусто">
+        <button type="button" class="profile__avatar-button">
+          <img class="profile__photo" src="<%=require('./images/profile-cousto.jpg')%>" alt="Аватар проофиля">
+        </button>
         <div class="profile__user-wrapper">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
           <button class="profile__edit-button" type="button"></button>
@@ -67,6 +69,7 @@
 
           <span class="popup__input-error job-input-error"></span>
           <button class="popup__submit" type="submit" form="login-form" disabled>Сохранить</button>
+
         </form>
       </div>
     </section>
@@ -104,6 +107,15 @@
       </div>
     </section>
 
+        <!-- Попап удаления карточки -->
+        <section class="popup popup_delete-card">
+          <div class="popup__container">
+            <button class="popup__close-btn" type="button"></button>
+            <h2 class="popup__header popup__header_confirm">Вы уверены?</h2>
+            <button type="button" class="popup__submit" form="delete-form">Да</button>
+          </div>
+        </section>
+
     <!-- Попап открытия карточки -->
     <figure class="popup popup_open-card">
       <div class="popup__open-photo">
@@ -112,6 +124,27 @@
         <figcaption class="popup__caption"></figcaption>
       </div>
     </figure>
+
+        <!-- Попап изменения аватара -->
+        <section class="popup popup_avatar-update">
+          <div class="popup__container">
+            <button class="popup__close-btn" type="button"></button>
+            <h2 class="popup__header">Обновить аватар</h2>
+            <form class="popup__form" id="avatar-form" name="avatar-update-form" novalidate>
+
+              <input
+              id="avatar-url-input"
+              class="popup__input popup__input_type_avatar-url"
+              type="url"
+              placeholder="Ссылка на аватар"
+              name="avatarUrl"
+              required>
+
+              <span class="popup__input-error avatar-url-input-error"></span>
+              <button class="popup__submit" type="submit" form="avatar-form" disabled>Сохранить</button>
+            </form>
+          </div>
+        </section>
 
     <!-- Шаблон карточки -->
     <template class="template-card">
@@ -122,21 +155,19 @@
         </div>
         <div class="grid-card__caption">
           <h2 class="grid-card__name"></h2>
-          <button class="grid-card__like" type="button"></button>
+          <div class="grid-card__like-wrapper">
+            <button class="grid-card__like" type="button"></button>
+            <span class="grid-card__like-counter">6</span>
+          </div>
         </div>
       </li>
     </template>
-
 
     <footer class="footer">
       <p class="footer__copyright">© 2023 Mesto Russia</p>
     </footer>
   </div>
-  <!-- <script type="module" src="./scripts/index.js"></script> -->
-  <!-- <script type="module" src="./scripts/FormValidator.js"></script>
-  <script type="module" src="./scripts/Card.js"></script>
-  <script type="module" src="./scripts/utils/constants.js"></script>
-  <script type="module" src="./scripts/utils/utils.js"></script> -->
+
 </body>
 
 </html>

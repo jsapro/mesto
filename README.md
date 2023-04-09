@@ -2,7 +2,7 @@
 
 <br/>
 
-<img align="right" src="./images/grid-card-heart.svg" alt="иконка сердца" height="200" width="200">
+<img align="right" src="./src/images/grid-card-heart.svg" alt="иконка сердца" height="200" width="200">
 
 <br/>
 
