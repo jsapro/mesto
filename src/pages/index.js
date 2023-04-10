@@ -16,6 +16,7 @@ import Popup from '../scripts/components/Popup.js';
 import PopupWithForm from '../scripts/components/PopupWithForm.js';
 import PopupWithImage from '../scripts/components/PopupWithImage.js';
 import UserInfo from '../scripts/components/UserInfo.js';
+import Api from '../scripts/components/Api.js';
 
 import './index.css';
 
@@ -103,3 +104,8 @@ function handleAvatarPopup () {
 
 const profileAvatarButton = document.querySelector('.profile__avatar-button');
 profileAvatarButton.addEventListener('click', handleAvatarPopup);
+
+
+const api = new Api();
+
+api.getInitialCards();
