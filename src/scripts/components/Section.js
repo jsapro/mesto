@@ -6,8 +6,8 @@ class Section {
     this._container = document.querySelector(selector);
   }
 
-  renderInitialItems (fetchArray) {
-    fetchArray.forEach(item => this._renderer(item))
+  renderInitialItems (serverArray) {
+    serverArray.forEach(item => this._renderer(item))
   }
 
   addItem (element) {

@@ -65,8 +65,28 @@ const handleCardPreview = (data) => { // метод в Card
 
 const section = new Section({renderer:  renderCard}, '.grid-cards__container');
 
+// const handleDeleteClick = (id) => {
+//   api.deleteCard(id)
+//   .then(res => {
+//     console.log(55, res);
+//     card.deleteCard();
+//   })
+// };
+const handleLikeClick = () => {};
+
 function createCard(item) {
-  const card = new Card(item, templateCard, handleCardPreview);
+  const card = new Card({data: item,
+    template: templateCard,
+    handleCardPreview: handleCardPreview,
+    handleDeleteClick: (id) => {
+      api.deleteCard(id)
+      .then(res => {
+        console.log(55, res);
+        card.deleteCard();
+      })
+      .catch(err => console.log(778, err))
+    },
+    handleLikeClick});
   const cardElement = card.createCard();
   return cardElement;
 }
@@ -111,6 +131,8 @@ api.getInitialCards()
 .then(res => {
   res.forEach(card => console.log(card.name))
   section.renderInitialItems(res);
-
 });
+
+// api.deleteCard()
+// .then()
 
