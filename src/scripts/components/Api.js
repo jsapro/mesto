@@ -11,18 +11,19 @@ export default class Api {
         }
     })
     .then(res => {
-        if (res.ok) {
-            console.log(res)
-            return res.json();
-        }
-        // return new Error('errrrr')
-        return Promise.reject(`Ошибка: ${res.status}`);
+      return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)
+        // if (res.ok) {
+        //     // console.log(res)
+        //     return res.json();
+        // }
+        // // return new Error('errrrr')
+        // return Promise.reject(`Ошибка: ${res.status}`);
     })
-    .then(cards => {
-      console.log('cards', cards)
-      cards.forEach(card => console.log(card.owner.name))
-    })
-    .catch(err => console.log(err));
+    // .then(cards => {
+    //   // console.log('cards', cards);
+    //   // cards.forEach(card => console.log(card.name, card.link))
+    // })
+    // .catch(err => console.log(err));
   }
 
 

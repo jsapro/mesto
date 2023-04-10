@@ -63,8 +63,7 @@ const handleCardPreview = (data) => { // метод в Card
   imagePopup.openPopup(data);
 }
 
-const section = new Section({data: initialCards, renderer:  renderCard}, '.grid-cards__container');
-section.renderInitialItems();
+const section = new Section({renderer:  renderCard}, '.grid-cards__container');
 
 function createCard(item) {
   const card = new Card(item, templateCard, handleCardPreview);
@@ -108,4 +107,10 @@ profileAvatarButton.addEventListener('click', handleAvatarPopup);
 
 const api = new Api();
 
-api.getInitialCards();
+api.getInitialCards()
+.then(res => {
+  res.forEach(card => console.log(card.name))
+  section.renderInitialItems(res);
+
+});
+
