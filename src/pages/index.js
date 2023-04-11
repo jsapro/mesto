@@ -37,7 +37,12 @@ const userPopup = new PopupWithForm('.popup_edit-profile', ({ nickname, job }) =
 userPopup.setEventListeners();
 
 const cardPopup = new PopupWithForm('.popup_add-card', ({ description, url }) => {
-  renderCard({ name: description, link: url });
+  api.postCard({name: description, link: url})
+  .then(res => {
+    console.log(11111, res)
+    renderCard({ name: res.name, link: res.link });
+  })
+  .catch(err => console.log('cought-err-on-post//', err))
   cardPopup.closePopup();
 });
 cardPopup.setEventListeners();
@@ -78,13 +83,13 @@ function createCard(item) {
   const card = new Card({data: item,
     template: templateCard,
     handleCardPreview: handleCardPreview,
-    handleDeleteClick: (id) => {
-      api.deleteCard(id)
+    handleDeleteClick: () => {
+      api.deleteCard(card.getId())
       .then(res => {
-        console.log(55, res);
+        console.log('card deleted', res);
         card.deleteCard();
       })
-      .catch(err => console.log(778, err))
+      .catch(err => console.log('cought-error-on-delete//', err))
     },
     handleLikeClick});
   const cardElement = card.createCard();

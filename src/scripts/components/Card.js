@@ -25,10 +25,13 @@ export default class Card {
       this._cardElement.remove();
      }
 
+    getId () {
+      return this._id;
+    }
+
     _setEventListeners () {
-      this._cardDeleteButton.addEventListener('click', () => {
-        this._handleDeleteClick(this._id);
-      } );
+      // this._cardDeleteButton.addEventListener('click', () => this._handleDeleteClick(this._id));
+      this._cardDeleteButton.addEventListener('click', this._handleDeleteClick);
       this._cardLikeButton.addEventListener('click', this._toggleLikeButton);
       this._cardImage.addEventListener('click', () => this._handleCardPreview(this._data));
     }

@@ -7,7 +7,7 @@ class Section {
   }
 
   renderInitialItems (serverArray) {
-    serverArray.forEach(item => this._renderer(item))
+    serverArray.reverse().forEach(item => this._renderer(item))
   }
 
   addItem (element) {
