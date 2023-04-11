@@ -1,4 +1,4 @@
-export default class Api {
+class Api {
   constructor (options) {
 
   }
@@ -26,7 +26,7 @@ export default class Api {
   }
 
   deleteCard(id) {
-    console.log(id)
+    console.log('id-удаляемой карточки', id)
     return fetch(`https://mesto.nomoreparties.co/v1/cohort-64/cards/${id}`, {
         method: 'DELETE',
         headers: {
@@ -54,6 +54,6 @@ export default class Api {
   }
 }
 
-
+export const api = new Api();
 
 //

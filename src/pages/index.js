@@ -15,8 +15,9 @@ import Section from '../scripts/components/Section.js';
 import Popup from '../scripts/components/Popup.js';
 import PopupWithForm from '../scripts/components/PopupWithForm.js';
 import PopupWithImage from '../scripts/components/PopupWithImage.js';
+import PopupWithSubmit from '../scripts/components/PopupWithSubmit.js';
 import UserInfo from '../scripts/components/UserInfo.js';
-import Api from '../scripts/components/Api.js';
+import {api} from '../scripts/components/Api.js';
 
 import './index.css';
 
@@ -26,6 +27,20 @@ const userInfo = new UserInfo(
     professionInputSelector: '.profile__job'
   }
 );
+
+const popupWithSubmit = new PopupWithSubmit('.popup_delete-card', (card) => {
+  console.log('идёт подтверждение удаления');
+  api.deleteCard(card.getId())
+  .then(res => {
+    console.log('удаление карты подтверждено сервером', res);
+    card.deleteCard();
+    popupWithSubmit.closePopup();
+  })
+  .catch(err => console.log('cought-error-on-delete//', err))
+
+});
+popupWithSubmit.setEventListeners();
+
 
 const imagePopup = new PopupWithImage('.popup_open-card');
 imagePopup.setEventListeners();
@@ -37,13 +52,18 @@ const userPopup = new PopupWithForm('.popup_edit-profile', ({ nickname, job }) =
 userPopup.setEventListeners();
 
 const cardPopup = new PopupWithForm('.popup_add-card', ({ description, url }) => {
+  cardPopup.setButtonText('Загрузка...');
   api.postCard({name: description, link: url})
   .then(res => {
-    console.log(11111, res)
-    renderCard({ name: res.name, link: res.link });
+    console.log('postCard-ответ-сервера: ', res)
+    renderCard({ name: res.name, link: res.link, _id: res._id, likes: res.likes, owner: res.owner });
+    console.log('renderCard _id с сервера: ', res._id);
   })
   .catch(err => console.log('cought-err-on-post//', err))
-  cardPopup.closePopup();
+  .finally(() =>{
+    cardPopup.closePopup();
+    cardPopup.setButtonText('Сохранить');
+  })
 });
 cardPopup.setEventListeners();
 
@@ -79,17 +99,21 @@ const section = new Section({renderer:  renderCard}, '.grid-cards__container');
 // };
 const handleLikeClick = () => {};
 
+// const deleteSubmitPopup = document.querySelector('.popup_delete-card');
+
 function createCard(item) {
   const card = new Card({data: item,
     template: templateCard,
     handleCardPreview: handleCardPreview,
     handleDeleteClick: () => {
-      api.deleteCard(card.getId())
-      .then(res => {
-        console.log('card deleted', res);
-        card.deleteCard();
-      })
-      .catch(err => console.log('cought-error-on-delete//', err))
+      popupWithSubmit.openPopup();
+      popupWithSubmit.setCardToDelete(card);
+      // api.deleteCard(card.getId())
+      // .then(res => {
+      //   console.log('card deleted', res);
+      //   card.deleteCard();
+      // })
+      // .catch(err => console.log('cought-error-on-delete//', err))
     },
     handleLikeClick});
   const cardElement = card.createCard();
@@ -130,11 +154,11 @@ const profileAvatarButton = document.querySelector('.profile__avatar-button');
 profileAvatarButton.addEventListener('click', handleAvatarPopup);
 
 
-const api = new Api();
+
 
 api.getInitialCards()
 .then(res => {
-  res.forEach(card => console.log(card.name))
+  res.forEach(card => console.log('initialCards-с-сервера: ', card.name))
   section.renderInitialItems(res);
 });
 
