@@ -1,5 +1,5 @@
 class UserInfo {
-  constructor ({nameInputSelector, professionInputSelector}) {
+  constructor ({nameInputSelector, professionInputSelector}, api) {
     this._name = document.querySelector(nameInputSelector);
     this._profession = document.querySelector(professionInputSelector);
   }

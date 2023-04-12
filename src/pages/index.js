@@ -1,6 +1,8 @@
 import {
   profileEditButton,
   profileAddCardButton,
+  profileNameElement,
+  profileJobElement,
   popupUserNameInput,
   popupUserJobInput,
   popupCard,
@@ -17,22 +19,25 @@ import PopupWithForm from '../scripts/components/PopupWithForm.js';
 import PopupWithImage from '../scripts/components/PopupWithImage.js';
 import PopupWithSubmit from '../scripts/components/PopupWithSubmit.js';
 import UserInfo from '../scripts/components/UserInfo.js';
-import {api} from '../scripts/components/Api.js';
+import Api from '../scripts/components/Api.js';
 
 import './index.css';
+
+const api = new Api();
 
 const userInfo = new UserInfo(
   {
     nameInputSelector: '.profile__name',
     professionInputSelector: '.profile__job'
-  }
+  },
+  api
 );
 
 const popupWithSubmit = new PopupWithSubmit('.popup_delete-card', (card) => {
   console.log('идёт подтверждение удаления');
   api.deleteCard(card.getId())
   .then(res => {
-    console.log('удаление карты подтверждено сервером', res);
+    console.log('ответ сервера на удаление: ', res);
     card.deleteCard();
     popupWithSubmit.closePopup();
   })
@@ -47,6 +52,13 @@ imagePopup.setEventListeners();
 
 const userPopup = new PopupWithForm('.popup_edit-profile', ({ nickname, job }) => {
   userInfo.setUserInfo (nickname, job);
+  api.setUserInfo(nickname, job)
+  .then(res => {
+  console.log('setUserInfo', res);
+  // profileNameElement.textContent = res.name;
+  // profileJobElement.textContent = res.about;
+})
+.catch(err => console.log('setUserInfo', err))
   userPopup.closePopup();
 });
 userPopup.setEventListeners();
@@ -158,9 +170,29 @@ profileAvatarButton.addEventListener('click', handleAvatarPopup);
 
 api.getInitialCards()
 .then(res => {
-  res.forEach(card => console.log('initialCards-с-сервера: ', card.name))
+  console.groupCollapsed(res);
+  res.forEach(card => console.log('initialCards-с-сервера: ', card.name, 1, card.owner.name, 1, card.owner.about))
+  console.groupEnd();
   section.renderInitialItems(res);
-});
+})
+.catch(err => console.log('getInitialCards', err))
+
+
+// api.setUserInfo(profileNameElement, profileJobElement)
+// .then(res => {
+//   console.log('setUserInfo', res);
+//   // profileNameElement.textContent = res.name;
+//   // profileJobElement.textContent = res.about;
+// })
+// .catch(err => console.log('setUserInfo', err))
+
+api.getUserInfo()
+.then(res => {
+  console.log('getUserInfo', res);
+  profileNameElement.textContent = res.name;
+  profileJobElement.textContent = res.about;
+})
+.catch(err => console.log('getUserInfo', err));
 
 // api.deleteCard()
 // .then()
