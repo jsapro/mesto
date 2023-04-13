@@ -79,8 +79,13 @@ const cardPopup = new PopupWithForm('.popup_add-card', ({ description, url }) =>
 });
 cardPopup.setEventListeners();
 
-const avatarPopup = new PopupWithForm('.popup_avatar-update', ({avatarUrl}) => {
-  document.querySelector('.profile__photo').src = avatarUrl;
+const avatarPopup = new PopupWithForm('.popup_avatar-update', ({avatarUrl: avatarUrlFromInput}) => {
+  api.setUserAvatar(avatarUrlFromInput)
+  .then(res => console.log('setUserAvatar', res))
+  .then(() => {
+    document.querySelector('.profile__photo').src = avatarUrlFromInput;
+  })
+  .catch(err => console.log('setUserAvatar', err))
   avatarPopup.closePopup();
 });
 
@@ -186,13 +191,21 @@ api.getInitialCards()
 // })
 // .catch(err => console.log('setUserInfo', err))
 
-api.getUserInfo()
-.then(res => {
-  console.log('getUserInfo', res);
+function setInitialUser (res) {
   profileNameElement.textContent = res.name;
   profileJobElement.textContent = res.about;
+  document.querySelector('.profile__photo').src = res.avatar;
+
+}
+
+api.getUserInfoFromServer()
+.then(res => {
+  console.log('getUserInfoFromServer', res);
+  setInitialUser(res);
 })
-.catch(err => console.log('getUserInfo', err));
+.catch(err => console.log('getUserInfoFromServer', err));
+
+
 
 // api.deleteCard()
 // .then()

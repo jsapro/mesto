@@ -73,7 +73,7 @@ export default class Api {
     .catch(err => console.log(err));
   }
 
-  getUserInfo () {
+  getUserInfoFromServer () {
     return fetch(`https://mesto.nomoreparties.co/v1/cohort-64/users/me`, {
       method: 'GET',
       headers: {
@@ -82,8 +82,26 @@ export default class Api {
       }
     })
     .then(res => {
-      return res.ok ? res.json() : Promise.reject(`Ошибка-getUserInfo: ${res}`)
+      return res.ok ? res.json() : Promise.reject(`Ошибка-getUserInfoFromServer: ${res}`)
     })
     .catch(err => console.log(err));
   }
+
+  setUserAvatar (avatarUrl) {
+    return fetch(`https://mesto.nomoreparties.co/v1/cohort-64/users/me/avatar`, {
+      method: 'PATCH',
+      headers: {
+          authorization: '7b039d36-24df-4fc5-8845-0a44a0767175',
+          'content-type': 'application/json'
+      },
+      body: JSON.stringify({
+        avatar: avatarUrl
+      })
+    })
+    .then(res => {
+      return res.ok ? res.json() : Promise.reject(`Ошибка-setUserInfo: ${res}`)
+    })
+    .catch(err => console.log(err));
+  }
+
 }
