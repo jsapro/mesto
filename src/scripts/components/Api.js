@@ -99,7 +99,35 @@ export default class Api {
       })
     })
     .then(res => {
-      return res.ok ? res.json() : Promise.reject(`Ошибка-setUserInfo: ${res}`)
+      return res.ok ? res.json() : Promise.reject(`Ошибка-setUserAvatar: ${res}`)
+    })
+    .catch(err => console.log(err));
+  }
+
+  setLike (id) {
+    return fetch(`https://mesto.nomoreparties.co/v1/cohort-64/cards/${id}/likes`, {
+      method: 'PUT',
+      headers: {
+          authorization: '7b039d36-24df-4fc5-8845-0a44a0767175',
+          'content-type': 'application/json'
+      },
+    })
+    .then(res => {
+      return res.ok ? res.json() : Promise.reject(`Ошибка-setLike: ${res}`)
+    })
+    .catch(err => console.log(err));
+  }
+
+  deleteLike (id) {
+    return fetch(`https://mesto.nomoreparties.co/v1/cohort-64/cards/${id}/likes`, {
+      method: 'DELETE',
+      headers: {
+          authorization: '7b039d36-24df-4fc5-8845-0a44a0767175',
+          'content-type': 'application/json'
+      },
+    })
+    .then(res => {
+      return res.ok ? res.json() : Promise.reject(`Ошибка-deleteLike: ${res}`)
     })
     .catch(err => console.log(err));
   }
