@@ -4,6 +4,7 @@ class PopupWithForm extends Popup {
   constructor (popupSelector, submitCallback) {
     super(popupSelector)
     this._submitForm = this._popup.querySelector('.popup__form');
+    this._submitButton = this._submitForm.querySelector('.popup__submit');
     this._submitCallback = submitCallback.bind(this);
     this._inputList = Array.from(this._submitForm.querySelectorAll('.popup__input'));
   }
@@ -17,10 +18,12 @@ class PopupWithForm extends Popup {
     return this._dataFromInput;
   }
 
+  setButtonText(text) {
+    this._submitButton.textContent = text;
+  }
+
   setEventListeners () {
-    // Перезаписывает родительский метод
     super.setEventListeners();
-    // должен не только добавлять обработчик клика иконке закрытия, но и добавлять обработчик сабмита формы.
     this._submitForm.addEventListener('submit', () => {
       this._submitCallback(this._getInputValues());
     });
@@ -33,8 +36,6 @@ class PopupWithForm extends Popup {
   }
 
   closePopup () {
-    // Перезаписывает родительский метод
-    // при закрытии попапа форма должна ещё и сбрасываться.
     this._submitForm.reset();
     super.closePopup();
   }

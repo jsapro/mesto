@@ -1,13 +1,13 @@
 class Section {
-  constructor ({data, renderer}, selector) {
-    this._initialArray = data;
+  constructor ({ renderer}, selector) {
+    // this._initialArray = data;
     this._renderer = renderer;
     this._selector = selector;
     this._container = document.querySelector(selector);
   }
 
-  renderInitialItems () {
-    this._initialArray.forEach(item => this._renderer(item))
+  renderInitialItems (serverArray) {
+    serverArray.reverse().forEach(item => this._renderer(item))
   }
 
   addItem (element) {

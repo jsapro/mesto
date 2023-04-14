@@ -36,6 +36,7 @@
 @import url(../blocks/popup/__input/_type/popup__input_type_job.css);
 @import url(../blocks/popup/__input/_type/popup__input_type_name.css);
 @import url(../blocks/popup/__input/_type/popup__input_type_error.css);
+@import url(../blocks/popup/__input/_type/popup__input_type_avatar-url.css);
 @import url(../blocks/popup/__input-error/popup__input-error.css);
 @import url(../blocks/popup/__input-error/_active/popup__input-error_active.css);
 @import url(../blocks/popup/__submit/popup__submit.css);
@@ -53,39 +54,4 @@
 @import url(../blocks/profile/__job/profile__job.css);
 @import url(../blocks/profile/__name/profile__name.css);
 @import url(../blocks/profile/__photo/profile__photo.css);
-
-
-.profile__avatar-button {
-  padding: 0;
-  background: transparent;
-  border: none;
-  background-size: 26px;
-  position: relative;
-  cursor: pointer;
-}
-
-.profile__avatar-button::before {
-  content: "";
-  background-image: url('../images/profile-edit-button.svg');
-  background-color: rgba(0, 0, 0, 0.8);
-  background-repeat: no-repeat;
-  background-position: center;
-  left: 0;
-  top: 0;
-  width: 120px;
-  height:120px;
-  position: absolute;
-  background-size: 26px;
-  opacity: 0;
-}
-
-.profile__avatar-button:hover::before {
-  opacity: 1;
-  transition: opacity 0.5s ease-in-out;
-}
-
-.popup__input_type_avatar-url {
-  margin: 0 auto 0;
-}
-
-
+@import url(../blocks/profile/__avatar-button/profile__avatar-button.css);
