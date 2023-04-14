@@ -21,7 +21,6 @@ class UserInfo {
     this._profession.textContent = data.about;
     this._avatar = data.avatar;
     this._myId = data._id;
-    console.log('userInfo.setUserInfo: ', data)
   }
 }
 

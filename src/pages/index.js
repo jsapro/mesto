@@ -57,8 +57,6 @@ const userPopup = new PopupWithForm(
       .then((res) => {
         console.log("setUserInfo", res);
         userInfo.setUserInfo({ name: nickname, about: job });
-        // profileNameElement.textContent = res.name;
-        // profileJobElement.textContent = res.about;
       })
       .catch((err) => console.log("setUserInfo", err));
     userPopup.closePopup();
@@ -127,38 +125,8 @@ const handleCardPreview = (data) => {
 
 const section = new Section({ renderer: renderCard }, ".grid-cards__container");
 
-// const handleDeleteClick = (id) => {
-//   api.deleteCard(id)
-//   .then(res => {
-//     console.log(55, res);
-//     card.deleteCard();
-//   })
-// };
-// const handleLikeClick = (cardId, cardLikeCounterElement, hasMyLike) => {
-//   console.log("cardId----:", cardId);
-//   console.log("hasMyLike----:", hasMyLike);
-//   if (hasMyLike) {
-//     api
-//       .deleteLike(cardId)
-//       .then((res) => {
-//         console.log(111111111, res);
-//         cardLikeCounterElement.textContent = res.likes.length;
-//         card.setMyLike(!hasMyLike);
-//       })
-//       .catch((err) => console.log("handleLikeClick-DELETE", err));
-//   } else {
-//     api
-//       .setLike(cardId)
-//       .then((res) => {
-//         console.log(res.likes.length);
-//         cardLikeCounterElement.textContent = res.likes.length;
-//       })
-//       .catch((err) => console.log("handleLikeClick-PUT", err));
-//   }
-// };
+let myId = null;
 
-// const deleteSubmitPopup = document.querySelector('.popup_delete-card');
-let myId;
 function createCard(item) {
   const card = new Card({
     data: item,
@@ -167,28 +135,17 @@ function createCard(item) {
     handleDeleteClick: () => {
       popupWithSubmit.openPopup();
       popupWithSubmit.setCardToDelete(card);
-      // api.deleteCard(card.getId())
-      // .then(res => {
-      //   console.log('card deleted', res);
-      //   card.deleteCard();
-      // })
-      // .catch(err => console.log('cought-error-on-delete//', err))
     },
     handleLikeClick: (cardId, cardLikeCounterElement, hasMyLike) => {
-      // console.log(card._isCardLiked(), 'card._isCardLiked()');
-      // console.log("cardId----:", cardId);
-      // console.log("hasMyLike----:", hasMyLike);
       if (hasMyLike) {
         api
           .deleteLike(cardId)
           .then((res) => {
             // console.log(111111111, res);
             console.log(res.likes.length);
-            card.setLikesCount (res.likes);
-            card.updateLikeArray (res.likes);
+            card.setLikesCount(res.likes);
+            card.updateLikeArray(res.likes);
             card.deleteLike();
-            // cardLikeCounterElement.textContent = res.likes.length;
-            // card.setMyLike(!hasMyLike);
           })
           .catch((err) => console.log("handleLikeClick-DELETE", err));
       } else {
@@ -196,10 +153,9 @@ function createCard(item) {
           .setLike(cardId)
           .then((res) => {
             console.log(res.likes.length);
-            card.setLikesCount (res.likes);
-            card.updateLikeArray (res.likes);
+            card.setLikesCount(res.likes);
+            card.updateLikeArray(res.likes);
             card.setLike();
-            // cardLikeCounterElement.textContent = res.likes.length;
           })
           .catch((err) => console.log("handleLikeClick-PUT", err));
       }
@@ -246,37 +202,10 @@ function handleAvatarPopup() {
 const profileAvatarButton = document.querySelector(".profile__avatar-button");
 profileAvatarButton.addEventListener("click", handleAvatarPopup);
 
-// api.getInitialCards()
-// .then(res => {
-//   console.groupCollapsed(res);
-//   res.forEach(card => console.log('initialCards-с-сервера: ', card.name, 1, card.owner.name, 1, card.owner.about))
-//   console.groupEnd();
-//   section.renderInitialItems(res);
-// })
-// .catch(err => console.log('getInitialCards', err))
-
-// api.setUserInfo(profileNameElement, profileJobElement)
-// .then(res => {
-//   console.log('setUserInfo', res);
-//   // profileNameElement.textContent = res.name;
-//   // profileJobElement.textContent = res.about;
-// })
-// .catch(err => console.log('setUserInfo', err))
-
 function setInitialUser(res) {
-  // profileNameElement.textContent = res.name;
-  // profileJobElement.textContent = res.about;
   userInfo.setUserInfo(res);
   document.querySelector(".profile__photo").src = res.avatar;
 }
-
-// api.getUserInfoFromServer()
-// .then(res => {
-//   console.log('getUserInfoFromServer', res);
-//   setInitialUser(res);
-//   console.log(333333, userInfo.getUserInfo());
-// })
-// .catch(err => console.log('getUserInfoFromServer', err));
 
 Promise.all([api.getUserInfoFromServer(), api.getInitialCards()])
   .then((res) => {
@@ -284,25 +213,8 @@ Promise.all([api.getUserInfoFromServer(), api.getInitialCards()])
     console.log(res[0]._id);
     myId = res[0]._id;
 
-    // console.log("getUserInfoFromServer", res[0]);
     setInitialUser(res[0]);
-    console.log(333333, userInfo.getUserInfo());
 
-    console.groupCollapsed(res[1]);
-    res[1].forEach((card) =>
-      console.log(
-        "initialCards-с-сервера: ",
-        card.name,
-        1,
-        card.owner.name,
-        1,
-        card.owner.about
-      )
-    );
-    console.groupEnd();
     section.renderInitialItems(res[1]);
   })
   .catch((err) => console.log("Promise.all: ", err));
-
-// api.deleteCard()
-// .then()

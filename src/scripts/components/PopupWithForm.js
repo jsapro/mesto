@@ -23,9 +23,7 @@ class PopupWithForm extends Popup {
   }
 
   setEventListeners () {
-    // Перезаписывает родительский метод
     super.setEventListeners();
-    // должен не только добавлять обработчик клика иконке закрытия, но и добавлять обработчик сабмита формы.
     this._submitForm.addEventListener('submit', () => {
       this._submitCallback(this._getInputValues());
     });
@@ -38,8 +36,6 @@ class PopupWithForm extends Popup {
   }
 
   closePopup () {
-    // Перезаписывает родительский метод
-    // при закрытии попапа форма должна ещё и сбрасываться.
     this._submitForm.reset();
     super.closePopup();
   }
