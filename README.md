@@ -17,7 +17,12 @@
 Mesto: интерактивная страница, куда можно добавлять фотографии, удалять их и ставить лайки.
 
 ## В процессе работы изучаются следующие темы:
-- :wink:Основы Javascript
+- :wink:Javascript
+- :wink:Валидация форм
+- :wink:ООП
+- :wink:Модули в JS
+- :wink:WebPack
+- :wink:fetch/ajax
 - :wink:Отзывчивая вёрстка (адаптивная + резиновая)
 - :wink:Медиазапросы
 - :wink:Работа с макетом в Figma ([Ссылка на макет в Figma](https://www.figma.com/file/2cn9N9jSkmxD84oJik7xL7/JavaScript.-Sprint-4?node-id=0%3A1))

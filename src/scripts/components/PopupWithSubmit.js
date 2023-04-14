@@ -19,6 +19,10 @@ export default class PopupWithSubmit extends Popup {
   setCardToDelete (card) {
     this.card = card;
   }
+
+  setButtonText(text) {
+    this._submitButton.textContent = text;
+  }
 }
 
 //

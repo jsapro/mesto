@@ -48,7 +48,6 @@ export default class Card {
     this._cardLikeButton.addEventListener("click", () => {
       this._handleLikeClick(
         this.getCardId(),
-        this._cardLikeCounter,
         this._isCardLiked()
       );
     });
