@@ -1,7 +1,8 @@
 class UserInfo {
-  constructor ({nameInputSelector, professionInputSelector}) {
+  constructor ({nameInputSelector, professionInputSelector, avatarSelector}) {
     this._name = document.querySelector(nameInputSelector);
     this._profession = document.querySelector(professionInputSelector);
+    this._avatar = document.querySelector(avatarSelector);
   }
 
   getUserInfo () {
@@ -15,12 +16,12 @@ class UserInfo {
     return userInputData;
   }
 
-  setUserInfo (data) {
+  setUserInfo ( { name, about, avatar, _id } ) {
     //принимает новые данные пользователя и добавляет их на страницу
-    this._name.textContent = data.name;
-    this._profession.textContent = data.about;
-    this._avatar = data.avatar;
-    this._myId = data._id;
+    this._name.textContent = name;
+    this._profession.textContent = about;
+    this._avatar.src = avatar;
+    this._myId = _id;
   }
 }
 

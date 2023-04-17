@@ -1,22 +1,20 @@
 import Popup from './Popup.js'
 
 export default class PopupWithSubmit extends Popup {
-  constructor (popupSelector, submitCallback) {
+  constructor(popupSelector, confirmCallback) {
     super(popupSelector);
-    this._popup = document.querySelector(popupSelector);
     this._submitButton = this._popup.querySelector('.popup__submit')
-    console.log(this._submitButton);
-    this._submitCallback = submitCallback;
+    this._confirmCallback = confirmCallback;
   }
 
-  setEventListeners () {
+  setEventListeners() {
     super.setEventListeners();
     this._submitButton.addEventListener('click', () => {
-      this._submitCallback(this.card);
+      this._confirmCallback(this.card);
     });
   }
 
-  setCardToDelete (card) {
+  setCardToDelete(card) {
     this.card = card;
   }
 
@@ -24,5 +22,3 @@ export default class PopupWithSubmit extends Popup {
     this._submitButton.textContent = text;
   }
 }
-
-//
