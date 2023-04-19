@@ -1,5 +1,5 @@
 export default class Api {
-  constructor({baseUrl, headers}) {
+  constructor({ baseUrl, headers }) {
     this._baseUrl = baseUrl;
     this._headers = headers;
   }
@@ -10,68 +10,73 @@ export default class Api {
     }
     return Promise.reject(`Ошибка ${res.status}`);
   }
+  // возможно надо как-то уменьшить дублирование headers
+  _request(endPoint, options) {
+    return fetch(`${this._baseUrl}/${endPoint}`, options).then(
+      this._checkResponse
+    );
+  }
 
   getInitialCards() {
-    return fetch(`${this._baseUrl}/cards`, {
+    return this._request(`cards`, {
       headers: this._headers,
-    }).then(this._checkResponse);
+    });
   }
 
   deleteCard(id) {
-    console.log("id-удаляемой карточки", id);
-    return fetch(`${this._baseUrl}/cards/${id}`, {
+    return this._request(`cards/${id}`, {
       method: "DELETE",
       headers: this._headers,
-    }).then(this._checkResponse);
+    });
   }
 
   postCard({ name, link }) {
-    return fetch(`${this._baseUrl}/cards/`, {
+    return this._request(`cards/`, {
       method: "POST",
       headers: this._headers,
       body: JSON.stringify({ name: name, link: link }),
-    }).then(this._checkResponse);
+    });
   }
 
   setUserInfo(nickname, job) {
-    return fetch(`${this._baseUrl}/users/me`, {
+    return this._request(`users/me`, {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
         name: nickname,
         about: job,
       }),
-    }).then(this._checkResponse);
+    });
   }
 
   getUserInfoFromServer() {
-    return fetch(`${this._baseUrl}/users/me`, {
+    return this._request(`users/me`, {
       method: "GET",
       headers: this._headers,
-    }).then(this._checkResponse);
+    });
   }
 
   setUserAvatar(avatarUrl) {
-    return fetch(`${this._baseUrl}/users/me/avatar`, {
+    return this._request(`users/me/avatar`, {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
         avatar: avatarUrl,
       }),
-    }).then(this._checkResponse);
+    });
   }
 
   setLike(id) {
-    return fetch(`${this._baseUrl}/cards/${id}/likes`, {
+    return this._request(`cards/${id}/likes`, {
       method: "PUT",
       headers: this._headers,
-    }).then(this._checkResponse);
+    });
   }
 
   deleteLike(id) {
-    return fetch(`${this._baseUrl}/cards/${id}/likes`, {
+    return this._request(`cards/${id}/likes`, {
       method: "DELETE",
       headers: this._headers,
-    }).then(this._checkResponse);
+    });
   }
 }

@@ -22,6 +22,12 @@ import Api from "../scripts/components/Api.js";
 
 import "./index.css";
 
+// -----
+// Спасибо за отличные рекомендации!!!
+// Было бы здорово узнать, что ещё можно отрефакторить для улучшения кода.
+// Взгляд со стороны очень помогает лучше всё понять!
+// -----
+
 const api = new Api({
   baseUrl: "https://mesto.nomoreparties.co/v1/cohort-64",
   headers: {
@@ -38,7 +44,7 @@ const userInfo = new UserInfo({
 
 const popupWithSubmit = new PopupWithSubmit(".popup_delete-card", (card) => {
   // confirmCallback в PopupWithSubmit
-  popupWithSubmit.setButtonText("Удаление...");
+  popupWithSubmit.renderLoading(true);
   api
     .deleteCard(card.getCardId())
     .then((res) => {
@@ -48,7 +54,7 @@ const popupWithSubmit = new PopupWithSubmit(".popup_delete-card", (card) => {
     })
     .catch((err) => console.log("ошибка при удалении карточки: ", err))
     .finally(() => {
-      popupWithSubmit.setButtonText("Да");
+      popupWithSubmit.renderLoading(false);
     });
 });
 
@@ -148,7 +154,6 @@ function createCard(item) {
         api
           .deleteLike(cardId)
           .then((res) => {
-            console.log(res.likes.length);
             card.setLikesCount(res.likes);
             card.updateLikeArray(res.likes);
             card.deleteLike();
@@ -158,7 +163,6 @@ function createCard(item) {
         api
           .setLike(cardId)
           .then((res) => {
-            console.log(res.likes.length);
             card.setLikesCount(res.likes);
             card.updateLikeArray(res.likes);
             card.setLike();
