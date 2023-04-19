@@ -31,5 +31,6 @@
   "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
   "editor.guides.bracketPairsHorizontal": "active",
   "editor.language.colorizedBracketPairs": [],
-  "editor.matchBrackets": "near"
+  "editor.matchBrackets": "near",
+  "editor.renderLineHighlight": "gutter"
 }
