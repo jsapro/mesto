@@ -60,5 +60,6 @@ module.exports = {
     }),
     new MiniCssExtractPlugin(),
     new CleanWebpackPlugin(),
-  ]
+  ],
+  devtool: 'source-map',
 };

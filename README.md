@@ -6,7 +6,7 @@
 
 <br/>
 
-**Проект: Mesto** ([&rarr; &rarr; &rarr;](https://jsapro.github.io/mesto/))
+**:green_circle:Проект: Mesto** ([перейти:link:](https://jsapro.github.io/mesto/))
 
 **Пользователи веб-приложение Mesto смогут:**
 + :wink:Загружать фотографии с подписями.
