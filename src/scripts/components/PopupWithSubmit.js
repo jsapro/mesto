@@ -8,7 +8,7 @@ export default class PopupWithSubmit extends Popup {
     this._confirmCallback = confirmCallback;
   }
 
-  renderLoading(isLoading, loadingText = 'Удаление...') {
+  renderLoading(isLoading, loadingText) {
     if (isLoading) {
       this._submitButton.textContent = loadingText;
     } else {

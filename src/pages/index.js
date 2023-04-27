@@ -36,68 +36,38 @@ const userInfo = new UserInfo({
   avatarSelector: ".profile__photo",
 });
 
-const popupWithSubmit = new PopupWithSubmit(".popup_delete-card", (card) => {
-  // confirmCallback в PopupWithSubmit
-  popupWithSubmit.renderLoading(true);
-  api
-    .deleteCard(card.getCardId())
-    .then((res) => {
-      console.log("ответ сервера на удаление: ", res);
-      card.deleteCard();
-      popupWithSubmit.closePopup();
-    })
-    .catch((err) => console.log("ошибка при удалении карточки: ", err))
-    .finally(() => {
-      popupWithSubmit.renderLoading(false);
-    });
-});
-
-const imagePopup = new PopupWithImage(".popup_open-card");
-
-// const userPopup = new PopupWithForm(
-//   ".popup_edit-profile",
-//   ({ nickname, job }) => {
-//     userPopup.renderLoading(true);
-//     api
-//       .setUserInfo(nickname, job)
-//       .then((data) => {
-//         userInfo.setUserInfo(data);
-//         userPopup.closePopup();
-//       })
-//       .catch((err) => console.log("ошибка-setUserInfo: ", err))
-//       .finally(() => {
-//         userPopup.renderLoading(false);
-//       });
-//   }
-// );
-
 function handleSubmit(request, popupInstance, loadingText = "Сохранение...") {
-  // изменяем текст кнопки до вызова запроса
   popupInstance.renderLoading(true, loadingText);
   request()
     .then(() => {
-      // закрывать попап нужно только в `then`
       popupInstance.closePopup();
     })
     .catch((err) => {
-      // в каждом запросе нужно ловить ошибку
       console.error(`Ошибка: ${err}`);
     })
-    // в каждом запросе в `finally` нужно возвращать обратно начальный текст кнопки
     .finally(() => {
       popupInstance.renderLoading(false);
     });
 }
 
-const userPopup = new PopupWithForm(".popup_edit-profile", (inputValues) => {
-  // создаем функцию, которая возвращает промис, так как любой запрос возвращает его
+const popupWithSubmit = new PopupWithSubmit(".popup_delete-card", (card) => {
+  // confirmCallback в PopupWithSubmit
   function makeRequest() {
-    // вот это позволяет потом дальше продолжать цепочку `then, catch, finally`
+    return api.deleteCard(card.getCardId()).then(() => {
+      card.deleteCard();
+    });
+  }
+  handleSubmit(makeRequest, popupWithSubmit, "Удаление...");
+});
+
+const imagePopup = new PopupWithImage(".popup_open-card");
+
+const userPopup = new PopupWithForm(".popup_edit-profile", (inputValues) => {
+  function makeRequest() {
     return api.setUserInfo(inputValues).then((userData) => {
       userInfo.setUserInfo(userData);
     });
   }
-  // вызываем универсальную функцию, передавая в нее запрос, экземпляр попапа и текст изменения кнопки (если нужен другой, а не `"Сохранение..."`)
   handleSubmit(makeRequest, userPopup);
 });
 
