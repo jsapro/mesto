@@ -10,17 +10,18 @@ export default class Api {
     }
     return Promise.reject(`Ошибка ${res.status}`);
   }
-  // возможно надо как-то уменьшить дублирование headers
-  _request(endPoint, options) {
-    return fetch(`${this._baseUrl}/${endPoint}`, options).then(
+  _request(endPoint, options = {}) {
+    const params = {
+      headers: this._headers,
+      ...options,
+    };
+    return fetch(`${this._baseUrl}/${endPoint}`, params).then(
       this._checkResponse
     );
   }
 
   getInitialCards() {
-    return this._request(`cards`, {
-      headers: this._headers,
-    });
+    return this._request(`cards`);
   }
 
   deleteCard(id) {
@@ -30,18 +31,16 @@ export default class Api {
     });
   }
 
-  postCard( {description: name, url: link} ) {
+  postCard({ description: name, url: link }) {
     return this._request(`cards/`, {
       method: "POST",
-      headers: this._headers,
       body: JSON.stringify({ name: name, link: link }),
     });
   }
 
-  setUserInfo( {nickname, job} ) {
+  setUserInfo({ nickname, job }) {
     return this._request(`users/me`, {
       method: "PATCH",
-      headers: this._headers,
       body: JSON.stringify({
         name: nickname,
         about: job,
@@ -52,14 +51,12 @@ export default class Api {
   getUserInfoFromServer() {
     return this._request(`users/me`, {
       method: "GET",
-      headers: this._headers,
     });
   }
 
-  setUserAvatar( {avatarUrl} ) {
+  setUserAvatar({ avatarUrl }) {
     return this._request(`users/me/avatar`, {
       method: "PATCH",
-      headers: this._headers,
       body: JSON.stringify({
         avatar: avatarUrl,
       }),
@@ -69,14 +66,12 @@ export default class Api {
   setLike(id) {
     return this._request(`cards/${id}/likes`, {
       method: "PUT",
-      headers: this._headers,
     });
   }
 
   deleteLike(id) {
     return this._request(`cards/${id}/likes`, {
       method: "DELETE",
-      headers: this._headers,
     });
   }
 }
