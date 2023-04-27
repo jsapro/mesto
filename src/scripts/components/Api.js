@@ -30,7 +30,7 @@ export default class Api {
     });
   }
 
-  postCard({ name, link }) {
+  postCard( {description: name, url: link} ) {
     return this._request(`cards/`, {
       method: "POST",
       headers: this._headers,
@@ -56,7 +56,7 @@ export default class Api {
     });
   }
 
-  setUserAvatar(avatarUrl) {
+  setUserAvatar( {avatarUrl} ) {
     return this._request(`users/me/avatar`, {
       method: "PATCH",
       headers: this._headers,

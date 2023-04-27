@@ -71,34 +71,23 @@ const userPopup = new PopupWithForm(".popup_edit-profile", (inputValues) => {
   handleSubmit(makeRequest, userPopup);
 });
 
-const cardPopup = new PopupWithForm(
-  ".popup_add-card",
-  ({ description, url }) => {
-    function makeRequest() {
-      return api.postCard({ name: description, link: url }).then((cardData) => {
-        renderCard(cardData);
-      });
-    }
-    handleSubmit(makeRequest, cardPopup);
+const cardPopup = new PopupWithForm(".popup_add-card", (inputValues) => {
+  function makeRequest() {
+    return api.postCard(inputValues).then((cardData) => {
+      renderCard(cardData);
+    });
   }
-);
+  handleSubmit(makeRequest, cardPopup);
+});
 
-const avatarPopup = new PopupWithForm(
-  ".popup_avatar-update",
-  ({ avatarUrl: avatarUrlFromInput }) => {
-    avatarPopup.renderLoading(true);
-    api
-      .setUserAvatar(avatarUrlFromInput)
-      .then((data) => {
-        userInfo.setUserInfo(data);
-        avatarPopup.closePopup();
-      })
-      .catch((err) => console.log("ошибка-setUserAvatar: ", err))
-      .finally(() => {
-        avatarPopup.renderLoading(false);
-      });
+const avatarPopup = new PopupWithForm(".popup_avatar-update", (inputValues) => {
+  function makeRequest() {
+    return api.setUserAvatar(inputValues).then((userData) => {
+      userInfo.setUserInfo(userData);
+    });
   }
-);
+  handleSubmit(makeRequest, avatarPopup);
+});
 
 const formList = Array.from(
   document.querySelectorAll(formValidationConfig.formSelector)
