@@ -22,12 +22,6 @@ import Api from "../scripts/components/Api.js";
 
 import "./index.css";
 
-// -----
-// Спасибо за отличные рекомендации!!!
-// Было бы здорово узнать, что ещё можно отрефакторить для улучшения кода.
-// Взгляд со стороны очень помогает лучше всё понять!
-// -----
-
 const api = new Api({
   baseUrl: "https://mesto.nomoreparties.co/v1/cohort-64",
   headers: {
@@ -60,22 +54,52 @@ const popupWithSubmit = new PopupWithSubmit(".popup_delete-card", (card) => {
 
 const imagePopup = new PopupWithImage(".popup_open-card");
 
-const userPopup = new PopupWithForm(
-  ".popup_edit-profile",
-  ({ nickname, job }) => {
-    userPopup.renderLoading(true);
-    api
-      .setUserInfo(nickname, job)
-      .then((data) => {
-        userInfo.setUserInfo(data);
-        userPopup.closePopup();
-      })
-      .catch((err) => console.log("ошибка-setUserInfo: ", err))
-      .finally(() => {
-        userPopup.renderLoading(false);
-      });
+// const userPopup = new PopupWithForm(
+//   ".popup_edit-profile",
+//   ({ nickname, job }) => {
+//     userPopup.renderLoading(true);
+//     api
+//       .setUserInfo(nickname, job)
+//       .then((data) => {
+//         userInfo.setUserInfo(data);
+//         userPopup.closePopup();
+//       })
+//       .catch((err) => console.log("ошибка-setUserInfo: ", err))
+//       .finally(() => {
+//         userPopup.renderLoading(false);
+//       });
+//   }
+// );
+
+function handleSubmit(request, popupInstance, loadingText = "Сохранение...") {
+  // изменяем текст кнопки до вызова запроса
+  popupInstance.renderLoading(true, loadingText);
+  request()
+    .then(() => {
+      // закрывать попап нужно только в `then`
+      popupInstance.closePopup();
+    })
+    .catch((err) => {
+      // в каждом запросе нужно ловить ошибку
+      console.error(`Ошибка: ${err}`);
+    })
+    // в каждом запросе в `finally` нужно возвращать обратно начальный текст кнопки
+    .finally(() => {
+      popupInstance.renderLoading(false);
+    });
+}
+
+const userPopup = new PopupWithForm(".popup_edit-profile", (inputValues) => {
+  // создаем функцию, которая возвращает промис, так как любой запрос возвращает его
+  function makeRequest() {
+    // вот это позволяет потом дальше продолжать цепочку `then, catch, finally`
+    return api.setUserInfo(inputValues).then((userData) => {
+      userInfo.setUserInfo(userData);
+    });
   }
-);
+  // вызываем универсальную функцию, передавая в нее запрос, экземпляр попапа и текст изменения кнопки (если нужен другой, а не `"Сохранение..."`)
+  handleSubmit(makeRequest, userPopup);
+});
 
 const cardPopup = new PopupWithForm(
   ".popup_add-card",

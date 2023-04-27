@@ -38,7 +38,7 @@ export default class Api {
     });
   }
 
-  setUserInfo(nickname, job) {
+  setUserInfo( {nickname, job} ) {
     return this._request(`users/me`, {
       method: "PATCH",
       headers: this._headers,
