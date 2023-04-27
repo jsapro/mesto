@@ -74,25 +74,12 @@ const userPopup = new PopupWithForm(".popup_edit-profile", (inputValues) => {
 const cardPopup = new PopupWithForm(
   ".popup_add-card",
   ({ description, url }) => {
-    cardPopup.renderLoading(true);
-    api
-      .postCard({ name: description, link: url })
-      .then((res) => {
-        console.log("postCard-ответ-сервера: ", res);
-        renderCard({
-          name: res.name,
-          link: res.link,
-          _id: res._id,
-          likes: res.likes,
-          owner: res.owner,
-        });
-        console.log("renderCard _id с сервера: ", res._id);
-        cardPopup.closePopup();
-      })
-      .catch((err) => console.log("ошибка-postCard: ", err))
-      .finally(() => {
-        cardPopup.renderLoading(false);
+    function makeRequest() {
+      return api.postCard({ name: description, link: url }).then((cardData) => {
+        renderCard(cardData);
       });
+    }
+    handleSubmit(makeRequest, cardPopup);
   }
 );
 
