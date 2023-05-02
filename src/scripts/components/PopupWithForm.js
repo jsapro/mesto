@@ -10,7 +10,7 @@ class PopupWithForm extends Popup {
     this._inputList = Array.from(this._submitForm.querySelectorAll('.popup__input'));
   }
 
-  renderLoading(isLoading, loadingText = 'Сохранение...') {
+  renderLoading(isLoading, loadingText) {
     if (isLoading) {
       this._submitButton.textContent = loadingText;
     } else {

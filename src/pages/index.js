@@ -22,12 +22,6 @@ import Api from "../scripts/components/Api.js";
 
 import "./index.css";
 
-// -----
-// Спасибо за отличные рекомендации!!!
-// Было бы здорово узнать, что ещё можно отрефакторить для улучшения кода.
-// Взгляд со стороны очень помогает лучше всё понять!
-// -----
-
 const api = new Api({
   baseUrl: "https://mesto.nomoreparties.co/v1/cohort-64",
   headers: {
@@ -42,82 +36,58 @@ const userInfo = new UserInfo({
   avatarSelector: ".profile__photo",
 });
 
+function handleSubmit(request, popupInstance, loadingText = "Сохранение...") {
+  popupInstance.renderLoading(true, loadingText);
+  request()
+    .then(() => {
+      popupInstance.closePopup();
+    })
+    .catch((err) => {
+      console.error(`Ошибка: ${err}`);
+    })
+    .finally(() => {
+      popupInstance.renderLoading(false);
+    });
+}
+
 const popupWithSubmit = new PopupWithSubmit(".popup_delete-card", (card) => {
   // confirmCallback в PopupWithSubmit
-  popupWithSubmit.renderLoading(true);
-  api
-    .deleteCard(card.getCardId())
-    .then((res) => {
-      console.log("ответ сервера на удаление: ", res);
+  function makeRequest() {
+    return api.deleteCard(card.getCardId()).then(() => {
       card.deleteCard();
-      popupWithSubmit.closePopup();
-    })
-    .catch((err) => console.log("ошибка при удалении карточки: ", err))
-    .finally(() => {
-      popupWithSubmit.renderLoading(false);
     });
+  }
+  handleSubmit(makeRequest, popupWithSubmit, "Удаление...");
 });
 
 const imagePopup = new PopupWithImage(".popup_open-card");
 
-const userPopup = new PopupWithForm(
-  ".popup_edit-profile",
-  ({ nickname, job }) => {
-    userPopup.renderLoading(true);
-    api
-      .setUserInfo(nickname, job)
-      .then((data) => {
-        userInfo.setUserInfo(data);
-        userPopup.closePopup();
-      })
-      .catch((err) => console.log("ошибка-setUserInfo: ", err))
-      .finally(() => {
-        userPopup.renderLoading(false);
-      });
+const userPopup = new PopupWithForm(".popup_edit-profile", (inputValues) => {
+  function makeRequest() {
+    return api.setUserInfo(inputValues).then((userData) => {
+      userInfo.setUserInfo(userData);
+    });
   }
-);
+  handleSubmit(makeRequest, userPopup);
+});
 
-const cardPopup = new PopupWithForm(
-  ".popup_add-card",
-  ({ description, url }) => {
-    cardPopup.renderLoading(true);
-    api
-      .postCard({ name: description, link: url })
-      .then((res) => {
-        console.log("postCard-ответ-сервера: ", res);
-        renderCard({
-          name: res.name,
-          link: res.link,
-          _id: res._id,
-          likes: res.likes,
-          owner: res.owner,
-        });
-        console.log("renderCard _id с сервера: ", res._id);
-        cardPopup.closePopup();
-      })
-      .catch((err) => console.log("ошибка-postCard: ", err))
-      .finally(() => {
-        cardPopup.renderLoading(false);
-      });
+const cardPopup = new PopupWithForm(".popup_add-card", (inputValues) => {
+  function makeRequest() {
+    return api.postCard(inputValues).then((cardData) => {
+      renderCard(cardData);
+    });
   }
-);
+  handleSubmit(makeRequest, cardPopup);
+});
 
-const avatarPopup = new PopupWithForm(
-  ".popup_avatar-update",
-  ({ avatarUrl: avatarUrlFromInput }) => {
-    avatarPopup.renderLoading(true);
-    api
-      .setUserAvatar(avatarUrlFromInput)
-      .then((data) => {
-        userInfo.setUserInfo(data);
-        avatarPopup.closePopup();
-      })
-      .catch((err) => console.log("ошибка-setUserAvatar: ", err))
-      .finally(() => {
-        avatarPopup.renderLoading(false);
-      });
+const avatarPopup = new PopupWithForm(".popup_avatar-update", (inputValues) => {
+  function makeRequest() {
+    return api.setUserAvatar(inputValues).then((userData) => {
+      userInfo.setUserInfo(userData);
+    });
   }
-);
+  handleSubmit(makeRequest, avatarPopup);
+});
 
 const formList = Array.from(
   document.querySelectorAll(formValidationConfig.formSelector)
